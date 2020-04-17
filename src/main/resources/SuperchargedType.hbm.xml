@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.vshvet.firstrelease.Entity.SuperchargedType" table="supercharged_type" schema="EngDB">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="nameType">
+            <column name="name_type" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="mark">
+            <column name="mark" sql-type="varchar(10)" length="64"/>
+        </property>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <set name="enginesById" inverse="true">
+            <key>
+                <column name="supercharged_type_fk"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.Engine"/>
+        </set>
+    </class>
+</hibernate-mapping>

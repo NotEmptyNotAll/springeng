@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.vshvet.firstrelease.Entity.Cylinders" table="cylinders" schema="EngDB">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="typeName">
+            <column name="type_name" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="date">
+            <column name="date" sql-type="date" not-null="true"/>
+        </property>
+        <set name="enginesById" inverse="true">
+            <key>
+                <column name="cylinders_placement_fk"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.Engine"/>
+        </set>
+    </class>
+</hibernate-mapping>

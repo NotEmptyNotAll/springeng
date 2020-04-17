@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.vshvet.firstrelease.Entity.Engine" table="engine" schema="EngDB">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="engineType">
+            <column name="engine_type" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="engineManufacturerFk">
+            <column name="engine_manufacturer_fk" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="cylindersPlacementFk">
+            <column name="cylinders_placement_fk" sql-type="int(11)"/>
+        </property>
+        <property name="fuelTypeFk">
+            <column name="fuel_type_fk" sql-type="int(11)"/>
+        </property>
+        <property name="superchargedTypeFk">
+            <column name="supercharged_type_fk" sql-type="int(11)"/>
+        </property>
+        <property name="cylindersNumber">
+            <column name="cylinders_number" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="flapNumber">
+            <column name="flap_number" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="pistonDiameter">
+            <column name="piston_diameter" sql-type="double"/>
+        </property>
+        <property name="pistonStroke">
+            <column name="piston_stroke" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="engineCapacity">
+            <column name="engine_capacity" sql-type="int(11)"/>
+        </property>
+        <property name="powerKwt">
+            <column name="power_kwt" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="horsepower">
+            <column name="horsepower" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="degreeCompression">
+            <column name="degree_compression" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="releaseYearFrom">
+            <column name="release_year_from" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="releaseYearBy">
+            <column name="release_year_by" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <many-to-one name="engineManufacturerByEngineManufacturerFk" class="com.vshvet.firstrelease.Entity.EngineManufacturer">
+            <column name="engine_manufacturer_fk" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="cylindersByCylindersPlacementFk" class="com.vshvet.firstrelease.Entity.Cylinders">
+            <column name="cylinders_placement_fk"/>
+        </many-to-one>
+        <many-to-one name="fuelTypeByFuelTypeFk" class="com.vshvet.firstrelease.Entity.FuelType">
+            <column name="fuel_type_fk"/>
+        </many-to-one>
+        <many-to-one name="superchargedTypeBySuperchargedTypeFk" class="com.vshvet.firstrelease.Entity.SuperchargedType">
+            <column name="supercharged_type_fk"/>
+        </many-to-one>
+        <set name="automobileEnginesById" inverse="true">
+            <key>
+                <column name="engine_fk" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.AutomobileEngine"/>
+        </set>
+        <set name="engineNumbersById" inverse="true">
+            <key>
+                <column name="engine_fk"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.EngineNumber"/>
+        </set>
+    </class>
+</hibernate-mapping>

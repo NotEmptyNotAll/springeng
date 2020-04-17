@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.vshvet.firstrelease.Entity.AutomobileEngine" table="automobile_engine" schema="EngDB">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="autoManufactureFk">
+            <column name="auto_manufacture_fk" sql-type="int(11)"/>
+        </property>
+        <property name="autoModelFk">
+            <column name="auto_model_fk" sql-type="int(11)"/>
+        </property>
+        <property name="engineFk">
+            <column name="engine_fk" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="releaseYearFrom">
+            <column name="release_year_from" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="releaseYearBy">
+            <column name="release_year_by" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="elemId">
+            <column name="elem_id" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <many-to-one name="autoManufactureByAutoManufactureFk" class="com.vshvet.firstrelease.Entity.AutoManufacture">
+            <column name="auto_manufacture_fk"/>
+        </many-to-one>
+        <many-to-one name="autoModelByAutoModelFk" class="com.vshvet.firstrelease.Entity.AutoModel">
+            <column name="auto_model_fk"/>
+        </many-to-one>
+        <many-to-one name="engineByEngineFk" class="com.vshvet.firstrelease.Entity.Engine">
+            <column name="engine_fk" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="elementsByElemId" class="com.vshvet.firstrelease.Entity.Elements">
+            <column name="elem_id" not-null="true"/>
+        </many-to-one>
+        <set name="engineNumbersById" inverse="true">
+            <key>
+                <column name="engine_fk"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.EngineNumber"/>
+        </set>
+    </class>
+</hibernate-mapping>
