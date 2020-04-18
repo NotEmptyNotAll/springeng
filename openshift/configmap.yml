@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-boot-bootstrap
+data:
+  application.properties: |-
+    spring.datasource.url=postgresql://ec2-54-247-78-30.eu-west-1.compute.amazonaws.com:5432/d4en0l50l31oi?sslfactory=org.postgresql.ssl.NonValidatingFactory
