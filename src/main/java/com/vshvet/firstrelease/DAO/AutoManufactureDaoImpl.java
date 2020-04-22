@@ -10,17 +10,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class AutoManufactureDao implements Dao<AutoManufacture> {
+public class AutoManufactureDaoImpl implements Dao<AutoManufacture> {
     private Session currentSession;
 
     private Transaction currentTransaction;
 
+    @Override
     public Session openCurrentSessionwithTransaction() {
         currentSession = HSessionFactoryUtil.getSessionFactory().getCurrentSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
 
+    @Override
     public void closeCurrentSessionwithTransaction() {
         currentTransaction.commit();
         currentSession.close();

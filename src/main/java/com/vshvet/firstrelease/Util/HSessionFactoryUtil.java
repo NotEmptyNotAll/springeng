@@ -1,6 +1,7 @@
 package com.vshvet.firstrelease.Util;
 
 import com.vshvet.firstrelease.Entity.*;
+import com.vshvet.firstrelease.Exception.SessionFactoryException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -34,9 +35,10 @@ public class HSessionFactoryUtil {
                 configuration.addAnnotatedClass(ParameterNames.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.configure("hibernate.cfg.xml").buildSessionFactory(builder.build());
+            } catch (SessionFactoryException e) {
+                System.out.println("Exception: " + e);
             } catch (Exception e) {
-                System.out.println("Исключение!" + e);
-                System.out.println("Исключение!Исключение!Исключение!Исключение!Исключение!Исключение!Исключение!" );
+                System.out.println("Exception!" + e);
             }
         }
         return sessionFactory;

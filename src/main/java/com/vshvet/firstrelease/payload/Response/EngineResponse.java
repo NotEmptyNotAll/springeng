@@ -6,7 +6,7 @@ public class EngineResponse {
     private String engineType;
     private String fuelType;
     private int engineCapacity;
-    private Integer powerKwt;
+    private String powerKwt;
     private String autoManufacture;
     private String autoModel;
     private Integer produceYear;
@@ -71,11 +71,11 @@ public class EngineResponse {
         this.engineCapacity = engineCapacity;
     }
 
-    public Integer getPowerKwt() {
+    public String getPowerKwt() {
         return powerKwt;
     }
 
-    public void setPowerKwt(Integer powerKwt) {
+    public void setPowerKwt(String powerKwt) {
         this.powerKwt = powerKwt;
     }
 }

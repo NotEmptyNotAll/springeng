@@ -9,19 +9,21 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public class ParameterNameDao implements Dao<ParameterNames> {
+@Repository("parameterNameDao")
+public class ParameterNameDaoImpl implements Dao<ParameterNames> {
 
     private Session currentSession;
 
     private Transaction currentTransaction;
 
+    @Override
     public Session openCurrentSessionwithTransaction() {
         currentSession = HSessionFactoryUtil.getSessionFactory().getCurrentSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
 
+    @Override
     public void closeCurrentSessionwithTransaction() {
         currentTransaction.commit();
         currentSession.close();

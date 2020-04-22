@@ -1,8 +1,8 @@
 package com.vshvet.firstrelease.Service;
 
 import com.vshvet.firstrelease.DAO.AutomobileEngineDao;
+import com.vshvet.firstrelease.DAO.AutomobileEngineDaoImpl;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
-import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Response.AutomobileEngineResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,9 @@ public class AutomobileEngineService {
             //check if there is a request for special parameters
             // that were measured by the user
             if (engineRequest.getParamList().get(0).getParameterNumber() != null) {
-               responses= responses.stream().filter(rsp -> setElemId.contains(rsp.getElemID())).collect(Collectors.toList());//filter car engines by element id
+                responses = responses.stream()
+                        .filter(rsp -> setElemId.contains(rsp.getElemID()))
+                        .collect(Collectors.toList());//filter car engines by element id
             }
         } else {
             automobileEngineDao.closeCurrentSessionwithTransaction();

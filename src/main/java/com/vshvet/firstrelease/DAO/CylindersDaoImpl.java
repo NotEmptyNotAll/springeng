@@ -1,6 +1,5 @@
 package com.vshvet.firstrelease.DAO;
 
-import com.vshvet.firstrelease.Entity.AutoModel;
 import com.vshvet.firstrelease.Entity.Cylinders;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
@@ -9,18 +8,20 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public class CylindersDao implements Dao<Cylinders> {
+public class CylindersDaoImpl implements Dao<Cylinders> {
 
     private Session currentSession;
 
     private Transaction currentTransaction;
 
+    @Override
     public Session openCurrentSessionwithTransaction() {
         currentSession = HSessionFactoryUtil.getSessionFactory().getCurrentSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
 
+    @Override
     public void closeCurrentSessionwithTransaction() {
         currentTransaction.commit();
         currentSession.close();

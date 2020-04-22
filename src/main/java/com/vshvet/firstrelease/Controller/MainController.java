@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
-* controller for returning start
-* or data necessary for user search
-* */
+ * controller for returning start
+ * or data necessary for user search
+ * */
 @RestController
 public class MainController {
 
@@ -38,15 +38,15 @@ public class MainController {
 
         }};
     }
+
     @GetMapping("/")
     public String get() {
-        return "I'm alive" ;
+        return "I'm alive";
     }
 
 
-
-
     //return the initial data to the page
+    // data presented in map
     @GetMapping("/start")
     public Map<String, ?> getDefaultData() {
         return new HashMap<String, Object>() {{
@@ -60,13 +60,13 @@ public class MainController {
 
     //autowired our service
     @Autowired
-    public MainController(MeasurementUnitsService measurementUnitsService,EngineService engineService, FuelTypeService fuelTypeService, AutoModelService autoModelService, EngineManufactureService engineManufactureService, EngineNumberService engineNumberService, ParameterNameService parameterNameService) {
+    public MainController(MeasurementUnitsService measurementUnitsService, EngineService engineService, FuelTypeService fuelTypeService, AutoModelService autoModelService, EngineManufactureService engineManufactureService, EngineNumberService engineNumberService, ParameterNameService parameterNameService) {
         this.engineService = engineService;
         this.fuelTypeService = fuelTypeService;
         this.autoModelService = autoModelService;
         this.engineManufactureService = engineManufactureService;
         this.engineNumberService = engineNumberService;
         this.parameterNameService = parameterNameService;
-        this.measurementUnitsService=measurementUnitsService;
+        this.measurementUnitsService = measurementUnitsService;
     }
 }

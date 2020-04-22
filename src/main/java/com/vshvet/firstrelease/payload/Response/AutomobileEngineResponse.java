@@ -1,15 +1,17 @@
 package com.vshvet.firstrelease.payload.Response;
 
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
+import com.vshvet.firstrelease.Entity.SuperchargedType;
 
 public class AutomobileEngineResponse {
 
-    private  Integer id;
-    private  Integer flapNumber;
-    private  Integer cylindersNumber;
+    private Integer id;
+    private Integer flapNumber;
+    private String fuelType;
+    private Integer cylindersNumber;
     private String autoManufacture;
     private String engineManufacture;
-    private Integer powerKWT;
+    private String powerKWT;
     private Integer engineCapacity;
     private Integer horsepower;
     private Integer pistonStoke;
@@ -21,6 +23,8 @@ public class AutomobileEngineResponse {
     private Integer elemID;
     private Integer cylinderNum;
     private String cylinderPlace;
+    private String superchargedType;
+    private Double degreeCompression;
 
 
     public AutomobileEngineResponse() {
@@ -31,21 +35,47 @@ public class AutomobileEngineResponse {
         this.modelName = automobileEngine.getAutoModelByAutoModelFk().getModelName();
         this.engineType = automobileEngine.getEngineByEngineFk().getEngineType();
         this.releaseYearFrom = automobileEngine.getReleaseYearFrom();
-        this.releaseYearBy = automobileEngine.getReleaseYearFrom();
-        this.engineManufacture=automobileEngine.getEngineByEngineFk().getEngineManufacturerByEngineManufacturerFk().getNameManufacturer();
-        this.powerKWT=automobileEngine.getEngineByEngineFk().getPowerKwt();
-        this.cylindersNumber=automobileEngine.getEngineByEngineFk().getCylindersNumber();
-        this.flapNumber=automobileEngine.getEngineByEngineFk().getFlapNumber();
-        this.engineCapacity=automobileEngine.getEngineByEngineFk().getEngineCapacity();
-        this.horsepower=automobileEngine.getEngineByEngineFk().getHorsepower();
-        this.pistonStoke=automobileEngine.getEngineByEngineFk().getPistonStroke();
-        this.pistonDiameter=automobileEngine.getEngineByEngineFk().getPistonDiameter();
-        this.id=automobileEngine.getId();
-        this.elemID=automobileEngine.getElemId();
-        this.cylinderNum=automobileEngine.getEngineByEngineFk().getCylindersNumber();
-        this.cylinderPlace=automobileEngine.getEngineByEngineFk().getCylindersByCylindersPlacementFk().getTypeName();
+        this.releaseYearBy = automobileEngine.getReleaseYearBy();
+        this.engineManufacture = automobileEngine.getEngineByEngineFk().getEngineManufacturerByEngineManufacturerFk().getNameManufacturer();
+        this.powerKWT = automobileEngine.getEngineByEngineFk().getPowerKwt();
+        this.cylindersNumber = automobileEngine.getEngineByEngineFk().getCylindersNumber();
+        this.flapNumber = automobileEngine.getEngineByEngineFk().getFlapNumber();
+        this.engineCapacity = automobileEngine.getEngineByEngineFk().getEngineCapacity();
+        this.horsepower = automobileEngine.getEngineByEngineFk().getHorsepower();
+        this.pistonStoke = automobileEngine.getEngineByEngineFk().getPistonStroke();
+        this.pistonDiameter = automobileEngine.getEngineByEngineFk().getPistonDiameter();
+        this.id = automobileEngine.getId();
+        this.elemID = automobileEngine.getElemId();
+        this.cylinderNum = automobileEngine.getEngineByEngineFk().getCylindersNumber();
+        this.cylinderPlace = automobileEngine.getEngineByEngineFk().getCylindersByCylindersPlacementFk().getTypeName();
+        this.fuelType = automobileEngine.getEngineByEngineFk().getFuelTypeByFuelTypeFk().getNameType();
+        this.superchargedType = automobileEngine.getEngineByEngineFk().getSuperchargedTypeBySuperchargedTypeFk().getNameType();
+        this.degreeCompression=automobileEngine.getEngineByEngineFk().getDegreeCompression();
     }
 
+    public Double getDegreeCompression() {
+        return degreeCompression;
+    }
+
+    public void setDegreeCompression(Double degreeCompression) {
+        this.degreeCompression = degreeCompression;
+    }
+
+    public String getSuperchargedType() {
+        return superchargedType;
+    }
+
+    public void setSuperchargedType(String superchargedType) {
+        this.superchargedType = superchargedType;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
 
     public String getCylinderPlace() {
         return cylinderPlace;
@@ -135,11 +165,11 @@ public class AutomobileEngineResponse {
         this.engineManufacture = engineManufacture;
     }
 
-    public Integer getPowerKWT() {
+    public String getPowerKWT() {
         return powerKWT;
     }
 
-    public void setPowerKWT(Integer powerKWT) {
+    public void setPowerKWT(String powerKWT) {
         this.powerKWT = powerKWT;
     }
 

@@ -1,6 +1,6 @@
 package com.vshvet.firstrelease.DAO;
 
-import com.vshvet.firstrelease.Entity.MeasurementUnits;
+import com.vshvet.firstrelease.Entity.AutoModel;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,52 +9,60 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public class MeasurementUnitsDao implements Dao<MeasurementUnits> {
+@Repository("autoModelDao")
+public class AutoModelDaoImpl implements AutoModelDao {
 
     private Session currentSession;
 
     private Transaction currentTransaction;
 
+    @Override
     public Session openCurrentSessionwithTransaction() {
         currentSession = HSessionFactoryUtil.getSessionFactory().getCurrentSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
 
+    @Override
     public void closeCurrentSessionwithTransaction() {
         currentTransaction.commit();
         currentSession.close();
     }
 
+
     @Override
-    public Optional<MeasurementUnits> findById(int id) {
-        return Optional.of(getCurrentSession()
-                .get(MeasurementUnits.class, id));
+    public Optional<AutoModel> findById(int id) {
+        return Optional.of(getCurrentSession().get(AutoModel.class, id));
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<MeasurementUnits> getAll() {
-        return (List<MeasurementUnits>) getCurrentSession()
-                .createQuery("from MeasurementUnits").list();
+    public List<AutoModel> getAll() {
+        return (List<AutoModel>) getCurrentSession()
+                .createQuery("from AutoModel ");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> getAllNameOfModel() {
+        return  getCurrentSession()
+                .createQuery("select new java.lang.String(am.modelName) from AutoModel am").list();
     }
 
     @Override
-    public void save(MeasurementUnits measurementUnits) {
-        getCurrentSession().save(measurementUnits);
+    public void save(AutoModel autoModel) {
+        getCurrentSession().save(autoModel);
     }
 
     @Override
-    public void update(MeasurementUnits measurementUnits) {
-        getCurrentSession().update(measurementUnits);
+    public void update(AutoModel autoModel) {
+        getCurrentSession().update(autoModel);
     }
 
     @Override
-    public void delete(MeasurementUnits measurementUnits) {
-        getCurrentSession().delete(measurementUnits);
+    public void delete(AutoModel autoModel) {
+        getCurrentSession().delete(autoModel);
     }
-
 
     public Session getCurrentSession() {
         return currentSession;

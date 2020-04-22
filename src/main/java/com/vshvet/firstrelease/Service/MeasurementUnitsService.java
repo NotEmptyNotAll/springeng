@@ -1,6 +1,8 @@
 package com.vshvet.firstrelease.Service;
 
-import com.vshvet.firstrelease.DAO.MeasurementUnitsDao;
+import com.vshvet.firstrelease.DAO.Dao;
+import com.vshvet.firstrelease.DAO.MeasurementUnitsDaoImpl;
+import com.vshvet.firstrelease.Entity.MeasurementUnits;
 import com.vshvet.firstrelease.payload.Response.MeasurementUnitsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import java.util.List;
 public class MeasurementUnitsService {
 
     @Autowired
-    private MeasurementUnitsDao measurementUnitsDao;
+    private Dao measurementUnitsDao;
 
 
     // get the units of calculation and create an answer from them
@@ -20,7 +22,7 @@ public class MeasurementUnitsService {
         measurementUnitsDao.openCurrentSessionwithTransaction();
         List<MeasurementUnitsResponse> responses = new ArrayList<MeasurementUnitsResponse>() {{
             measurementUnitsDao.getAll().forEach(units -> {
-                add(new MeasurementUnitsResponse(units));
+                add(new MeasurementUnitsResponse((MeasurementUnits) units));
             });
         }};
         measurementUnitsDao.closeCurrentSessionwithTransaction();

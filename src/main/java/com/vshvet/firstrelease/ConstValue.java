@@ -1,7 +1,6 @@
 package com.vshvet.firstrelease;
 
-
-public class ConstValue {
-    public  static final String SCHEMA_NAME="engdb";
-
+//creation for constant of project
+public interface ConstValue {
+    String SCHEMA_NAME = "engdb";
 }

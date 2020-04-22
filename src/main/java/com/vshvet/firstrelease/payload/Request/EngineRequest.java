@@ -10,14 +10,14 @@ public class EngineRequest {
     private Integer produceYear;
     private String numberEng;
     private String fuelType;
-    private Integer powerKWt;
+    private String powerKWt;
     private Integer engineCapacity;
     private List<ParamsRequest> paramList;
 
     public EngineRequest() {
     }
 
-    public EngineRequest(List<ParamsRequest> paramList,String engineType, String engineManufacturer, String autoModel, Integer produceYear, String numberEng, String fuelType, Integer powerKWt, Integer engineCapacity) {
+    public EngineRequest(List<ParamsRequest> paramList,String engineType, String engineManufacturer, String autoModel, Integer produceYear, String numberEng, String fuelType, String powerKWt, Integer engineCapacity) {
         this.engineType = engineType;
         this.autoManufacturer = engineManufacturer;
         this.autoModel = autoModel;
@@ -86,11 +86,11 @@ public class EngineRequest {
         this.engineCapacity = engineCapacity;
     }
 
-    public Integer getPowerKWt() {
+    public String getPowerKWt() {
         return powerKWt;
     }
 
-    public void setPowerKWt(Integer powerKWt) {
+    public void setPowerKWt(String powerKWt) {
         this.powerKWt = powerKWt;
     }
 

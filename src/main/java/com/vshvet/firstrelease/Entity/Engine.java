@@ -20,9 +20,9 @@ public class Engine {
     private Double pistonDiameter;
     private Integer pistonStroke;
     private int engineCapacity;
-    private Integer powerKwt;
+    private String powerKwt;
     private Integer horsepower;
-    private Integer degreeCompression;
+    private Double degreeCompression;
     private Integer releaseYearFrom;
     private Integer releaseYearBy;
     private Date date;
@@ -145,11 +145,11 @@ public class Engine {
 
     @Basic
     @Column(name = "power_kwt", nullable = true)
-    public Integer getPowerKwt() {
+    public String getPowerKwt() {
         return powerKwt;
     }
 
-    public void setPowerKwt(Integer powerKwt) {
+    public void setPowerKwt(String powerKwt) {
         this.powerKwt = powerKwt;
     }
 
@@ -165,11 +165,11 @@ public class Engine {
 
     @Basic
     @Column(name = "degree_compression", nullable = true)
-    public Integer getDegreeCompression() {
+    public Double getDegreeCompression() {
         return degreeCompression;
     }
 
-    public void setDegreeCompression(Integer degreeCompression) {
+    public void setDegreeCompression(Double degreeCompression) {
         this.degreeCompression = degreeCompression;
     }
 

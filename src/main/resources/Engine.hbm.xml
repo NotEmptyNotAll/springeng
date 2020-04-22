@@ -30,7 +30,7 @@
             <column name="flap_number" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="pistonDiameter">
-            <column name="piston_diameter" sql-type="double"/>
+            <column name="piston_diameter" sql-type="real"/>
         </property>
         <property name="pistonStroke">
             <column name="piston_stroke" sql-type="int(11)" not-null="true"/>
@@ -39,13 +39,13 @@
             <column name="engine_capacity" sql-type="int(11)"/>
         </property>
         <property name="powerKwt">
-            <column name="power_kwt" sql-type="int(11)" not-null="true"/>
+            <column name="power_kwt" sql-type="varchar(10)" not-null="true"/>
         </property>
         <property name="horsepower">
             <column name="horsepower" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="degreeCompression">
-            <column name="degree_compression" sql-type="int(11)" not-null="true"/>
+            <column name="degree_compression" sql-type="real" not-null="true"/>
         </property>
         <property name="releaseYearFrom">
             <column name="release_year_from" sql-type="int(11)" not-null="true"/>
