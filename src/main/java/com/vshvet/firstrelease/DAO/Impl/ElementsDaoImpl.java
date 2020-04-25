@@ -1,5 +1,6 @@
-package com.vshvet.firstrelease.DAO;
+package com.vshvet.firstrelease.DAO.Impl;
 
+import com.vshvet.firstrelease.DAO.ElementsDao;
 import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.ParamsRequest;
@@ -8,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,9 +71,14 @@ public class ElementsDaoImpl implements ElementsDao {
         getCurrentSession().save(parentElements);
     }
 
+
+    //we do not update the object,
+    // but create a new one,
+    // so the object does not get deleted from the database
     @Override
     public void update(Elements parentElements) {
-        getCurrentSession().update(parentElements);
+        parentElements.setDate(new Date(new java.util.Date().getTime()));
+        save(parentElements);
 
     }
 

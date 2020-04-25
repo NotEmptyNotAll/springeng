@@ -1,16 +1,18 @@
-package com.vshvet.firstrelease.DAO;
+package com.vshvet.firstrelease.DAO.Impl;
 
-import com.vshvet.firstrelease.Entity.SuperchargedType;
+import com.vshvet.firstrelease.DAO.FuelTypeDao;
+import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public class SuperchargedTypeDaoImpl implements Dao<SuperchargedType> {
+@Repository("fuelTypeDao")
+public class FuelTypeDaoImpl implements FuelTypeDao {
 
     private Session currentSession;
 
@@ -30,32 +32,42 @@ public class SuperchargedTypeDaoImpl implements Dao<SuperchargedType> {
     }
 
     @Override
-    public Optional<SuperchargedType> findById(int id) {
+    public Optional<FuelType> findById(int id) {
         return Optional.of(getCurrentSession()
-                .get(SuperchargedType.class, id));
+                .get(FuelType.class, id));
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<SuperchargedType> getAll() {
-        return (List<SuperchargedType>) getCurrentSession()
-                .createQuery("from SuperchargedType");
+    public List<FuelType> getAll() {
+        return (List<FuelType>) getCurrentSession()
+                .createQuery("from FuelType ");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> getAllName() {
+        return (List<String>) getCurrentSession()
+                .createQuery("select new java.lang.String(ft.nameType) from FuelType ft").list();
     }
 
     @Override
-    public void save(SuperchargedType superchargedType) {
-        getCurrentSession().save(superchargedType);
+    public void save(FuelType fuelType) {
+        getCurrentSession().save(fuelType);
+    }
 
+    //we do not update the object,
+    // but create a new one,
+    // so the object does not get deleted from the database
+    @Override
+    public void update(FuelType fuelType) {
+        fuelType.setDate(new Date(new java.util.Date().getTime()));
+        save(fuelType);
     }
 
     @Override
-    public void update(SuperchargedType superchargedType) {
-        getCurrentSession().update(superchargedType);
-    }
-
-    @Override
-    public void delete(SuperchargedType superchargedType) {
-        getCurrentSession().delete(superchargedType);
+    public void delete(FuelType fuelType) {
+        getCurrentSession().delete(fuelType);
     }
 
 

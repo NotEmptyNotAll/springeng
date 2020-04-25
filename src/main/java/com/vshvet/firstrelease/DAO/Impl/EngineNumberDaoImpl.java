@@ -1,5 +1,6 @@
-package com.vshvet.firstrelease.DAO;
+package com.vshvet.firstrelease.DAO.Impl;
 
+import com.vshvet.firstrelease.DAO.EngineNumberDao;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.EngineNumber;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
@@ -8,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,9 +68,13 @@ public class EngineNumberDaoImpl implements EngineNumberDao {
         getCurrentSession().save(engineNumber);
     }
 
+    //we do not update the object,
+    // but create a new one,
+    // so the object does not get deleted from the database
     @Override
     public void update(EngineNumber engineNumber) {
-        getCurrentSession().update(engineNumber);
+        engineNumber.setDate(new Date(new java.util.Date().getTime()));
+        save(engineNumber);
     }
 
     @Override

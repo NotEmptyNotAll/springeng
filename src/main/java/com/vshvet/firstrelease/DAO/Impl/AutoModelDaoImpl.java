@@ -1,16 +1,18 @@
-package com.vshvet.firstrelease.DAO;
+package com.vshvet.firstrelease.DAO.Impl;
 
-import com.vshvet.firstrelease.Entity.Engine;
+import com.vshvet.firstrelease.DAO.AutoModelDao;
+import com.vshvet.firstrelease.Entity.AutoModel;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("engineDao")
-public class EngineDaoImpl implements EngineDao {
+@Repository("autoModelDao")
+public class AutoModelDaoImpl implements AutoModelDao {
 
     private Session currentSession;
 
@@ -31,43 +33,42 @@ public class EngineDaoImpl implements EngineDao {
 
 
     @Override
-    public Optional<Engine> findById(int id) {
-
-        return Optional.of(getCurrentSession()
-                .get(Engine.class, id));
+    public Optional<AutoModel> findById(int id) {
+        return Optional.of(getCurrentSession().get(AutoModel.class, id));
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<String> getAllType() {
-        return (List<String>) getCurrentSession()
-                .createQuery("select new java.lang.String(e.engineType) from Engine e").list();
+    public List<AutoModel> getAll() {
+        return (List<AutoModel>) getCurrentSession()
+                .createQuery("from AutoModel ");
     }
-
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Engine> getAll() {
-        return (List<Engine>) getCurrentSession()
-                .createQuery("from Engine");
-    }
-
-
-    @Override
-    public void save(Engine engine) {
-        getCurrentSession().save(engine);
+    public List<String> getAllNameOfModel() {
+        return  getCurrentSession()
+                .createQuery("select new java.lang.String(am.modelName) from AutoModel am").list();
     }
 
     @Override
-    public void update(Engine engine) {
-        getCurrentSession().update(engine);
+    public void save(AutoModel autoModel) {
+        getCurrentSession().save(autoModel);
+    }
+
+    //we do not update the object,
+    // but create a new one,
+    // so the object does not get deleted from the database
+    @Override
+    public void update(AutoModel autoModel) {
+        autoModel.setDate(new Date(new java.util.Date().getTime()));
+        save(autoModel);
     }
 
     @Override
-    public void delete(Engine engine) {
-        getCurrentSession().delete(engine);
+    public void delete(AutoModel autoModel) {
+        getCurrentSession().delete(autoModel);
     }
-
 
     public Session getCurrentSession() {
         return currentSession;
@@ -84,4 +85,5 @@ public class EngineDaoImpl implements EngineDao {
     public void setCurrentTransaction(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
+
 }

@@ -1,12 +1,14 @@
 package com.vshvet.firstrelease.Controller;
 
 
-import com.vshvet.firstrelease.Entity.Engine;
+import com.vshvet.firstrelease.Service.AutomobileEngineService;
+import com.vshvet.firstrelease.Service.ElementsService;
+import com.vshvet.firstrelease.Service.EngineNumberService;
+import com.vshvet.firstrelease.Service.ParametrsService;
 import com.vshvet.firstrelease.payload.Request.IdRequest;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Response.AutomobileEngineResponse;
 import com.vshvet.firstrelease.payload.Response.ElementsResponse;
-import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.payload.Response.EngineResponse;
 import com.vshvet.firstrelease.payload.Response.ParametersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
  * this controller is responsible for search requests
- *
  * */
 
 @RestController
@@ -32,7 +32,7 @@ public class SearchController {
 
     private final ParametrsService parametrsService;
 
-    private  final  EngineNumberService engineNumberService;
+    private final EngineNumberService engineNumberService;
 
     //returns a specific element
     @RequestMapping(value = "/getElements", //
@@ -72,11 +72,11 @@ public class SearchController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Object getAutoEngineByParam(@RequestBody EngineRequest engine) {
-        List<AutomobileEngineResponse> list= automobileEngineService.findByParam(engine);
-        if(list==null){
-            return new HashMap<String, Object> (){{
-             put("listEng",list);
-             put("status","недостатньо даних");
+        List<AutomobileEngineResponse> list = automobileEngineService.findByParam(engine);
+        if (list == null) {
+            return new HashMap<String, Object>() {{
+                put("listEng", list);
+                put("status", "недостатньо даних");
             }};
         }
         return list;
@@ -89,7 +89,7 @@ public class SearchController {
                             ElementsService elementsService,
                             ParametrsService parametrsService,
                             EngineNumberService engineNumberService) {
-        this.engineNumberService=engineNumberService;
+        this.engineNumberService = engineNumberService;
         this.parametrsService = parametrsService;
         this.automobileEngineService = automobileEngineService;
         this.elementsService = elementsService;

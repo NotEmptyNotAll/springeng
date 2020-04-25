@@ -1,16 +1,18 @@
-package com.vshvet.firstrelease.DAO;
+package com.vshvet.firstrelease.DAO.Impl;
 
-import com.vshvet.firstrelease.Entity.ParameterNames;
+import com.vshvet.firstrelease.DAO.EngineDao;
+import com.vshvet.firstrelease.Entity.Engine;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("parameterNameDao")
-public class ParameterNameDaoImpl implements Dao<ParameterNames> {
+@Repository("engineDao")
+public class EngineDaoImpl implements EngineDao {
 
     private Session currentSession;
 
@@ -29,33 +31,49 @@ public class ParameterNameDaoImpl implements Dao<ParameterNames> {
         currentSession.close();
     }
 
+
     @Override
-    public Optional<ParameterNames> findById(int id) {
+    public Optional<Engine> findById(int id) {
+
         return Optional.of(getCurrentSession()
-                .get(ParameterNames.class, id));
+                .get(Engine.class, id));
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<ParameterNames> getAll() {
-        return (List<ParameterNames>) getCurrentSession()
-                .createQuery("from ParameterNames pn").list();
+    public List<String> getAllType() {
+        return (List<String>) getCurrentSession()
+                .createQuery("select new java.lang.String(e.engineType) from Engine e").list();
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Engine> getAll() {
+        return (List<Engine>) getCurrentSession()
+                .createQuery("from Engine");
+    }
+
+
+    @Override
+    public void save(Engine engine) {
+        getCurrentSession().save(engine);
+    }
+
+    //we do not update the object,
+    // but create a new one,
+    // so the object does not get deleted from the database
+    @Override
+    public void update(Engine engine) {
+        engine.setDate(new Date(new java.util.Date().getTime()));
+        save(engine);
     }
 
     @Override
-    public void save(ParameterNames parameterNames) {
-        getCurrentSession().save(parameterNames);
+    public void delete(Engine engine) {
+        getCurrentSession().delete(engine);
     }
 
-    @Override
-    public void update(ParameterNames parameterNames) {
-        getCurrentSession().update(parameterNames);
-    }
-
-    @Override
-    public void delete(ParameterNames parameterNames) {
-        getCurrentSession().delete(parameterNames);
-    }
 
     public Session getCurrentSession() {
         return currentSession;
@@ -72,5 +90,4 @@ public class ParameterNameDaoImpl implements Dao<ParameterNames> {
     public void setCurrentTransaction(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
-
 }

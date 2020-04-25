@@ -1,16 +1,18 @@
-package com.vshvet.firstrelease.DAO;
+package com.vshvet.firstrelease.DAO.Impl;
 
-import com.vshvet.firstrelease.Entity.FuelType;
+import com.vshvet.firstrelease.DAO.EngineManufactureDao;
+import com.vshvet.firstrelease.Entity.EngineManufacturer;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("fuelTypeDao")
-public class FuelTypeDaoImpl implements FuelTypeDao {
+@Repository
+public class EngineManufactureDaoImpl implements EngineManufactureDao {
 
     private Session currentSession;
 
@@ -29,41 +31,50 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
         currentSession.close();
     }
 
+
     @Override
-    public Optional<FuelType> findById(int id) {
+    public Optional<EngineManufacturer> findById(int id) {
         return Optional.of(getCurrentSession()
-                .get(FuelType.class, id));
+                .get(EngineManufacturer.class, id));
     }
+
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<FuelType> getAll() {
-        return (List<FuelType>) getCurrentSession()
-                .createQuery("from FuelType ");
+    public List<EngineManufacturer> getAll() {
+        return (List<EngineManufacturer>) getCurrentSession()
+                .createQuery("from EngineManufacturer ");
     }
+
+    //reigns all engine manufacturers.
+    // Needed for initial data
 
     @SuppressWarnings("unchecked")
     @Override
     public List<String> getAllName() {
         return (List<String>) getCurrentSession()
-                .createQuery("select new java.lang.String(ft.nameType) from FuelType ft").list();
+                .createQuery("select new java.lang.String(em.nameManufacturer)" +
+                        " from EngineManufacturer em").list();
     }
 
     @Override
-    public void save(FuelType fuelType) {
-        getCurrentSession().save(fuelType);
+    public void save(EngineManufacturer engineManufacturer) {
+        getCurrentSession().save(engineManufacturer);
+    }
+
+    //we do not update the object,
+    // but create a new one,
+    // so the object does not get deleted from the database
+    @Override
+    public void update(EngineManufacturer engineManufacturer) {
+        engineManufacturer.setDate(new Date(new java.util.Date().getTime()));
+        save(engineManufacturer);
     }
 
     @Override
-    public void update(FuelType fuelType) {
-        getCurrentSession().save(fuelType);
+    public void delete(EngineManufacturer engineManufacturer) {
+        getCurrentSession().delete(engineManufacturer);
     }
-
-    @Override
-    public void delete(FuelType fuelType) {
-        getCurrentSession().delete(fuelType);
-    }
-
 
     public Session getCurrentSession() {
         return currentSession;
@@ -80,5 +91,4 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
     public void setCurrentTransaction(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
-
 }

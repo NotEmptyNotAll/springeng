@@ -1,5 +1,6 @@
-package com.vshvet.firstrelease.DAO;
+package com.vshvet.firstrelease.DAO.Impl;
 
+import com.vshvet.firstrelease.DAO.AutomobileEngineDao;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
@@ -8,11 +9,12 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Repository("automobileEngineDao")
-public class AutomobileEngineDaoImpl  implements AutomobileEngineDao {
+public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
 
     private Session currentSession;
 
@@ -46,10 +48,10 @@ public class AutomobileEngineDaoImpl  implements AutomobileEngineDao {
 
 
     /*
-    * query that finds a car engine according to the data entered.
-    * All elements are checked for null,
-    *  which allows the user to not know all the input data
-    * */
+     * query that finds a car engine according to the data entered.
+     * All elements are checked for null,
+     *  which allows the user to not know all the input data
+     * */
     @SuppressWarnings("unchecked")
     @Override
     public List<AutomobileEngine> getAutoByParam(EngineRequest engineRequest) {
@@ -66,13 +68,13 @@ public class AutomobileEngineDaoImpl  implements AutomobileEngineDao {
                         "and (:engineCapParam IS NULL or  e.engineCapacity=:engineCapParam) " +
                         "and (:powerKwtParam IS NULL or  e.powerKwt=:powerKwtParam) " +
                         "and (:releaseYearF IS NULL or ae.releaseYearFrom=:releaseYearF ) ");
-        query.setParameter("engineTypeParam",engineRequest.getEngineType());
-        query.setParameter("autoManufParam",engineRequest.getAutoManufacturer());
-        query.setParameter("autoModelParam",engineRequest.getAutoModel());
-        query.setParameter("fuelTypeParam",engineRequest.getFuelType());
-        query.setParameter("engineCapParam",engineRequest.getEngineCapacity());
-        query.setParameter("powerKwtParam",engineRequest.getPowerKWt());
-        query.setParameter("releaseYearF",engineRequest.getProduceYear());
+        query.setParameter("engineTypeParam", engineRequest.getEngineType());
+        query.setParameter("autoManufParam", engineRequest.getAutoManufacturer());
+        query.setParameter("autoModelParam", engineRequest.getAutoModel());
+        query.setParameter("fuelTypeParam", engineRequest.getFuelType());
+        query.setParameter("engineCapParam", engineRequest.getEngineCapacity());
+        query.setParameter("powerKwtParam", engineRequest.getPowerKWt());
+        query.setParameter("releaseYearF", engineRequest.getProduceYear());
         List<AutomobileEngine> list = query.list();
         return list;
     }
@@ -82,9 +84,13 @@ public class AutomobileEngineDaoImpl  implements AutomobileEngineDao {
         getCurrentSession().save(automobileEngine);
     }
 
+    //we do not update the object,
+    // but create a new one,
+    // so the object does not get deleted from the database
     @Override
     public void update(AutomobileEngine automobileEngine) {
-        getCurrentSession().update(automobileEngine);
+        automobileEngine.setDate(new Date(new java.util.Date().getTime()));
+        save(automobileEngine);
     }
 
     @Override
@@ -108,7 +114,6 @@ public class AutomobileEngineDaoImpl  implements AutomobileEngineDao {
     public void setCurrentTransaction(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
-
 
 
 }
