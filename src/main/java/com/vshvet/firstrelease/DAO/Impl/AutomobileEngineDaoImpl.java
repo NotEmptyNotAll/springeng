@@ -60,14 +60,17 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                         "INNER JOIN ae.engineByEngineFk e " +
                         "INNER JOIN ae.autoManufactureByAutoManufactureFk am " +
                         "INNER JOIN  AutoModel m on ae.autoModelFk=m.id " +
-                        "INNER JOIN e.fuelTypeByFuelTypeFk ft " +
+                        "INNER JOIN FuelType ft on e.fuelTypeFk=ft.id " +
                         "where (:engineTypeParam IS NULL or  e.engineType=:engineTypeParam) " +
                         "and (:autoManufParam IS NULL or am.manufactureName=:autoManufParam ) " +
                         "and (:autoModelParam IS NULL or  m.modelName=:autoModelParam ) " +
                         "and (:fuelTypeParam IS NULL or  e.fuelTypeByFuelTypeFk.nameType=:fuelTypeParam) " +
                         "and (:engineCapParam IS NULL or  e.engineCapacity=:engineCapParam) " +
                         "and (:powerKwtParam IS NULL or  e.powerKwt=:powerKwtParam) " +
-                        "and (:releaseYearF IS NULL or ae.releaseYearFrom=:releaseYearF ) ");
+                        "and (((:releaseYearF IS NULL or ae.releaseYearFrom=:releaseYearF ) and ae.releaseYearFrom is not null and ae.releaseYearBy is null ) " +
+                        "or ((:releaseYearF IS NULL or ae.releaseYearBy=:releaseYearF ) and ae.releaseYearFrom is null and ae.releaseYearBy is not null ) " +
+                        "or ((:releaseYearF IS NULL or (ae.releaseYearBy>:releaseYearF and ae.releaseYearFrom<:releaseYearF) ) and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) ");
+
         query.setParameter("engineTypeParam", engineRequest.getEngineType());
         query.setParameter("autoManufParam", engineRequest.getAutoManufacturer());
         query.setParameter("autoModelParam", engineRequest.getAutoModel());
