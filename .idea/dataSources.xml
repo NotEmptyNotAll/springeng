@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="d4en0l50l31oi@ec2-54-247-78-30.eu-west-1.compute.amazonaws.com" uuid="20343da1-1647-4380-a9ab-0a72ef29e78a">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-247-78-30.eu-west-1.compute.amazonaws.com:5432/d4en0l50l31oi?sslfactory=org.postgresql.ssl.NonValidatingFactory</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="d4vuulmbk74tsn@ec2-54-75-231-215.eu-west-1.compute.amazonaws.com" uuid="c473b16e-cbd2-4577-ab64-29875c91cf5c">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-75-231-215.eu-west-1.compute.amazonaws.com:5432/d4vuulmbk74tsn</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="dahu6gbfuvbn46@ec2-54-247-169-129.eu-west-1.compute.amazonaws.com" uuid="12431942-f6e0-4da7-9f2e-bda74a04c96d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-247-169-129.eu-west-1.compute.amazonaws.com:5432/dahu6gbfuvbn46</jdbc-url>
+    </data-source>
+  </component>
+</project>

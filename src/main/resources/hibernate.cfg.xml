@@ -4,10 +4,12 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mariadb://localhost:3306/EngDB</property>
-        <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.url">jdbc:postgresql://ec2-176-34-123-50.eu-west-1.compute.amazonaws.com:5432/db5qnh1bfj1gtu?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">icwwgiydtdsnfb</property>
+        <property name="connection.password">602c9ff61a794a323808fbc51113d2c30bb259fde74fc35fcb2a5c1272c3da00</property>
+        <property name="hibernate.hbm2ddl.auto" >update</property>
+        <property name="hibernate.jdbc.fetch_size">50</property>
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>
@@ -41,13 +43,7 @@
         <mapping resource="Parameters.hbm.xml"/>
         <mapping resource="SuperchargedType.hbm.xml"/>
         <mapping class="com.vshvet.firstrelease.Entity.SuperchargedType"/>
-        <!--
-            <property name="connection.url">jdbc:postgresql://ec2-46-137-156-205.eu-west-1.compute.amazonaws.com:5432/d62m9kc7iv898v?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
-            <property name="connection.driver_class">org.postgresql.Driver</property>
-            <property name="connection.username">jqspelbeggujli</property>
-            <property name="connection.password">1047b66b94289850e584965dcd78fddab43ad64a3a0ff7c09565d20135fb4906</property>
-
-          <property name="connection.url">jdbc:postgresql://ec2-54-246-87-132.eu-west-1.compute.amazonaws.com:5432/d5cia0tf416ep4?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+        <!--   <property name="connection.url">jdbc:postgresql://ec2-54-246-87-132.eu-west-1.compute.amazonaws.com:5432/d5cia0tf416ep4?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
             <property name="connection.driver_class">org.postgresql.Driver</property>
             <property name="connection.username">fckvqacecbupwo</property>
             <property name="connection.password">b6812c692d9199cc690c7a91fc7d525a4dc08fcea3a4b6839005d37919956314</property>

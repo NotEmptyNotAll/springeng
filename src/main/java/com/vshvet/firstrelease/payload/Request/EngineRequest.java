@@ -17,7 +17,7 @@ public class EngineRequest {
     public EngineRequest() {
     }
 
-    public EngineRequest(List<ParamsRequest> paramList,String engineType, String engineManufacturer, String autoModel, Integer produceYear, String numberEng, String fuelType, String powerKWt, Integer engineCapacity) {
+    public EngineRequest(List<ParamsRequest> paramList, String engineType, String engineManufacturer, String autoModel, Integer produceYear, String numberEng, String fuelType, String powerKWt, Integer engineCapacity) {
         this.engineType = engineType;
         this.autoManufacturer = engineManufacturer;
         this.autoModel = autoModel;
@@ -26,8 +26,27 @@ public class EngineRequest {
         this.fuelType = fuelType;
         this.powerKWt = powerKWt;
         this.engineCapacity = engineCapacity;
+        this.paramList = paramList;
+    }
 
-        this.paramList=paramList;
+    public Boolean findOnlyByParam() {
+        if (this.engineType != null)
+            return false;
+        if (this.autoManufacturer != null)
+            return false;
+        if (this.autoModel != null)
+            return false;
+        if (this.fuelType != null)
+            return false;
+        if (this.engineCapacity != null)
+            return false;
+        if (this.numberEng != null)
+            return false;
+        if (this.powerKWt != null)
+            return false;
+        if (this.produceYear != null)
+            return false;
+        return true;
     }
 
     public List<ParamsRequest> getParamList() {

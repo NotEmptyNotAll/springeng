@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.vshvet.firstrelease.Entity.Parameters" table="parameters" schema="EngDB">
+        <id name="paramId">
+            <column name="param_Id" sql-type="int(11)"/>
+        </id>
+        <property name="elemFk">
+            <column name="elem_fk" sql-type="int(11)"/>
+        </property>
+        <property name="measurementUnitsFk">
+            <column name="measurement_units_fk" sql-type="int(11)"/>
+        </property>
+        <property name="integerMin">
+            <column name="integer_min" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="integerMax">
+            <column name="integer_max" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="integerNum">
+            <column name="integer_num" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="doubleMin">
+            <column name="double_min" sql-type="double" not-null="true"/>
+        </property>
+        <property name="doubleMax">
+            <column name="double_max" sql-type="double" not-null="true"/>
+        </property>
+        <property name="doubleNum">
+            <column name="double_num" sql-type="double" not-null="true"/>
+        </property>
+        <property name="textData">
+            <column name="text_data" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="logic">
+            <column name="logic" sql-type="tinyint(1)" not-null="true"/>
+        </property>
+        <property name="recordStatus">
+            <column name="record_status" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="author">
+            <column name="author" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="source">
+            <column name="source" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <many-to-one name="elementsByElemFk" class="com.vshvet.firstrelease.Entity.Elements">
+            <column name="elem_fk"/>
+        </many-to-one>
+        <many-to-one name="measurementUnitsByMeasurementUnitsFk" class="com.vshvet.firstrelease.Entity.MeasurementUnits">
+            <column name="measurement_units_fk"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.vshvet.firstrelease.Entity.MeasurementUnits" table="measurement_units" schema="EngDB">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="shortNameM">
+            <column name="short_name_M" sql-type="varchar(30)" length="30" not-null="true"/>
+        </property>
+        <property name="fullNameM">
+            <column name="full_name_M" sql-type="varchar(64)" length="64" not-null="true"/>
+        </property>
+        <property name="shortNameA">
+            <column name="short_name_A" sql-type="varchar(64)" length="64" not-null="true"/>
+        </property>
+        <property name="fullNameA">
+            <column name="full_name_A" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <set name="parametersById" inverse="true">
+            <key>
+                <column name="measurement_units_fk"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.Parameters"/>
+        </set>
+    </class>
+</hibernate-mapping>

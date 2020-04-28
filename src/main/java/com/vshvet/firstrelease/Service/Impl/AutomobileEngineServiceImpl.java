@@ -29,25 +29,29 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     @Override
     public List<AutomobileEngineResponse> findByParam(EngineRequest engineRequest) {
         List<AutomobileEngineResponse> responses = null;
-        Set<Integer> setElemId = elementsService.getParentElem(engineRequest);
-        automobileEngineDao.openCurrentSessionwithTransaction();
-        List<AutomobileEngine> listEng = automobileEngineDao.getAutoByParam(engineRequest);
-        if (!(listEng.size() > 10)) {   //check load limit for engines
-            responses = new ArrayList<AutomobileEngineResponse>() {{
-                listEng.forEach(automobileEngine -> {
-                    add(new AutomobileEngineResponse(automobileEngine));
-                });
-            }};
-            automobileEngineDao.closeCurrentSessionwithTransaction();
-            //check if there is a request for special parameters
-            // that were measured by the user
-            if (engineRequest.getParamList().get(0).getParameterNumber() != null) {
-                responses = responses.stream()
-                        .filter(rsp -> setElemId.contains(rsp.getElemID()))
-                        .collect(Collectors.toList());//filter car engines by element id
+        if (!engineRequest.findOnlyByParam()) {
+            Set<Integer> setElemId = elementsService.getParentElemId(engineRequest);
+            automobileEngineDao.openCurrentSessionwithTransaction();
+            List<AutomobileEngine> listEng = automobileEngineDao.getAutoByParam(engineRequest);
+            if (!(listEng.size() > 10)) {   //check load limit for engines
+                responses = new ArrayList<AutomobileEngineResponse>() {{
+                    listEng.forEach(automobileEngine -> {
+                        add(new AutomobileEngineResponse(automobileEngine));
+                    });
+                }};
+                automobileEngineDao.closeCurrentSessionwithTransaction();
+                //check if there is a request for special parameters
+                // that were measured by the user
+                if (engineRequest.getParamList().get(0).getParameterNumber() != null) {
+                    responses = responses.stream()
+                            .filter(rsp -> setElemId.contains(rsp.getElemID()))
+                            .collect(Collectors.toList());//filter car engines by element id
+                }
+            } else {
+                automobileEngineDao.closeCurrentSessionwithTransaction();
             }
         } else {
-            automobileEngineDao.closeCurrentSessionwithTransaction();
+            responses = elementsService.getParentElements(engineRequest);
         }
         return responses;
     }

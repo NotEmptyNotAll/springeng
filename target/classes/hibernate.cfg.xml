@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:postgresql://ec2-176-34-123-50.eu-west-1.compute.amazonaws.com:5432/db5qnh1bfj1gtu?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">icwwgiydtdsnfb</property>
+        <property name="connection.password">602c9ff61a794a323808fbc51113d2c30bb259fde74fc35fcb2a5c1272c3da00</property>
+        <property name="hibernate.hbm2ddl.auto" >update</property>
+        <property name="hibernate.jdbc.fetch_size">50</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.acquire_increment">5</property>
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <mapping resource="AutoManufacture.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.AutoManufacture"/>
+        <mapping resource="AutoModel.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.AutoModel"/>
+        <mapping class="com.vshvet.firstrelease.Entity.AutomobileEngine"/>
+        <mapping resource="AutomobileEngine.hbm.xml"/>
+        <mapping resource="Cylinders.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Cylinders"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Elements"/>
+        <mapping resource="Elements.hbm.xml"/>
+        <mapping resource="Engine.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Engine"/>
+        <mapping class="com.vshvet.firstrelease.Entity.EngineManufacturer"/>
+        <mapping resource="EngineManufacturer.hbm.xml"/>
+        <mapping resource="EngineNumber.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.EngineNumber"/>
+        <mapping resource="EngineType.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.EngineType"/>
+        <mapping resource="FuelType.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.FuelType"/>
+        <mapping resource="MeasurementUnits.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.MeasurementUnits"/>
+        <mapping resource="ParameterNames.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.ParameterNames"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Parameters"/>
+        <mapping resource="Parameters.hbm.xml"/>
+        <mapping resource="SuperchargedType.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.SuperchargedType"/>
+        <!--   <property name="connection.url">jdbc:postgresql://ec2-54-246-87-132.eu-west-1.compute.amazonaws.com:5432/d5cia0tf416ep4?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+            <property name="connection.driver_class">org.postgresql.Driver</property>
+            <property name="connection.username">fckvqacecbupwo</property>
+            <property name="connection.password">b6812c692d9199cc690c7a91fc7d525a4dc08fcea3a4b6839005d37919956314</property>
+            -->
+    </session-factory>
+</hibernate-configuration>

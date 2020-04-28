@@ -15,16 +15,16 @@
             <column name="auto_model_fk" sql-type="int(11)"/>
         </property>
         <property name="engineFk">
-            <column name="engine_fk" sql-type="int(11)" not-null="true"/>
+            <column name="engine_fk" sql-type="int(11)" />
         </property>
         <property name="releaseYearFrom">
-            <column name="release_year_from" sql-type="int(11)" not-null="true"/>
+            <column name="release_year_from" sql-type="int(11)"/>
         </property>
         <property name="releaseYearBy">
-            <column name="release_year_by" sql-type="int(11)" not-null="true"/>
+            <column name="release_year_by" sql-type="int(11)" />
         </property>
         <property name="elemId">
-            <column name="elem_id" sql-type="int(11)" not-null="true"/>
+            <column name="elem_id" sql-type="int(11)" />
         </property>
         <property name="date">
             <column name="date" sql-type="date"/>
@@ -36,10 +36,10 @@
             <column name="auto_model_fk"/>
         </many-to-one>
         <many-to-one name="engineByEngineFk" class="com.vshvet.firstrelease.Entity.Engine">
-            <column name="engine_fk" not-null="true"/>
+            <column name="engine_fk" />
         </many-to-one>
         <many-to-one name="elementsByElemId" class="com.vshvet.firstrelease.Entity.Elements">
-            <column name="elem_id" not-null="true"/>
+            <column name="elem_id" />
         </many-to-one>
         <set name="engineNumbersById" inverse="true">
             <key>

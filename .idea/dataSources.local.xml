@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="d4en0l50l31oi@ec2-54-247-78-30.eu-west-1.compute.amazonaws.com" uuid="20343da1-1647-4380-a9ab-0a72ef29e78a">
+      <database-info product="PostgreSQL" version="12.1 (Ubuntu 12.1-1.pgdg16.04+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.5" dbms="POSTGRES" exact-version="12.1" exact-driver-version="42.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>rmgovigahhcizl</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="d4vuulmbk74tsn@ec2-54-75-231-215.eu-west-1.compute.amazonaws.com" uuid="c473b16e-cbd2-4577-ab64-29875c91cf5c">
+      <database-info product="PostgreSQL" version="12.2 (Ubuntu 12.2-2.pgdg16.04+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.5" dbms="POSTGRES" exact-version="12.2" exact-driver-version="42.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>fckvqacecbupwo</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database" qname="d4vuulmbk74tsn">
+              <node kind="schema" qname="engdb" />
+            </node>
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="dahu6gbfuvbn46@ec2-54-247-169-129.eu-west-1.compute.amazonaws.com" uuid="12431942-f6e0-4da7-9f2e-bda74a04c96d">
+      <database-info product="PostgreSQL" version="12.2 (Ubuntu 12.2-2.pgdg16.04+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.5" dbms="POSTGRES" exact-version="12.2" exact-driver-version="42.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>hnbifmqvskhlyp</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database" qname="dahu6gbfuvbn46">
+              <node kind="schema" qname="engdb" />
+            </node>
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+  </component>
+</project>

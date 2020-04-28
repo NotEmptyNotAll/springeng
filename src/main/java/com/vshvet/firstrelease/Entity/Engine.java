@@ -115,11 +115,11 @@ public class Engine {
 
     @Basic
     @Column(name = "piston_diameter", nullable = false)
-    public double getPistonDiameter() {
+    public Double getPistonDiameter() {
         return pistonDiameter;
     }
 
-    public void setPistonDiameter(double pistonDiameter) {
+    public void setPistonDiameter(Double pistonDiameter) {
         this.pistonDiameter = pistonDiameter;
     }
 

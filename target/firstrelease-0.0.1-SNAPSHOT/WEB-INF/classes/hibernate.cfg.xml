@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:postgresql://ec2-54-247-78-30.eu-west-1.compute.amazonaws.com:5432/d4en0l50l31oi?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">rmgovigahhcizl</property>
+        <property name="connection.password">36271d8e3fc33ddc319a97d78d0e96cdd41465cd1714ed44ea9411d86e9264f8</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+        <mapping resource="AutoManufacture.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.AutoManufacture"/>
+        <mapping resource="AutoModel.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.AutoModel"/>
+        <mapping class="com.vshvet.firstrelease.Entity.AutomobileEngine"/>
+        <mapping resource="AutomobileEngine.hbm.xml"/>
+        <mapping resource="Cylinders.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Cylinders"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Elements"/>
+        <mapping resource="Elements.hbm.xml"/>
+        <mapping resource="Engine.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Engine"/>
+        <mapping class="com.vshvet.firstrelease.Entity.EngineManufacturer"/>
+        <mapping resource="EngineManufacturer.hbm.xml"/>
+        <mapping resource="EngineNumber.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.EngineNumber"/>
+        <mapping resource="EngineType.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.EngineType"/>
+        <mapping resource="FuelType.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.FuelType"/>
+        <mapping resource="MeasurementUnits.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.MeasurementUnits"/>
+        <mapping resource="ParameterNames.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.ParameterNames"/>
+        <mapping class="com.vshvet.firstrelease.Entity.Parameters"/>
+        <mapping resource="Parameters.hbm.xml"/>
+        <mapping resource="SuperchargedType.hbm.xml"/>
+        <mapping class="com.vshvet.firstrelease.Entity.SuperchargedType"/>
+    <!--<property name="connection.url">jdbc:postgresql://ec2-54-247-78-30.eu-west-1.compute.amazonaws.com:5432/d4en0l50l31oi?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">rmgovigahhcizl</property>
+        <property name="connection.password">36271d8e3fc33ddc319a97d78d0e96cdd41465cd1714ed44ea9411d86e9264f8</property>
+        -->
+    </session-factory>
+</hibernate-configuration>

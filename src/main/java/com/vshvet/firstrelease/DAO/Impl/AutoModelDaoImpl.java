@@ -48,7 +48,7 @@ public class AutoModelDaoImpl implements AutoModelDao {
     @Override
     public List<String> getAllNameOfModel() {
         return  getCurrentSession()
-                .createQuery("select new java.lang.String(am.modelName) from AutoModel am").list();
+                .createQuery("select am.modelName from AutoModel am").list();
     }
 
     @Override
