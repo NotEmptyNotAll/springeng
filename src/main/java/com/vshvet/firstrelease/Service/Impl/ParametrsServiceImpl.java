@@ -38,8 +38,10 @@ public class ParametrsServiceImpl implements ParametrsService {
                 );
 
             }};
-            elementsDao.closeCurrentSessionwithTransaction();
+
         } catch (NullPointerException e) {
+            System.out.println(e);
+        }finally {
             elementsDao.closeCurrentSessionwithTransaction();
         }
         return responses;

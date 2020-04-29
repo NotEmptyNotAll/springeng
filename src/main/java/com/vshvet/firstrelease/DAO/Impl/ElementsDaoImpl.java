@@ -7,6 +7,7 @@ import com.vshvet.firstrelease.payload.Request.ParamsRequest;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -29,7 +30,9 @@ public class ElementsDaoImpl implements ElementsDao {
 
     @Override
     public void closeCurrentSessionwithTransaction() {
-        currentTransaction.commit();
+        if (currentTransaction.getStatus().equals(TransactionStatus.ACTIVE)) {
+            currentTransaction.commit();
+        }
         currentSession.close();
     }
 

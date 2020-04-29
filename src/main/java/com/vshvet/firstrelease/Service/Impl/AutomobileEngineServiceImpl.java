@@ -42,7 +42,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
                 automobileEngineDao.closeCurrentSessionwithTransaction();
                 //check if there is a request for special parameters
                 // that were measured by the user
-                if (engineRequest.getParamList().get(0).getParameterNumber() != null) {
+                if (setElemId.size()!=0) {
                     responses = responses.stream()
                             .filter(rsp -> setElemId.contains(rsp.getElemID()))
                             .collect(Collectors.toList());//filter car engines by element id
