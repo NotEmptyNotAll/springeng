@@ -9,17 +9,46 @@ public class ElementsResponse {
     private Integer id;
     private String name;
     private List<ElementsResponse> elementsCh;
+    private Boolean parametersIsExistInChild;
+    private Boolean paramIsNotEmpty;
 
-    public ElementsResponse(Elements elements){
-        this.elementsCh=new ArrayList<ElementsResponse>(){{
-            elements.getChildElements().forEach( elements ->
+    public ElementsResponse(Elements elements) {
+        this.elementsCh = new ArrayList<ElementsResponse>() {{
+            elements.getChildElements().forEach(elements ->
                     add(new ElementsResponse(elements))
             );
         }};
-        this.name=elements.getParameterNamesByParamNameFk().getFullName();
-        this.id=elements.getElemId();
+        this.name = elements.getParameterNamesByParamNameFk().getFullName();
+        this.id = elements.getElemId();
+        this.parametersIsExistInChild = false;
+        this.elementsCh.forEach(element -> {
+            if (element.paramIsNotEmpty) {
+                this.parametersIsExistInChild = true;
+            }
+        });
+        if (elements.getParametersByElemId().size() != 0) {
+            paramIsNotEmpty = true;
+        } else {
+            paramIsNotEmpty = false;
+        }
     }
 
+
+    public Boolean getParamIsNotEmpty() {
+        return paramIsNotEmpty;
+    }
+
+    public void setParamIsNotEmpty(Boolean paramIsNotEmpty) {
+        this.paramIsNotEmpty = paramIsNotEmpty;
+    }
+
+    public Boolean getParametersIsExistInChild() {
+        return parametersIsExistInChild;
+    }
+
+    public void setParametersIsExistInChild(Boolean parametersIsExistInChild) {
+        this.parametersIsExistInChild = parametersIsExistInChild;
+    }
 
     public Integer getId() {
         return id;

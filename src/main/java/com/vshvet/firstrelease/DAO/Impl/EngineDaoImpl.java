@@ -43,7 +43,7 @@ public class EngineDaoImpl implements EngineDao {
     @Override
     public List<String> getAllType() {
         return (List<String>) getCurrentSession()
-                .createQuery("select e.engineType from Engine e").list();
+                .createQuery("select e.engineType from Engine e where  e.engineType IS NOT NULL").list();
     }
 
 
