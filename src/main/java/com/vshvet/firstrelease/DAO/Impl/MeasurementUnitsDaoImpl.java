@@ -1,24 +1,34 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.MeasurementUnitsDao;
+import com.vshvet.firstrelease.Entity.EngineManufacturer;
 import com.vshvet.firstrelease.Entity.MeasurementUnits;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Repository("measurementUnitsDao")
+@Transactional
 public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
 
     private Session currentSession;
 
     private Transaction currentTransaction;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Override
+    @Transactional
     public Session openCurrentSessionwithTransaction() {
         currentSession = HSessionFactoryUtil.getSessionFactory().getCurrentSession();
         currentTransaction = currentSession.beginTransaction();
@@ -26,12 +36,22 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
     }
 
     @Override
+    @Transactional
+    public void rollbackTransaction() {
+        currentTransaction.rollback();
+    }
+
+    @Override
+    @Transactional
     public void closeCurrentSessionwithTransaction() {
-        currentTransaction.commit();
+        if (currentTransaction.getStatus().equals(TransactionStatus.ACTIVE)) {
+            currentTransaction.commit();
+        }
         currentSession.close();
     }
 
     @Override
+    @Transactional
     public Optional<MeasurementUnits> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(MeasurementUnits.class, id));
@@ -39,12 +59,14 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
 
     @SuppressWarnings("unchecked")
     @Override
+    @Transactional
     public List<MeasurementUnits> getAll() {
         return (List<MeasurementUnits>) getCurrentSession()
-                .createQuery("from MeasurementUnits").list();
+                .createQuery("from MeasurementUnits where  date is null").list();
     }
 
     @Override
+    @Transactional
     public void save(MeasurementUnits measurementUnits) {
         getCurrentSession().save(measurementUnits);
     }
@@ -53,19 +75,23 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
     // but create a new one,
     // so the object does not get deleted from the database
     @Override
-    public void update(MeasurementUnits measurementUnits) {
-        measurementUnits.setDate(new Date(new java.util.Date().getTime()));
-        save(measurementUnits);
+    @Transactional
+    public void update(MeasurementUnits newEngine, MeasurementUnits oldEngine) {
+        getCurrentSession().update(newEngine);
+        save(oldEngine);
     }
 
+
     @Override
+    @Transactional
     public void delete(MeasurementUnits measurementUnits) {
         getCurrentSession().delete(measurementUnits);
     }
 
 
+    @Override
     public Session getCurrentSession() {
-        return currentSession;
+        return sessionFactory.getCurrentSession();
     }
 
     public void setCurrentSession(Session currentSession) {

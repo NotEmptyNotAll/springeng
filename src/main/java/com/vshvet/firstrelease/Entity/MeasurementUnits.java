@@ -16,9 +16,49 @@ public class MeasurementUnits {
     private Integer fullNameA;
     private Date date;
     private Collection<Parameters> parametersById;
+    private Integer status_fk;
+    private Status status;
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public MeasurementUnits(int id) {
+        this.id = id;
+    }
+
+    public MeasurementUnits() {
+    }
+
+    public MeasurementUnits(MeasurementUnits measurementUnits) {
+        this(measurementUnits.getId(),
+                measurementUnits.getShortNameM(),
+                measurementUnits.getFullNameM(),
+                measurementUnits.getShortNameA(),
+                measurementUnits.getFullNameA(),
+                measurementUnits.getStatus_fk());
+    }
+
+    public MeasurementUnits(int id, String shortNameM, String fullNameM, String shortNameA, Integer fullNameA, Integer status_fk) {
+        this.id = id;
+        this.shortNameM = shortNameM;
+        this.fullNameM = fullNameM;
+        this.shortNameA = shortNameA;
+        this.fullNameA = fullNameA;
+        this.status_fk = status_fk;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_measurement_units_seq")
+    @SequenceGenerator(name = "id_measurement_units_seq", initialValue = 7)
     public int getId() {
         return id;
     }
@@ -103,6 +143,16 @@ public class MeasurementUnits {
         result = 31 * result + (fullNameA != null ? fullNameA.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @OneToMany(mappedBy = "measurementUnitsByMeasurementUnitsFk")

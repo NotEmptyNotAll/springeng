@@ -9,9 +9,27 @@ import javax.persistence.*;
 public class EngineType {
     private int id;
     private String nameType;
+    private String status;
+    @Basic
+    @Column(name = "status")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public EngineType() {
+    }
+
+    public EngineType(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
+
     public int getId() {
         return id;
     }

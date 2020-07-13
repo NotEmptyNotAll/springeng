@@ -13,9 +13,43 @@ public class Cylinders {
     private String typeName;
     private Date date;
     private Collection<Engine> enginesById;
+    private Integer status_fk;
+    private Status status;
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public Cylinders(int id, String typeName, Integer status_fk) {
+        this.id = id;
+        this.typeName = typeName;
+        this.status_fk = status_fk;
+    }
+
+    public Cylinders(Cylinders cylinders) {
+    this(cylinders.getId(),
+            cylinders.getTypeName(),
+            cylinders.getStatus_fk());
+    }
+
+    public Cylinders() {
+    }
+
+    public Cylinders(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+            generator="id_cylinders_seq")
+    @SequenceGenerator(name="id__id_cylinders_seqseq", initialValue=4)
     public int getId() {
         return id;
     }
@@ -64,6 +98,16 @@ public class Cylinders {
         result = 31 * result + (typeName != null ? typeName.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @OneToMany(mappedBy = "cylindersByCylindersPlacementFk")

@@ -5,6 +5,7 @@ import com.vshvet.firstrelease.ConstValue;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "engine", schema = ConstValue.SCHEMA_NAME)
@@ -32,9 +33,74 @@ public class Engine {
     private FuelType fuelTypeByFuelTypeFk;
     private SuperchargedType superchargedTypeBySuperchargedTypeFk;
     private Collection<EngineNumber> engineNumbersById;
+    private Integer status_fk;
+    private Status status;
+
+    public Engine(int id, String engineType, Integer engineManufacturerFk, int cylindersPlacementFk, int fuelTypeFk, int superchargedTypeFk, Integer cylindersNumber, Integer flapNumber, Double pistonDiameter, Integer pistonStroke, int engineCapacity, String powerKwt, Integer horsepower, Double degreeCompression, Integer releaseYearFrom, Integer releaseYearBy,Integer status_fk, Status status) {
+        this.id = id;
+        this.engineType = engineType;
+        this.engineManufacturerFk = engineManufacturerFk;
+        this.cylindersPlacementFk = cylindersPlacementFk;
+        this.fuelTypeFk = fuelTypeFk;
+        this.superchargedTypeFk = superchargedTypeFk;
+        this.cylindersNumber = cylindersNumber;
+        this.flapNumber = flapNumber;
+        this.pistonDiameter = pistonDiameter;
+        this.pistonStroke = pistonStroke;
+        this.engineCapacity = engineCapacity;
+        this.powerKwt = powerKwt;
+        this.horsepower = horsepower;
+        this.degreeCompression = degreeCompression;
+        this.releaseYearFrom = releaseYearFrom;
+        this.releaseYearBy = releaseYearBy;
+        this.status_fk = status_fk;
+        this.status = status;
+    }
+
+    public Engine(Engine engine) {
+        this(engine.getId(),
+                engine.getEngineType(),
+                engine.getEngineManufacturerFk(),
+                engine.getCylindersPlacementFk(),
+                engine.getFuelTypeFk(),
+                engine.getSuperchargedTypeFk(),
+                engine.getCylindersNumber(),
+                engine.getFlapNumber(),
+                engine.getPistonDiameter(),
+                engine.getPistonStroke(),
+                engine.getEngineCapacity(),
+                engine.getPowerKwt(),
+                engine.getHorsepower(),
+                engine.getDegreeCompression(),
+                engine.getReleaseYearFrom(),
+                engine.getReleaseYearBy(),
+                engine.getStatus_fk(),
+                engine.getStatus());
+    }
+
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public Engine(int id) {
+        this.id = id;
+    }
+
+    public Engine() {
+    }
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_engine_seq")
+    @SequenceGenerator(name = "id_engine_seq", initialValue = 85)
     public int getId() {
         return id;
     }
@@ -54,7 +120,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "engine_manufacturer_fk",insertable = false,updatable = false, nullable = true)
+    @Column(name = "engine_manufacturer_fk", insertable = false, updatable = false, nullable = true)
     public Integer getEngineManufacturerFk() {
         return engineManufacturerFk;
     }
@@ -64,7 +130,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "cylinders_placement_fk",insertable = false,updatable = false, nullable = false)
+    @Column(name = "cylinders_placement_fk", insertable = false, updatable = false, nullable = true)
     public int getCylindersPlacementFk() {
         return cylindersPlacementFk;
     }
@@ -74,7 +140,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "fuel_type_fk",insertable = false,updatable = false, nullable = false)
+    @Column(name = "fuel_type_fk", insertable = false, updatable = false, nullable = true)
     public int getFuelTypeFk() {
         return fuelTypeFk;
     }
@@ -84,7 +150,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "supercharged_type_fk",insertable = false,updatable = false, nullable = false)
+    @Column(name = "supercharged_type_fk", insertable = false, updatable = false, nullable = true)
     public int getSuperchargedTypeFk() {
         return superchargedTypeFk;
     }
@@ -94,7 +160,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "cylinders_number", insertable = false,updatable = false,nullable = true)
+    @Column(name = "cylinders_number",  nullable = true)
     public Integer getCylindersNumber() {
         return cylindersNumber;
     }
@@ -104,7 +170,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "flap_number", insertable = false,updatable = false,nullable = true)
+    @Column(name = "flap_number", nullable = true)
     public Integer getFlapNumber() {
         return flapNumber;
     }
@@ -203,60 +269,40 @@ public class Engine {
         this.date = date;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Engine engine = (Engine) o;
-
-        if (id != engine.id) return false;
-        if (cylindersPlacementFk != engine.cylindersPlacementFk) return false;
-        if (fuelTypeFk != engine.fuelTypeFk) return false;
-        if (superchargedTypeFk != engine.superchargedTypeFk) return false;
-        if (pistonDiameter != engine.pistonDiameter) return false;
-        if (engineCapacity != engine.engineCapacity) return false;
-        if (engineType != null ? !engineType.equals(engine.engineType) : engine.engineType != null) return false;
-        if (engineManufacturerFk != null ? !engineManufacturerFk.equals(engine.engineManufacturerFk) : engine.engineManufacturerFk != null)
-            return false;
-        if (cylindersNumber != null ? !cylindersNumber.equals(engine.cylindersNumber) : engine.cylindersNumber != null)
-            return false;
-        if (flapNumber != null ? !flapNumber.equals(engine.flapNumber) : engine.flapNumber != null) return false;
-        if (pistonStroke != null ? !pistonStroke.equals(engine.pistonStroke) : engine.pistonStroke != null)
-            return false;
-        if (powerKwt != null ? !powerKwt.equals(engine.powerKwt) : engine.powerKwt != null) return false;
-        if (horsepower != null ? !horsepower.equals(engine.horsepower) : engine.horsepower != null) return false;
-        if (degreeCompression != null ? !degreeCompression.equals(engine.degreeCompression) : engine.degreeCompression != null)
-            return false;
-        if (releaseYearFrom != null ? !releaseYearFrom.equals(engine.releaseYearFrom) : engine.releaseYearFrom != null)
-            return false;
-        if (releaseYearBy != null ? !releaseYearBy.equals(engine.releaseYearBy) : engine.releaseYearBy != null)
-            return false;
-        if (date != null ? !date.equals(engine.date) : engine.date != null) return false;
-
-        return true;
+        return id == engine.id &&
+                cylindersPlacementFk == engine.cylindersPlacementFk &&
+                fuelTypeFk == engine.fuelTypeFk &&
+                superchargedTypeFk == engine.superchargedTypeFk &&
+                engineCapacity == engine.engineCapacity &&
+                Objects.equals(engineType, engine.engineType) &&
+                Objects.equals(engineManufacturerFk, engine.engineManufacturerFk) &&
+                Objects.equals(cylindersNumber, engine.cylindersNumber) &&
+                Objects.equals(flapNumber, engine.flapNumber) &&
+                Objects.equals(pistonDiameter, engine.pistonDiameter) &&
+                Objects.equals(pistonStroke, engine.pistonStroke) &&
+                Objects.equals(powerKwt, engine.powerKwt) &&
+                Objects.equals(horsepower, engine.horsepower) &&
+                Objects.equals(degreeCompression, engine.degreeCompression) &&
+                Objects.equals(releaseYearFrom, engine.releaseYearFrom) &&
+                Objects.equals(releaseYearBy, engine.releaseYearBy) &&
+                Objects.equals(date, engine.date) &&
+                Objects.equals(automobileEnginesById, engine.automobileEnginesById) &&
+                Objects.equals(engineManufacturerByEngineManufacturerFk, engine.engineManufacturerByEngineManufacturerFk) &&
+                Objects.equals(cylindersByCylindersPlacementFk, engine.cylindersByCylindersPlacementFk) &&
+                Objects.equals(fuelTypeByFuelTypeFk, engine.fuelTypeByFuelTypeFk) &&
+                Objects.equals(superchargedTypeBySuperchargedTypeFk, engine.superchargedTypeBySuperchargedTypeFk) &&
+                Objects.equals(engineNumbersById, engine.engineNumbersById);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (engineType != null ? engineType.hashCode() : 0);
-        result = 31 * result + (engineManufacturerFk != null ? engineManufacturerFk.hashCode() : 0);
-        result = 31 * result + cylindersPlacementFk;
-        result = 31 * result + fuelTypeFk;
-        result = 31 * result + superchargedTypeFk;
-        result = 31 * result + (cylindersNumber != null ? cylindersNumber.hashCode() : 0);
-        result = 31 * result + (flapNumber != null ? flapNumber.hashCode() : 0);
-        result = 31 * result + pistonDiameter.hashCode();
-        result = 31 * result + (pistonStroke != null ? pistonStroke.hashCode() : 0);
-        result = 31 * result + engineCapacity;
-        result = 31 * result + (powerKwt != null ? powerKwt.hashCode() : 0);
-        result = 31 * result + (horsepower != null ? horsepower.hashCode() : 0);
-        result = 31 * result + (degreeCompression != null ? degreeCompression.hashCode() : 0);
-        result = 31 * result + (releaseYearFrom != null ? releaseYearFrom.hashCode() : 0);
-        result = 31 * result + (releaseYearBy != null ? releaseYearBy.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        return result;
+        return Objects.hash(id, engineType, engineManufacturerFk, cylindersPlacementFk, fuelTypeFk, superchargedTypeFk, cylindersNumber, flapNumber, pistonDiameter, pistonStroke, engineCapacity, powerKwt, horsepower, degreeCompression, releaseYearFrom, releaseYearBy, date, automobileEnginesById, engineManufacturerByEngineManufacturerFk, cylindersByCylindersPlacementFk, fuelTypeByFuelTypeFk, superchargedTypeBySuperchargedTypeFk, engineNumbersById);
     }
 
     @OneToMany(mappedBy = "engineByEngineFk")
@@ -276,6 +322,16 @@ public class Engine {
 
     public void setEngineManufacturerByEngineManufacturerFk(EngineManufacturer engineManufacturerByEngineManufacturerFk) {
         this.engineManufacturerByEngineManufacturerFk = engineManufacturerByEngineManufacturerFk;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @ManyToOne

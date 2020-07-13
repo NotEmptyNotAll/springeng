@@ -1,25 +1,36 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.ParametersDao;
+import com.vshvet.firstrelease.Entity.ParameterNames;
 import com.vshvet.firstrelease.Entity.Parameters;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Repository("parametersDao")
+@Transactional
 public class ParametersDaoImpl implements ParametersDao {
 
     private Session currentSession;
 
     private Transaction currentTransaction;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
+
     @Override
+    @Transactional
     public Session openCurrentSessionwithTransaction() {
         currentSession = HSessionFactoryUtil.getSessionFactory().getCurrentSession();
         currentTransaction = currentSession.beginTransaction();
@@ -27,13 +38,22 @@ public class ParametersDaoImpl implements ParametersDao {
     }
 
     @Override
+    @Transactional
     public void closeCurrentSessionwithTransaction() {
-        currentTransaction.commit();
+        if (currentTransaction.getStatus().equals(TransactionStatus.ACTIVE)) {
+            currentTransaction.commit();
+        }
         currentSession.close();
     }
 
+    @Override
+    @Transactional
+    public void rollbackTransaction() {
+        currentTransaction.rollback();
+    }
 
     @Override
+    @Transactional
     public Optional<Parameters> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(Parameters.class, id));
@@ -41,9 +61,10 @@ public class ParametersDaoImpl implements ParametersDao {
 
     @SuppressWarnings("unchecked")
     @Override
+    @Transactional
     public List<Parameters> getAll() {
         return (List<Parameters>) getCurrentSession()
-                .createQuery("from Parameters").list();
+                .createQuery("from Parameters where date is null").list();
     }
 
     /*a request to find all the parameters
@@ -53,15 +74,17 @@ public class ParametersDaoImpl implements ParametersDao {
 
     @SuppressWarnings("unchecked")
     @Override
+    @Transactional
     public Parameters findParamByElemId(Integer id) {
         Query query = getCurrentSession()
-                .createQuery("from Parameters p where p.elemFk=:idParam  ");
+                .createQuery("from Parameters p where p.elemFk=:idParam and date is null  ");
         query.setParameter("idParam", id);
         return query.list().size() != 0 ?
                 (Parameters) query.list().get(0) : null;
     }
 
     @Override
+    @Transactional
     public void save(Parameters parameters) {
         getCurrentSession().save(parameters);
     }
@@ -70,19 +93,24 @@ public class ParametersDaoImpl implements ParametersDao {
     // but create a new one,
     // so the object does not get deleted from the database
     @Override
-    public void update(Parameters parameters) {
-        parameters.setDate(new Date(new java.util.Date().getTime()));
-        save(parameters);
+    @Transactional
+    public void update(Parameters newEngine, Parameters oldEngine) {
+        getCurrentSession().update(newEngine);
+        save(oldEngine);
     }
 
+
     @Override
+    @Transactional
     public void delete(Parameters parameters) {
         getCurrentSession().delete(parameters);
     }
 
+    @Override
     public Session getCurrentSession() {
-        return currentSession;
+        return sessionFactory.getCurrentSession();
     }
+
 
     public void setCurrentSession(Session currentSession) {
         this.currentSession = currentSession;

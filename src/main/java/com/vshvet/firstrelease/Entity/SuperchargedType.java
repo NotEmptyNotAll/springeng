@@ -14,10 +14,45 @@ public class SuperchargedType {
     private String mark;
     private Date date;
     private Collection<Engine> enginesById;
+    private Integer status_fk;
+    private Status status;
 
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public SuperchargedType() {
+    }
+
+    public SuperchargedType(SuperchargedType superchargedType) {
+        this(superchargedType.getId(),
+                superchargedType.getNameType(),
+                superchargedType.getMark(),
+                superchargedType.getStatus_fk());
+    }
+
+    public SuperchargedType(int id, String nameType, String mark, Integer status_fk) {
+        this.id = id;
+        this.nameType = nameType;
+        this.mark = mark;
+        this.status_fk = status_fk;
+    }
+
+    public SuperchargedType(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_supercharged_type_seq")
+    @SequenceGenerator(name = "id_supercharged_type_seq", initialValue = 4)
     public int getId() {
         return id;
     }
@@ -77,6 +112,17 @@ public class SuperchargedType {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 
     @OneToMany(mappedBy = "superchargedTypeBySuperchargedTypeFk")
     public Collection<Engine> getEnginesById() {

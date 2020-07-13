@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "parameters", schema = ConstValue.SCHEMA_NAME )
+@Table(name = "parameters", schema = ConstValue.SCHEMA_NAME)
 public class Parameters {
     private int paramId;
     private int elemFk;
@@ -23,11 +23,83 @@ public class Parameters {
     private String author;
     private String source;
     private Date date;
+    private int autoId;
     private Elements elementsByElemFk;
     private MeasurementUnits measurementUnitsByMeasurementUnitsFk;
+    private Integer status_fk;
+    private Status status;
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+
+    public Parameters(int paramId) {
+        this.paramId = paramId;
+    }
+
+    public Parameters() {
+    }
+
+    public Parameters(Parameters parameters) {
+        this(parameters.getParamId(),
+                parameters.getElemFk(),
+                parameters.getMeasurementUnitsFk(),
+                parameters.getIntegerMin(),
+                parameters.getIntegerMax(),
+                parameters.getIntegerNum(),
+                parameters.getDoubleMin(),
+                parameters.getDoubleMax(),
+                parameters.getDoubleNum(),
+                parameters.getTextData(),
+                parameters.getLogic(),
+                parameters.getRecordStatus(),
+                parameters.getAuthor(),
+                parameters.getSource(),
+                parameters.getAutoId(),
+                parameters.getStatus_fk());
+    }
+
+    public Parameters(int paramId, int elemFk, int measurementUnitsFk, Integer integerMin, Integer integerMax, Integer integerNum, Double doubleMin, Double doubleMax, Double doubleNum, String textData, Byte logic, String recordStatus, String author, String source, int autoId, Integer status_fk) {
+        this.paramId = paramId;
+        this.elemFk = elemFk;
+        this.measurementUnitsFk = measurementUnitsFk;
+        this.integerMin = integerMin;
+        this.integerMax = integerMax;
+        this.integerNum = integerNum;
+        this.doubleMin = doubleMin;
+        this.doubleMax = doubleMax;
+        this.doubleNum = doubleNum;
+        this.textData = textData;
+        this.logic = logic;
+        this.recordStatus = recordStatus;
+        this.author = author;
+        this.source = source;
+        this.autoId = autoId;
+        this.status_fk = status_fk;
+    }
+
+    @Basic
+    @Column(name = "auto_id")
+    public int getAutoId() {
+        return autoId;
+    }
+
+    public void setAutoId(int autoId) {
+        this.autoId = autoId;
+    }
 
     @Id
-    @Column(name = "param_Id", nullable = false)
+    @Column(name = "param_Id", nullable = true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_parameters_seq")
+    @SequenceGenerator(name = "id_parameters_seq", initialValue = 3115)
     public int getParamId() {
         return paramId;
     }
@@ -37,7 +109,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "elem_fk", insertable = false,updatable = false,nullable = false)
+    @Column(name = "elem_fk", insertable = false, updatable = false, nullable = true)
     public int getElemFk() {
         return elemFk;
     }
@@ -47,7 +119,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "measurement_units_fk",insertable = false,updatable = false, nullable = false)
+    @Column(name = "measurement_units_fk", insertable = false, updatable = false, nullable = true)
     public int getMeasurementUnitsFk() {
         return measurementUnitsFk;
     }
@@ -137,7 +209,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "record_status", nullable = false, length = 64)
+    @Column(name = "record_status", nullable = true, length = 64)
     public String getRecordStatus() {
         return recordStatus;
     }
@@ -147,7 +219,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "author", nullable = false, length = 64)
+    @Column(name = "author", nullable = true, length = 64)
     public String getAuthor() {
         return author;
     }
@@ -157,7 +229,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "source", nullable = false, length = 64)
+    @Column(name = "source", nullable = true, length = 64)
     public String getSource() {
         return source;
     }
@@ -167,7 +239,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = true)
     public Date getDate() {
         return date;
     }
@@ -223,7 +295,17 @@ public class Parameters {
     }
 
     @ManyToOne
-    @JoinColumn(name = "elem_fk", referencedColumnName = "elemID", nullable = false)
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "elem_fk", referencedColumnName = "elemID", nullable = true)
     public Elements getElementsByElemFk() {
         return elementsByElemFk;
     }
@@ -233,7 +315,7 @@ public class Parameters {
     }
 
     @ManyToOne
-    @JoinColumn(name = "measurement_units_fk", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "measurement_units_fk", referencedColumnName = "id", nullable = true)
     public MeasurementUnits getMeasurementUnitsByMeasurementUnitsFk() {
         return measurementUnitsByMeasurementUnitsFk;
     }

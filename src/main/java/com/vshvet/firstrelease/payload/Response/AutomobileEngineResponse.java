@@ -25,6 +25,7 @@ public class AutomobileEngineResponse {
     private String cylinderPlace;
     private String superchargedType;
     private Double degreeCompression;
+    private boolean active;
 
 
     public AutomobileEngineResponse() {
@@ -51,6 +52,15 @@ public class AutomobileEngineResponse {
         this.fuelType = automobileEngine.getEngineByEngineFk().getFuelTypeByFuelTypeFk().getNameType();
         this.superchargedType = automobileEngine.getEngineByEngineFk().getSuperchargedTypeBySuperchargedTypeFk().getNameType();
         this.degreeCompression=automobileEngine.getEngineByEngineFk().getDegreeCompression();
+        this.active=false;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Double getDegreeCompression() {

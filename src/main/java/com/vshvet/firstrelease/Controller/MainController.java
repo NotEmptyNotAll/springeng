@@ -3,11 +3,17 @@ package com.vshvet.firstrelease.Controller;
 import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.Service.EngineManufactureService;
 import com.vshvet.firstrelease.Service.Impl.*;
+import com.vshvet.firstrelease.payload.Request.IdRequest;
+import com.vshvet.firstrelease.payload.Response.AllAdditionalDataResponse;
+import com.vshvet.firstrelease.payload.Response.AllParanNameResponse;
+import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.payload.Response.ParamNameResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -17,27 +23,13 @@ import java.util.Map;
 @RestController
 public class MainController {
 
-    private final EngineService engineService;
 
-    private final FuelTypeService fuelTypeService;
-
-    private final AutoModelService autoModelService;
-
-    private final EngineManufactureService engineManufactureService;
-
-    private final EngineNumberService engineNumberService;
-
-    private final ParameterNameService parameterNameService;
-
-    private final MeasurementUnitsService measurementUnitsService;
+    private final SearchPageLoadingService searchPageLoadingService;
 
     //return a list of parameter names and units of measure per page
     @GetMapping("/paramNameAndUnits")
-    public Map<String, Object> getParamName() {
-        return new HashMap<String, Object>() {{
-            put("paramName", parameterNameService.getAllNames());
-            put("units", measurementUnitsService.getAllUnits());
-        }};
+    public Map<Object, Object> getParamName() {
+        return searchPageLoadingService.getParamName();
     }
 
     @GetMapping("/")
@@ -46,28 +38,41 @@ public class MainController {
     }
 
 
+    @GetMapping("/getTreeElements")
+    public Map<String, Object> getTreeElements() {
+        return searchPageLoadingService.getTreeElements();
+    }
+
+
     //return the initial data to the page
     // data presented in map
     @GetMapping("/start")
     public Map<String, ?> getDefaultData() {
-        return new HashMap<String, Object>() {{
-            put("autoModels", autoModelService.getAllNameOfModel());
-            put("fuelType", fuelTypeService.getAllName());
-            put("engineManufacture", engineManufactureService.getAllName());
-            put("engineType", engineService.getAllType());
-            put("engineNumber", engineNumberService.getAllNumber());
-        }};
+        return searchPageLoadingService.getDefaultData();
     }
+
+
+    @GetMapping("/getAllAdditionalData")
+    public AllAdditionalDataResponse getAllAdditionalData() {
+        return searchPageLoadingService.getAllAdditionalData();
+    }
+
+    @GetMapping("/getAllParamName")
+    public List<AllParanNameResponse> getChildParamName() {
+        return searchPageLoadingService.getChildParamName();
+    }
+
+
+    @GetMapping("/getTreeRootName")
+    public List<DataByIdResponse> getTreeRootName() {
+        return searchPageLoadingService.getTreeRootName();
+    }
+
 
     //autowired our service
     @Autowired
-    public MainController(MeasurementUnitsService measurementUnitsService, EngineService engineService, FuelTypeService fuelTypeService, AutoModelService autoModelService, EngineManufactureService engineManufactureService, EngineNumberService engineNumberService, ParameterNameService parameterNameService) {
-        this.engineService = engineService;
-        this.fuelTypeService = fuelTypeService;
-        this.autoModelService = autoModelService;
-        this.engineManufactureService = engineManufactureService;
-        this.engineNumberService = engineNumberService;
-        this.parameterNameService = parameterNameService;
-        this.measurementUnitsService = measurementUnitsService;
+    public MainController(SearchPageLoadingService searchPageLoadingService) {
+        this.searchPageLoadingService = searchPageLoadingService;
+
     }
 }

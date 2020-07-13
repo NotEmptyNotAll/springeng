@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "elements", schema = ConstValue.SCHEMA_NAME)
-public class Elements {
+public class Elements implements Comparable<Elements> {
     private int elemId;
     private Integer paramNameFk;
     private Integer parentId;
@@ -20,7 +20,42 @@ public class Elements {
     private Elements parentElements;
     private List<Parameters> parametersByElemId;
     private List<Elements> childElements;
+    private Integer status_fk;
+    private Status status;
 
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+
+    public Elements(int elemId) {
+        this.elemId = elemId;
+    }
+
+    public Elements() {
+    }
+
+    public Elements(Elements elements) {
+        this(elements.getElemId(),
+        elements.getParamNameFk(),
+        elements.getParentId(),
+        elements.getStatus_fk());
+    }
+
+    public Elements(int elemId,
+                    Integer paramNameFk,
+                    Integer parentId, Integer status_fk) {
+        this.elemId = elemId;
+        this.paramNameFk = paramNameFk;
+        this.parentId = parentId;
+        this.status_fk = status_fk;
+    }
 
     @Id
     @Column(name = "elemID", nullable = false)
@@ -33,7 +68,7 @@ public class Elements {
     }
 
     @Basic
-    @Column(name = "param_name_fk",insertable = false,updatable = false,nullable = true)
+    @Column(name = "param_name_fk", insertable = false, updatable = false, nullable = true)
     public Integer getParamNameFk() {
         return paramNameFk;
     }
@@ -43,7 +78,7 @@ public class Elements {
     }
 
     @Basic
-    @Column(name = "parent_id", nullable = true,insertable = false,updatable = false)
+    @Column(name = "parent_id", nullable = true, insertable = false, updatable = false)
     public Integer getParentId() {
         return parentId;
     }
@@ -134,4 +169,31 @@ public class Elements {
         this.parametersByElemId = parametersByElemId;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @Override
+    public int compareTo(Elements o) {
+        return parameterNamesByParamNameFk.getName().compareTo(o.getParameterNamesByParamNameFk().getName());
+    }
+    /*
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "elem_param",
+            joinColumns = @JoinColumn(name = "elem_id"),
+            inverseJoinColumns = @JoinColumn(name = "param_id"))
+    public Set<Parameters> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Set<Parameters> parameters) {
+        this.parameters = parameters;
+    }
+*/
 }

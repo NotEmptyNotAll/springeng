@@ -1,40 +1,50 @@
 package com.vshvet.firstrelease.payload.Request;
 
 public class ParamsRequest {
-    private String parameterName;
-    private String unitsFullName;
-    private Double parameterNumber;
+    private Integer parameterChildId;
+    private Integer parameterNodeId;
+    private Integer unitsFullName;
+    private String parameterNumber;
 
     public ParamsRequest() {
     }
 
-    public ParamsRequest(String parameterName, String unitsFullName, Double parameterNumber) {
-        this.parameterName = parameterName;
+    public ParamsRequest(Integer parameterChildId, Integer parameterNodeId, Integer unitsFullName, String parameterNumber) {
+        this.parameterChildId = parameterChildId;
+        this.parameterNodeId = parameterNodeId;
         this.unitsFullName = unitsFullName;
         this.parameterNumber = parameterNumber;
     }
 
-    public String getParameterName() {
-        return parameterName;
+    public Integer getParameterChildId() {
+        return parameterChildId;
     }
 
-    public void setParameterName(String parameterName) {
-        this.parameterName = parameterName;
+    public void setParameterChildId(Integer parameterChildId) {
+        this.parameterChildId = parameterChildId;
     }
 
-    public String getUnitsFullName() {
+    public Integer getParameterNodeId() {
+        return parameterNodeId;
+    }
+
+    public void setParameterNodeId(Integer parameterNodeId) {
+        this.parameterNodeId = parameterNodeId;
+    }
+
+    public Integer getUnitsFullName() {
         return unitsFullName;
     }
 
-    public void setUnitsFullName(String unitsFullName) {
+    public void setUnitsFullName(Integer unitsFullName) {
         this.unitsFullName = unitsFullName;
     }
 
-    public Double getParameterNumber() {
+    public String getParameterNumber() {
         return parameterNumber;
     }
 
-    public void setParameterNumber(Double parameterNumber) {
+    public void setParameterNumber(String parameterNumber) {
         this.parameterNumber = parameterNumber;
     }
 }

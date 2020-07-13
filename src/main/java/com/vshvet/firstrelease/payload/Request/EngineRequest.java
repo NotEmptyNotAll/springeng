@@ -4,12 +4,12 @@ import java.util.List;
 
 public class EngineRequest {
 
-    private String engineType;
-    private String autoManufacturer;
-    private String autoModel;
+    private Integer engineType;
+    private Integer autoManufacturer;
+    private Integer autoModel;
     private Integer produceYear;
-    private String numberEng;
-    private String fuelType;
+    private Integer numberEng;
+    private Integer fuelType;
     private String powerKWt;
     private Integer engineCapacity;
     private List<ParamsRequest> paramList;
@@ -17,9 +17,17 @@ public class EngineRequest {
     public EngineRequest() {
     }
 
-    public EngineRequest(List<ParamsRequest> paramList, String engineType, String engineManufacturer, String autoModel, Integer produceYear, String numberEng, String fuelType, String powerKWt, Integer engineCapacity) {
+    public EngineRequest(Integer engineType,
+                         Integer autoManufacturer,
+                         Integer autoModel,
+                         Integer produceYear,
+                         Integer numberEng,
+                         Integer fuelType,
+                         String powerKWt,
+                         Integer engineCapacity,
+                         List<ParamsRequest> paramList) {
         this.engineType = engineType;
-        this.autoManufacturer = engineManufacturer;
+        this.autoManufacturer = autoManufacturer;
         this.autoModel = autoModel;
         this.produceYear = produceYear;
         this.numberEng = numberEng;
@@ -49,35 +57,27 @@ public class EngineRequest {
         return true;
     }
 
-    public List<ParamsRequest> getParamList() {
-        return paramList;
-    }
-
-    public void setParamList(List<ParamsRequest> paramList) {
-        this.paramList = paramList;
-    }
-
-    public String getEngineType() {
+    public Integer getEngineType() {
         return engineType;
     }
 
-    public void setEngineType(String engineType) {
+    public void setEngineType(Integer engineType) {
         this.engineType = engineType;
     }
 
-    public String getAutoManufacturer() {
+    public Integer getAutoManufacturer() {
         return autoManufacturer;
     }
 
-    public void setAutoManufacturer(String autoManufacturer) {
+    public void setAutoManufacturer(Integer autoManufacturer) {
         this.autoManufacturer = autoManufacturer;
     }
 
-    public String getAutoModel() {
+    public Integer getAutoModel() {
         return autoModel;
     }
 
-    public void setAutoModel(String autoModel) {
+    public void setAutoModel(Integer autoModel) {
         this.autoModel = autoModel;
     }
 
@@ -89,20 +89,20 @@ public class EngineRequest {
         this.produceYear = produceYear;
     }
 
-    public String getFuelType() {
+    public Integer getNumberEng() {
+        return numberEng;
+    }
+
+    public void setNumberEng(Integer numberEng) {
+        this.numberEng = numberEng;
+    }
+
+    public Integer getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(String fuelType) {
+    public void setFuelType(Integer fuelType) {
         this.fuelType = fuelType;
-    }
-
-    public Integer getEngineCapacity() {
-        return engineCapacity;
-    }
-
-    public void setEngineCapacity(Integer engineCapacity) {
-        this.engineCapacity = engineCapacity;
     }
 
     public String getPowerKWt() {
@@ -113,11 +113,19 @@ public class EngineRequest {
         this.powerKWt = powerKWt;
     }
 
-    public String getNumberEng() {
-        return numberEng;
+    public Integer getEngineCapacity() {
+        return engineCapacity;
     }
 
-    public void setNumberEng(String numberEng) {
-        this.numberEng = numberEng;
+    public void setEngineCapacity(Integer engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
+
+    public List<ParamsRequest> getParamList() {
+        return paramList;
+    }
+
+    public void setParamList(List<ParamsRequest> paramList) {
+        this.paramList = paramList;
     }
 }

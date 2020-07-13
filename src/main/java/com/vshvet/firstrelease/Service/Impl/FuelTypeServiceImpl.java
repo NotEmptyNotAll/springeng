@@ -2,11 +2,21 @@ package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.FuelTypeDao;
 import com.vshvet.firstrelease.Entity.FuelType;
+import com.vshvet.firstrelease.Entity.Status;
 import com.vshvet.firstrelease.Service.FuelTypeService;
+import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
+import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
+import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FuelTypeServiceImpl implements FuelTypeService {
@@ -15,19 +25,77 @@ public class FuelTypeServiceImpl implements FuelTypeService {
     private FuelTypeDao fuelTypeDao;
 
     @Override
+    @Transactional
     public List<String> getAllName() {
-        fuelTypeDao.openCurrentSessionwithTransaction();
         List<String> autoModels = fuelTypeDao.getAllName();
-        fuelTypeDao.closeCurrentSessionwithTransaction();
         return autoModels;
     }
 
     @Override
+    @Transactional
     public List<FuelType> getAllFuelType() {
-        fuelTypeDao.openCurrentSessionwithTransaction();
         List<FuelType> autoModels = fuelTypeDao.getAll();
-        fuelTypeDao.closeCurrentSessionwithTransaction();
         return autoModels;
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getCroppedData(EngineRequest engineRequest) {
+        return  new ArrayList<DataByIdResponse>() {{
+            fuelTypeDao.getCroppedByParamType(engineRequest).forEach(elem -> {
+                add(new DataByIdResponse(elem.getNameType(),
+                        elem.getId(),elem.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    @Transactional
+    public String save(SaveDataRequest saveData) {
+        try {
+            FuelType fuelType = new FuelType();
+            fuelType.setStatus(new Status(saveData.getStatus()));
+            fuelType.setNameType(saveData.getSaveData());
+            fuelTypeDao.save(fuelType);
+            return "збереження було успішним";
+        } catch (Exception e) {
+            return "збереження не вдалося, спробуйте ще раз";
+        }
+    }
+
+    @Override
+    @Transactional
+    public Boolean update(UpdateDataRequest updateData) {
+        try {
+            FuelType newFuelType = fuelTypeDao.findById(updateData.getObjToBeChanged()).get();
+            FuelType oldFuelType = new FuelType(newFuelType);
+            newFuelType.setStatus(new Status(updateData.getStatus()));
+            newFuelType.setNameType(updateData.getUpdateData());
+            newFuelType.setId(updateData.getObjToBeChanged());
+            oldFuelType.setDate(new Date(new java.util.Date().getTime()));
+            fuelTypeDao.update(newFuelType,oldFuelType);
+            return true;
+        } catch (Exception e) {
+            return false;
+        } finally {
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getDataByIdResponse() {
+        List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
+            fuelTypeDao.getAll().forEach(elem -> {
+                add(new DataByIdResponse(elem.getNameType(),
+                        elem.getId(),elem.getStatus().getStatus()));
+            });
+        }};
+        return all;
+    }
+
+    @Override
+    public void imprt(ImprtDataRequest imprtData) {
+        imprtData.getList().forEach(this::save);
     }
 
 }

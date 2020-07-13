@@ -5,6 +5,7 @@ import com.vshvet.firstrelease.ConstValue;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "parameter_names", schema = ConstValue.SCHEMA_NAME)
@@ -13,17 +14,65 @@ public class ParameterNames {
     private String name;
     private String fullName;
     private Date dateCreate;
-
+    private Boolean treeRoot;
     private Collection<Elements> elementsById;
+    private Integer status_fk;
+    private Status status;
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public ParameterNames() {
+    }
+
+    public ParameterNames(int id, String name, String fullName, Boolean treeRoot, Integer status_fk) {
+        this.id = id;
+        this.name = name;
+        this.fullName = fullName;
+        this.treeRoot = treeRoot;
+        this.status_fk = status_fk;
+    }
+
+    public ParameterNames(ParameterNames parameterNames) {
+        this(parameterNames.getId(),
+                parameterNames.getName(),
+                parameterNames.getFullName(),
+                parameterNames.getTreeRoot(),
+                parameterNames.getStatus_fk());
+    }
+
+    public ParameterNames(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_parameter_names_seq")
+    @SequenceGenerator(name = "id_parameter_names_seq", initialValue = 244)
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "tree_root", length = 64)
+    public Boolean getTreeRoot() {
+        return treeRoot;
+    }
+
+    public void setTreeRoot(Boolean treeRoot) {
+        this.treeRoot = treeRoot;
     }
 
     @Basic
@@ -60,24 +109,28 @@ public class ParameterNames {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ParameterNames that = (ParameterNames) o;
-
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
-        if (dateCreate != null ? !dateCreate.equals(that.dateCreate) : that.dateCreate != null) return false;
-
-        return true;
+        return id == that.id &&
+                name.equals(that.name) &&
+                fullName.equals(that.fullName) &&
+                dateCreate.equals(that.dateCreate) &&
+                treeRoot.equals(that.treeRoot) &&
+                elementsById.equals(that.elementsById);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (dateCreate != null ? dateCreate.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, fullName, dateCreate, treeRoot, elementsById);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @OneToMany(mappedBy = "parameterNamesByParamNameFk")
@@ -87,4 +140,5 @@ public class ParameterNames {
 
     public void setElementsById(Collection<Elements> elementsById) {
         this.elementsById = elementsById;
-    }}
+    }
+}

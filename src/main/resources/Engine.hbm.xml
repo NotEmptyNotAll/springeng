@@ -12,7 +12,7 @@
             <column name="engine_type" sql-type="varchar(64)" length="64"/>
         </property>
         <property name="engineManufacturerFk">
-            <column name="engine_manufacturer_fk" sql-type="int(11)"/>
+            <column name="engine_manufacturer_fk" sql-type="int(11)"    />
         </property>
         <property name="cylindersPlacementFk">
             <column name="cylinders_placement_fk" sql-type="int(11)"/>

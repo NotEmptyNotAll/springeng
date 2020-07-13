@@ -1,13 +1,29 @@
 package com.vshvet.firstrelease.Service;
 
 import com.vshvet.firstrelease.Entity.AutoModel;
+import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
+import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
+import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 
 import java.util.List;
+import java.util.Set;
 
 public interface AutoModelService {
-    public List<AutoModel> getAutoModel();
+    List<AutoModel> getAutoModel();
 
-    public List<String> getAllNameOfModel();
+    List<DataByIdResponse> getCroppedData(EngineRequest engineRequest);
 
-    public AutoModel findById(int id);
+    List<DataByIdResponse> getDataByIdResponse();
+
+    Boolean update(UpdateDataRequest updateData);
+
+    String save(SaveDataRequest saveData);
+
+    List<String> getAllNameOfModel();
+
+    AutoModel findById(int id);
+
+    void imprt(ImprtDataRequest imprtData);
 }

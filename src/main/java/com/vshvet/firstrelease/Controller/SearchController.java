@@ -1,22 +1,18 @@
 package com.vshvet.firstrelease.Controller;
 
 
-import com.vshvet.firstrelease.Service.AutomobileEngineService;
-import com.vshvet.firstrelease.Service.ElementsService;
-import com.vshvet.firstrelease.Service.EngineNumberService;
-import com.vshvet.firstrelease.Service.ParametrsService;
+import com.vshvet.firstrelease.Entity.AutomobileEngine;
+import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.payload.Request.IdRequest;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Response.AutomobileEngineResponse;
-import com.vshvet.firstrelease.payload.Response.ElementsResponse;
-import com.vshvet.firstrelease.payload.Response.EngineResponse;
-import com.vshvet.firstrelease.payload.Response.ParametersResponse;
+import com.vshvet.firstrelease.payload.Response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
  * this controller is responsible for search requests
@@ -34,15 +30,38 @@ public class SearchController {
 
     private final EngineNumberService engineNumberService;
 
+    private final SearchPageLoadingService searchPageLoadingService;
+    private final EngineService engineService;
+
     //returns a specific element
     @RequestMapping(value = "/getElements", //
             method = RequestMethod.POST, //
             produces = {MediaType.APPLICATION_JSON_VALUE, //
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ElementsResponse getElements(@RequestBody IdRequest elementsIdRequest) {
-        return elementsService.getElements(elementsIdRequest.getId());
+    public Map<String, Object> getElements(@RequestBody IdRequest elementsIdRequest) {
+        return new HashMap<String, Object>() {{
+            put("name", automobileEngineService.getNameAuto(elementsIdRequest.getId()));
+            put("maxId", elementsService.getMaxId()+1);
+            put("elementsCh", elementsService.getAllRootElemByAutoId(elementsIdRequest.getId()));
+        }};
     }
+
+
+
+
+    @RequestMapping(value = "/getElementsAndMaxId", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public Map<String, Object> getElementsAndMaxId(@RequestBody IdRequest elementsIdRequest) {
+        return new HashMap<String, Object>() {{
+            put("maxId", automobileEngineService.getNameAuto(elementsIdRequest.getId()));
+            put("elementsCh", elementsService.getAllRootElemByAutoId(elementsIdRequest.getId()));
+        }};
+    }
+
 
     //returns the parameters of a specific element
     @RequestMapping(value = "/getParameters", //
@@ -51,7 +70,8 @@ public class SearchController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public List<ParametersResponse> getParameters(@RequestBody IdRequest elementsIdRequest) {
-        return parametrsService.getParamByIdElem(elementsIdRequest.getId());
+        return   parametrsService.getParamByIdElem(elementsIdRequest.getId(),elementsIdRequest.getAuto_id());
+           
     }
 
 
@@ -65,13 +85,47 @@ public class SearchController {
     }
 
 
+    @RequestMapping(value = "/getEng", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public FullEngineResponse getEng(@RequestBody IdRequest idRequest) {
+        return engineService.getEngineResponse(idRequest.getId());
+    }
+
+    @RequestMapping(value = "/getAutoEngineById", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public AutoEngineResponse getAutoEngineById(@RequestBody IdRequest idRequest) {
+        return automobileEngineService.getById(idRequest.getId());
+    }
+
     //main query that returns engine information
-    @RequestMapping(value = "/getAutoEngine", //
+    @RequestMapping(value = "/getAutoEngineForUpdate", //
             method = RequestMethod.POST, //
             produces = {MediaType.APPLICATION_JSON_VALUE, //
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Object getAutoEngineByParam(@RequestBody EngineRequest engine) {
+        List<AutoEngineResponse> list = automobileEngineService.findByParamForUpdate(engine);
+        if (list == null) {
+            return new HashMap<String, Object>() {{
+                put("listEng", list);
+                put("status", "недостатньо даних");
+            }};
+        }
+        return list;
+    }
+
+    @RequestMapping(value = "/getAutoEngine", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public Object getAutoEngine(@RequestBody EngineRequest engine) {
         List<AutomobileEngineResponse> list = automobileEngineService.findByParam(engine);
         if (list == null) {
             return new HashMap<String, Object>() {{
@@ -82,17 +136,30 @@ public class SearchController {
         return list;
     }
 
+    // query that returns cropped data(Engine type, fuel type and other)  by information of request
+    @RequestMapping(value = "/getCroppedStartData", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public Object getCroppedStartData(@RequestBody EngineRequest engine) {
+        return searchPageLoadingService.getCroppedDefaultData(engine);
+    }
 
     //autowired our service
     @Autowired
     public SearchController(AutomobileEngineService automobileEngineService,
                             ElementsService elementsService,
                             ParametrsService parametrsService,
-                            EngineNumberService engineNumberService) {
+                            EngineNumberService engineNumberService,
+                            SearchPageLoadingService searchPageLoadingService,
+                            EngineService engineService) {
+        this.engineService = engineService;
         this.engineNumberService = engineNumberService;
         this.parametrsService = parametrsService;
         this.automobileEngineService = automobileEngineService;
         this.elementsService = elementsService;
+        this.searchPageLoadingService = searchPageLoadingService;
     }
 
 }

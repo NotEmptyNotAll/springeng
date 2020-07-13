@@ -3,41 +3,80 @@ package com.vshvet.firstrelease.payload.Response;
 import com.vshvet.firstrelease.Entity.Parameters;
 
 public class ParametersResponse {
-    private String name;
-    private String measurementUnits;
+    private Integer id;
+    private Integer name;
+    private Integer units;
     private Double doubleMin;
     private Double doubleMax;
     private Double doubleNum;
     private String textData;
     private String author;
     private String source;
+    private Boolean editRow;
+    private Integer status;
+    private Integer select;
 
 
-    public ParametersResponse(Parameters parameters ) {
-        this.measurementUnits = parameters.getMeasurementUnitsByMeasurementUnitsFk().getShortNameM();
+    public ParametersResponse(Parameters parameters) {
+        this.units = parameters.getMeasurementUnitsByMeasurementUnitsFk().getId();
         this.doubleMin = parameters.getDoubleMin();
         this.doubleMax = parameters.getDoubleMax();
         this.doubleNum = parameters.getDoubleNum();
         this.textData = parameters.getTextData();
         this.author = parameters.getAuthor();
         this.source = parameters.getSource();
-        this.name= parameters.getElementsByElemFk().getParameterNamesByParamNameFk().getName();
+        this.name = parameters.getElementsByElemFk().getParameterNamesByParamNameFk().getId();
+        this.id = parameters.getParamId();
+        this.editRow = false;
+        this.status = parameters.getStatus().getId();
     }
 
-    public String getName() {
+    public Integer getSelect() {
+        return select;
+    }
+
+    public void setSelect(Integer select) {
+        this.select = select;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Boolean getEditRow() {
+        return editRow;
+    }
+
+    public void setEditRow(Boolean editRow) {
+        this.editRow = editRow;
+    }
+
+    public Integer getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Integer name) {
         this.name = name;
     }
 
-    public String getMeasurementUnits() {
-        return measurementUnits;
+    public Integer getUnits() {
+        return units;
     }
 
-    public void setMeasurementUnits(String measurementUnits) {
-        this.measurementUnits = measurementUnits;
+    public void setUnits(Integer units) {
+        this.units = units;
     }
 
     public Double getDoubleMin() {

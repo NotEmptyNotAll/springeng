@@ -13,9 +13,45 @@ public class EngineNumber {
     private int engineFk;
     private Date date;
     private AutomobileEngine engineByEngineFk;
+    private Integer status_fk;
+    private Status status;
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public EngineNumber() {
+    }
+
+    public EngineNumber(int id, String number, int engineFk, Integer status_fk) {
+        this.id = id;
+        this.number = number;
+        this.engineFk = engineFk;
+        this.status_fk = status_fk;
+    }
+
+    public EngineNumber(EngineNumber engineNumber) {
+        this(engineNumber.id,
+                engineNumber.getNumber(),
+                engineNumber.getEngineFk(),
+                engineNumber.getStatus_fk());
+    }
+
+    public EngineNumber(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_engine_number_seq")
+    @SequenceGenerator(name = "id_engine_number_seq", initialValue = 1)
     public int getId() {
         return id;
     }
@@ -35,7 +71,7 @@ public class EngineNumber {
     }
 
     @Basic
-    @Column(name = "engine_fk", insertable = false,updatable = false,nullable = false)
+    @Column(name = "engine_fk", insertable = false, updatable = false, nullable = false)
     public int getEngineFk() {
         return engineFk;
     }
@@ -77,6 +113,17 @@ public class EngineNumber {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 
     @ManyToOne
     @JoinColumn(name = "engine_fk", referencedColumnName = "id", nullable = false)

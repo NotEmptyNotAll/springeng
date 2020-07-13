@@ -13,8 +13,41 @@ public class AutoModel {
     private String modelName;
     private Date date;
     private Collection<AutomobileEngine> automobileEnginesById;
+    private Integer status_fk;
+    private Status status;
+
+    public AutoModel(int id, String modelName, Integer status_fk) {
+        this.id = id;
+        this.modelName = modelName;
+        this.status_fk = status_fk;
+    }
+
+    public AutoModel(AutoModel autoModel) {
+        this(autoModel.getId(),
+                autoModel.getModelName(),
+                autoModel.getStatus_fk());
+    }
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public AutoModel() {
+    }
+
+    public AutoModel(int id) {
+        this.id = id;
+    }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+            generator="id_auto_model_id")
+    @SequenceGenerator(name="id_auto_model_id", initialValue=193)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -56,6 +89,16 @@ public class AutoModel {
         if (date != null ? !date.equals(autoModel.date) : autoModel.date != null) return false;
 
         return true;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

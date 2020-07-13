@@ -13,8 +13,42 @@ public class AutoManufacture {
     private String manufactureName;
     private Date date;
     private Collection<AutomobileEngine> automobileEnginesById;
+    private Integer status_fk;
+    private Status status;
+
+    public AutoManufacture() {
+    }
+
+    public AutoManufacture(int id) {
+        this.id = id;
+    }
+
+    public AutoManufacture(int id, String manufactureName, Integer status_fk) {
+        this.id = id;
+        this.manufactureName = manufactureName;
+        this.status_fk = status_fk;
+    }
+
+    public AutoManufacture(AutoManufacture autoManufacture) {
+        this(autoManufacture.getId(),
+                autoManufacture.getManufactureName(),
+                autoManufacture.getStatus_fk());
+    }
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_auto_manufacture_seq")
+    @SequenceGenerator(name = "id_auto_manufacture_seq", initialValue = 20)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -25,6 +59,9 @@ public class AutoManufacture {
     }
 
     @Basic
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_auto_manufacture_seq")
+    @SequenceGenerator(name = "id_auto_manufacture_seq", initialValue = 4)
     @Column(name = "manufacture_name", nullable = false, length = 64)
     public String getManufactureName() {
         return manufactureName;
@@ -75,4 +112,15 @@ public class AutoManufacture {
     public void setAutomobileEnginesById(Collection<AutomobileEngine> automobileEnginesById) {
         this.automobileEnginesById = automobileEnginesById;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 }

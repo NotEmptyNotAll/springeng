@@ -22,9 +22,57 @@ public class AutomobileEngine {
     private Engine engineByEngineFk;
     private Elements elementsByElemId;
     private Collection<EngineNumber> engineNumbersById;
+    private Integer status_fk;
+    private Status status;
 
+    public AutomobileEngine(int id,
+                            int autoManufactureFk,
+                            int autoModelFk,
+                            Integer engineFk,
+                            Integer releaseYearFrom, Integer releaseYearBy, Integer status_fk) {
+        this.id = id;
+        this.autoManufactureFk = autoManufactureFk;
+        this.autoModelFk = autoModelFk;
+        this.engineFk = engineFk;
+        this.engineByEngineFk=new Engine(engineFk);
+        this.autoModelByAutoModelFk=new AutoModel(autoModelFk);
+        this.autoManufactureByAutoManufactureFk=new AutoManufacture(autoManufactureFk);
+        this.releaseYearFrom = releaseYearFrom;
+        this.releaseYearBy = releaseYearBy;
+        this.status_fk = status_fk;
+    }
+
+    public AutomobileEngine(AutomobileEngine automobileEngine) {
+        this(automobileEngine.getId(),
+                automobileEngine.getAutoManufactureFk(),
+                automobileEngine.getAutoModelFk(),
+                automobileEngine.getEngineFk(),
+                automobileEngine.getReleaseYearFrom(),
+                automobileEngine.getReleaseYearBy(),
+                automobileEngine.getStatus_fk());
+    }
+
+    @Basic
+    @Column(name = "status_fk", insertable = false, updatable = false)
+    public Integer getStatus_fk() {
+        return status_fk;
+    }
+
+    public void setStatus_fk(Integer status_fk) {
+        this.status_fk = status_fk;
+    }
+
+    public AutomobileEngine() {
+    }
+
+    public AutomobileEngine(int id) {
+        this.id = id;
+    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_automobile_engine_seq")
+    @SequenceGenerator(name = "id_automobile_engine_seq", initialValue = 193)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -35,7 +83,7 @@ public class AutomobileEngine {
     }
 
     @Basic
-    @Column(name = "auto_manufacture_fk",insertable = false,updatable = false, nullable = false)
+    @Column(name = "auto_manufacture_fk", insertable = false, updatable = false, nullable = true)
     public int getAutoManufactureFk() {
         return autoManufactureFk;
     }
@@ -45,7 +93,7 @@ public class AutomobileEngine {
     }
 
     @Basic
-    @Column(name = "auto_model_fk", insertable = false,updatable = false,nullable = false)
+    @Column(name = "auto_model_fk", insertable = false, updatable = false, nullable = true)
     public int getAutoModelFk() {
         return autoModelFk;
     }
@@ -55,7 +103,7 @@ public class AutomobileEngine {
     }
 
     @Basic
-    @Column(name = "engine_fk",insertable = false,updatable = false, nullable = true)
+    @Column(name = "engine_fk", insertable = false, updatable = false, nullable = true)
     public Integer getEngineFk() {
         return engineFk;
     }
@@ -85,7 +133,7 @@ public class AutomobileEngine {
     }
 
     @Basic
-    @Column(name = "elem_id",insertable = false,updatable = false, nullable = true)
+    @Column(name = "elem_id", insertable = false, updatable = false, nullable = true)
     public Integer getElemId() {
         return elemId;
     }
@@ -95,7 +143,7 @@ public class AutomobileEngine {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = true)
     public Date getDate() {
         return date;
     }
@@ -186,5 +234,16 @@ public class AutomobileEngine {
     public void setEngineNumbersById(Collection<EngineNumber> engineNumbersById) {
         this.engineNumbersById = engineNumbersById;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "status_fk", referencedColumnName = "id")
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 
 }
