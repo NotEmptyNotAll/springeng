@@ -48,11 +48,7 @@ public class MainController {
     }
 
 
-    @GetMapping("/lolkek")
-    public String lolkek() {
-        this.searchPageLoadingService.importExelFile();
-        return "ok";
-    }
+
 
     @GetMapping("/getAllAdditionalData")
     public AllAdditionalDataResponse getAllAdditionalData() {
