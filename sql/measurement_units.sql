@@ -1,0 +1,15 @@
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (2, null, null, 'Комплект', null, 'к-т', 2);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (4, null, null, 'Кіловат', null, 'kWt', 2);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (6, null, null, 'Нанометр', null, 'Нм', 2);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (7, null, null, 'г*см', null, 'г*см', 2);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (8, null, null, 'Килограмм', null, 'кг', 2);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (9, null, null, 'Градусов', null, 'град', 2);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (0, null, null, '', null, '', 2);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (58, '2020-07-08', null, 'Міліметр', null, 'мм', null);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (59, '2020-07-08', null, 'Милиметр', null, 'мм', null);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (60, '2020-07-08', null, 'Шкука', null, 'шт.', null);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (108, '2020-07-27', null, 'мм', null, 'Милиметр', null);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (1758, '2020-08-07', null, 'Милиметр', null, 'мм', null);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (5, null, null, 'Миллиметр', null, 'мм', 1);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (1759, '2020-08-07', null, 'шт.', null, 'Штука', null);
+INSERT INTO engdb.measurement_units (id, date, full_name_a, full_name_m, short_name_a, short_name_m, status_fk) VALUES (1, null, null, 'Штука', null, 'шт.', 1);

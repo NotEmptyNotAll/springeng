@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
                 .createQuery("from AutoManufacture am where  am.manufactureName<>'не задано' and date is null").list();
     }
 
+
     @Override
     @Transactional
     public void save(AutoManufacture autoManufacture) {
@@ -80,7 +82,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
     // so the object does not get deleted from the database
     @Override
     @Transactional
-    public void update(AutoManufacture newManufacture,AutoManufacture oldManufacture) {
+    public void update(AutoManufacture newManufacture, AutoManufacture oldManufacture) {
         getCurrentSession().update(newManufacture);
         getCurrentSession().save(oldManufacture);
     }
@@ -88,7 +90,8 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
     @Override
     @Transactional
     public void delete(AutoManufacture autoManufacture) {
-        getCurrentSession().delete(autoManufacture);
+        autoManufacture.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(autoManufacture);
     }
 
     @Override
@@ -113,7 +116,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
     @Transactional
     public List<AutoManufacture> getCroppedByParamName(EngineRequest engineRequest) {
         Query query = getCurrentSession()
-                .createQuery("select  ae.autoManufactureByAutoManufactureFk " +
+                .createQuery("select  DISTINCT ae.autoManufactureByAutoManufactureFk " +
                         "from AutomobileEngine ae " +
                         "INNER JOIN ae.engineByEngineFk e " +
                         "INNER JOIN ae.autoManufactureByAutoManufactureFk am " +
@@ -137,7 +140,21 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
         query.setParameter("engineCapParam", engineRequest.getEngineCapacity());
         query.setParameter("powerKwtParam", engineRequest.getPowerKWt());
         query.setParameter("releaseYearF", engineRequest.getProduceYear());
-        return  query.list();
+        return query.list();
+    }
+
+    @Override
+    public AutoManufacture findByName(String name) {
+        try {
+            Query query = getCurrentSession()
+                    .createQuery("from AutoManufacture where manufactureName=:nameParam");
+            query.setParameter("nameParam", name);
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            return (AutoManufacture) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @SuppressWarnings("unchecked")

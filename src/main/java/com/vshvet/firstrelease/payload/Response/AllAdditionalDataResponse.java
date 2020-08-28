@@ -14,6 +14,7 @@ public class AllAdditionalDataResponse {
     private List<DataByIdResponse> superchargeType;
     private List<DataByIdResponse> autoManufacture;
     private List<DataByIdResponse> parameterName;
+    private List<DataByIdResponse> parameterSizeName;
     private List<DataByIdResponse> units;
     private List<AutoDataResponse> autoEng;
 
@@ -29,6 +30,7 @@ public class AllAdditionalDataResponse {
                                      List<DataByIdResponse> superchargeType,
                                      List<DataByIdResponse> autoManufacture,
                                      List<DataByIdResponse> parameterName,
+                                     List<DataByIdResponse> parameterSizeName,
                                      List<EngineDataResponse> engine,
                                      List<DataByIdResponse> units,
                                      List<AutoDataResponse> autoEng) {
@@ -43,6 +45,15 @@ public class AllAdditionalDataResponse {
         this.superchargeType = superchargeType;
         this.autoManufacture = autoManufacture;
         this.parameterName = parameterName;
+        this.parameterSizeName=parameterSizeName;
+    }
+
+    public List<DataByIdResponse> getParameterSizeName() {
+        return parameterSizeName;
+    }
+
+    public void setParameterSizeName(List<DataByIdResponse> parameterSizeName) {
+        this.parameterSizeName = parameterSizeName;
     }
 
     public List<AutoDataResponse> getAutoEng() {

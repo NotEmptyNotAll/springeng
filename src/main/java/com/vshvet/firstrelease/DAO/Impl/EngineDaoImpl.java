@@ -3,6 +3,7 @@ package com.vshvet.firstrelease.DAO.Impl;
 import com.vshvet.firstrelease.DAO.EngineDao;
 import com.vshvet.firstrelease.Entity.Cylinders;
 import com.vshvet.firstrelease.Entity.Engine;
+import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import org.hibernate.Session;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -72,6 +74,20 @@ public class EngineDaoImpl implements EngineDao {
     }
 
     @Override
+    public Engine findByName(String name) {
+        try {
+            Query query = getCurrentSession()
+                    .createQuery("from Engine where engineType=:nameParam ");
+            query.setParameter("nameParam", name);
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            return (Engine) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     @Transactional
     public void update(Engine newEngine, Engine oldEngine) {
         getCurrentSession().update(newEngine);
@@ -83,7 +99,7 @@ public class EngineDaoImpl implements EngineDao {
     @Transactional
     public Set<Engine> getCroppedType(EngineRequest engineRequest) {
         Query query = getCurrentSession()
-                .createQuery("select e " +
+                .createQuery("select DISTINCT e " +
                         "from AutomobileEngine ae " +
                         "INNER JOIN ae.engineByEngineFk e " +
                         "INNER JOIN ae.autoManufactureByAutoManufactureFk am " +
@@ -117,7 +133,8 @@ public class EngineDaoImpl implements EngineDao {
     @Transactional
     public List<Engine> getAll() {
         return (List<Engine>) getCurrentSession()
-                .createQuery("from Engine e where  e.engineType IS NOT NULL and date is null").list();
+                .createQuery("from Engine e where  e.engineType IS NOT NULL and date is null").setFirstResult(1)
+                .setMaxResults(300).list();
     }
 
 
@@ -134,7 +151,9 @@ public class EngineDaoImpl implements EngineDao {
     @Override
     @Transactional
     public void delete(Engine engine) {
-        getCurrentSession().delete(engine);
+        engine.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(engine);
+        // getCurrentSession().delete(engine);
     }
 
 

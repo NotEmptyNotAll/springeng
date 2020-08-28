@@ -1,23 +1,38 @@
 package com.vshvet.firstrelease.Service;
 
+import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Elements;
+import com.vshvet.firstrelease.Entity.EngineManufacturer;
 import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface ElementsService {
     ElementsResponse getElements(Integer id);
 
+    Elements findByParentIdAndParamNameFk(Integer paramFk,Integer parentId);
+
+    void  save(Elements elements);
+
+    List<String> getListFileUrlById(Integer id);
+
+    List<ParamSizeNameResponse> getParametersSizeName(Integer id);
+
     List<TreeElementsResponse> getTreeElements();
 
-    Set<Integer> getParentElemId(EngineRequest request);
 
+    List<TreeToColumnsResponse> getTableColumn();
+
+    Set<Integer> getParentElemId(List<ParamsRequest> request);
 
     String save(SaveOrUpdateElementsRequest saveData);
 
     List<Elements> getAllNodeOfTree();
+
+    List<ElementsResponse> delete(Integer id);
 
     Integer getMaxId();
 
@@ -25,8 +40,10 @@ public interface ElementsService {
 
     Boolean update(SaveOrUpdateElementsRequest updateData);
 
+    Boolean update(List<SaveOrUpdateElementsRequest> updateData);
 
-    List<AutomobileEngineResponse> getParentElements(EngineRequest request);
+
+    List<AutomobileEngine> getParentElements(List<ParamsRequest> request);
 
     List<AutoEngineResponse> getParentElementsUpdate(EngineRequest request);
 
@@ -36,3 +53,4 @@ public interface ElementsService {
 
     void save(List<SaveOrUpdateElementsRequest> listElem);
 }
+

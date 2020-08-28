@@ -13,6 +13,11 @@ import java.util.List;
 
 
 public interface AutoManufactureService {
+
+    AutoManufacture findByName(String name);
+    void save(AutoManufacture autoManufacture);
+    List<DataByIdResponse> delete(Integer id);
+
     AutoManufacture findById(Integer id);
 
     List<String> getAllManufacture();

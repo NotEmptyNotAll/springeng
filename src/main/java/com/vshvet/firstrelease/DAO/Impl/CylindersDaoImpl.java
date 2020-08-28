@@ -86,8 +86,10 @@ public class CylindersDaoImpl implements CylindersDao {
 
     @Override
     @Transactional
-    public void delete(Cylinders Cylinders) {
-        getCurrentSession().delete(Cylinders);
+    public void delete(Cylinders cylinders) {
+        cylinders.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(cylinders);
+       // getCurrentSession().delete(Cylinders);
 
     }
 

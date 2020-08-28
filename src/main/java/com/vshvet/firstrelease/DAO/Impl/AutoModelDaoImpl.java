@@ -4,6 +4,7 @@ import com.vshvet.firstrelease.DAO.AutoModelDao;
 import com.vshvet.firstrelease.Entity.AutoModel;
 import com.vshvet.firstrelease.Entity.Cylinders;
 import com.vshvet.firstrelease.Entity.Engine;
+import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import org.hibernate.Session;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -39,11 +41,13 @@ public class AutoModelDaoImpl implements AutoModelDao {
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
+
     @Override
     @Transactional
     public void rollbackTransaction() {
         currentTransaction.rollback();
     }
+
     @Override
     @Transactional
     public void closeCurrentSessionwithTransaction() {
@@ -72,15 +76,29 @@ public class AutoModelDaoImpl implements AutoModelDao {
     @Override
     @Transactional
     public List<String> getAllNameOfModel() {
-        return  getCurrentSession()
+        return getCurrentSession()
                 .createQuery("select am.modelName from AutoModel am where  date is null").list();
+    }
+
+    @Override
+    public AutoModel findByName(String name) {
+        try {
+            Query query = getCurrentSession()
+                    .createQuery("from AutoModel where modelName=:nameParam");
+            query.setParameter("nameParam", name);
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            return (AutoModel) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override
     @Transactional
     public Set<AutoModel> getCroppedModel(EngineRequest engineRequest) {
         Query query = getCurrentSession()
-                .createQuery("select  ae.autoModelByAutoModelFk " +
+                .createQuery("select DISTINCT ae.autoModelByAutoModelFk " +
                         "from AutomobileEngine ae " +
                         "INNER JOIN ae.engineByEngineFk e " +
                         "INNER JOIN ae.autoManufactureByAutoManufactureFk am " +
@@ -127,7 +145,9 @@ public class AutoModelDaoImpl implements AutoModelDao {
     @Override
     @Transactional
     public void delete(AutoModel autoModel) {
-        getCurrentSession().delete(autoModel);
+        autoModel.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(autoModel);
+        //getCurrentSession().delete(autoModel);
     }
 
     @Override

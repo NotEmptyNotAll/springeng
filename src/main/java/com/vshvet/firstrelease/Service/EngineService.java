@@ -1,5 +1,7 @@
 package com.vshvet.firstrelease.Service;
 
+import com.vshvet.firstrelease.Entity.AutoManufacture;
+import com.vshvet.firstrelease.Entity.AutoModel;
 import com.vshvet.firstrelease.Entity.Engine;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Request.ImprtOrUpdateEngineRequest;
@@ -15,8 +17,12 @@ import java.util.Set;
 
 public interface EngineService {
     Engine findById(int id);
+    List<DataByIdResponse> delete(Integer id);
 
     List<String> getAllType();
+
+    Engine findByName(String name);
+
 
     List<DataByIdResponse> getCroppedData(EngineRequest engineRequest);
 

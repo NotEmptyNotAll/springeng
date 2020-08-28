@@ -16,10 +16,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,8 +53,9 @@ public class UserAuthService {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
+
         return new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
@@ -60,8 +63,8 @@ public class UserAuthService {
                 roles);
     }
 
+    @Transactional
     public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
-        userDao.openCurrentSessionwithTransaction();
         if (userDao.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -73,18 +76,14 @@ public class UserAuthService {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
         System.out.println(encoder.encode("0508090947"));
-        userDao.closeCurrentSessionwithTransaction();
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
-        roleDao.openCurrentSessionwithTransaction();
         if (strRoles == null) {
-
             Role userRole = roleDao.findByName(ERole.USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
@@ -110,18 +109,13 @@ public class UserAuthService {
                 }
             });
         }
-
         user.setRoles(roles);
-        roleDao.closeCurrentSessionwithTransaction();
-        userDao.openCurrentSessionwithTransaction();
         try {
             userDao.save(user);
         } catch (Exception e) {
             e.printStackTrace();
-            userDao.closeCurrentSessionwithTransaction();
-        }
 
-        userDao.closeCurrentSessionwithTransaction();
+        }
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 

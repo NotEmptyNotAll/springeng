@@ -142,7 +142,9 @@ public class EngineNumberDaoImpl implements EngineNumberDao {
     @Override
     @Transactional
     public void delete(EngineNumber engineNumber) {
-        getCurrentSession().delete(engineNumber);
+        engineNumber.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(engineNumber);
+      //  getCurrentSession().delete(engineNumber);
     }
 
     @Override

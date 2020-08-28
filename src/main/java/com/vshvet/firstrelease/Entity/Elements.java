@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 @Table(name = "elements", schema = ConstValue.SCHEMA_NAME)
@@ -14,23 +14,26 @@ public class Elements implements Comparable<Elements> {
     private int elemId;
     private Integer paramNameFk;
     private Integer parentId;
+    private String color;
     private Date date;
     private Collection<AutomobileEngine> automobileEnginesByElemId;
     private ParameterNames parameterNamesByParamNameFk;
     private Elements parentElements;
     private List<Parameters> parametersByElemId;
     private List<Elements> childElements;
-    private Integer status_fk;
+    private List<FileStorage> fileStorages;
+    private Integer sortNumber;
+
     private Status status;
 
     @Basic
-    @Column(name = "status_fk", insertable = false, updatable = false)
-    public Integer getStatus_fk() {
-        return status_fk;
+    @Column(name = "sort_number", insertable = false, updatable = false, nullable = true)
+    public Integer getSortNumber() {
+        return sortNumber;
     }
 
-    public void setStatus_fk(Integer status_fk) {
-        this.status_fk = status_fk;
+    public void setSortNumber(Integer status_fk) {
+        this.sortNumber = status_fk;
     }
 
 
@@ -43,9 +46,9 @@ public class Elements implements Comparable<Elements> {
 
     public Elements(Elements elements) {
         this(elements.getElemId(),
-        elements.getParamNameFk(),
-        elements.getParentId(),
-        elements.getStatus_fk());
+                elements.getParamNameFk(),
+                elements.getParentId(),
+                elements.getSortNumber());
     }
 
     public Elements(int elemId,
@@ -54,7 +57,23 @@ public class Elements implements Comparable<Elements> {
         this.elemId = elemId;
         this.paramNameFk = paramNameFk;
         this.parentId = parentId;
-        this.status_fk = status_fk;
+        this.sortNumber = status_fk;
+    }
+
+    public Elements(int elemId, Integer paramNameFk, Integer parentId, String color, Date date, Collection<AutomobileEngine> automobileEnginesByElemId, ParameterNames parameterNamesByParamNameFk, Elements parentElements, List<Parameters> parametersByElemId, List<Elements> childElements, List<FileStorage> fileStorages, Integer sortNumber, Status status) {
+        this.elemId = elemId;
+        this.paramNameFk = paramNameFk;
+        this.parentId = parentId;
+        this.color = color;
+        this.date = date;
+        this.automobileEnginesByElemId = automobileEnginesByElemId;
+        this.parameterNamesByParamNameFk = parameterNamesByParamNameFk;
+        this.parentElements = parentElements;
+        this.parametersByElemId = parametersByElemId;
+        this.childElements = childElements;
+        this.fileStorages = fileStorages;
+        this.sortNumber = sortNumber;
+        this.status = status;
     }
 
     @Id
@@ -65,6 +84,17 @@ public class Elements implements Comparable<Elements> {
 
     public void setElemId(int elemId) {
         this.elemId = elemId;
+    }
+
+
+    @Basic
+    @Column(name = "color", insertable = false, updatable = false, nullable = true)
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @Basic
@@ -88,7 +118,7 @@ public class Elements implements Comparable<Elements> {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = true)
     public Date getDate() {
         return date;
     }
@@ -97,29 +127,30 @@ public class Elements implements Comparable<Elements> {
         this.date = date;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Elements elements = (Elements) o;
-
-        if (elemId != elements.elemId) return false;
-        if (paramNameFk != null ? !paramNameFk.equals(elements.paramNameFk) : elements.paramNameFk != null)
-            return false;
-        if (parentId != null ? !parentId.equals(elements.parentId) : elements.parentId != null) return false;
-        if (date != null ? !date.equals(elements.date) : elements.date != null) return false;
-
-        return true;
+        return elemId == elements.elemId &&
+                Objects.equals(paramNameFk, elements.paramNameFk) &&
+                Objects.equals(parentId, elements.parentId) &&
+                Objects.equals(color, elements.color) &&
+                Objects.equals(date, elements.date) &&
+                Objects.equals(automobileEnginesByElemId, elements.automobileEnginesByElemId) &&
+                Objects.equals(parameterNamesByParamNameFk, elements.parameterNamesByParamNameFk) &&
+                Objects.equals(parentElements, elements.parentElements) &&
+                Objects.equals(parametersByElemId, elements.parametersByElemId) &&
+                Objects.equals(childElements, elements.childElements) &&
+                Objects.equals(fileStorages, elements.fileStorages) &&
+                Objects.equals(sortNumber, elements.sortNumber) &&
+                Objects.equals(status, elements.status);
     }
 
     @Override
     public int hashCode() {
-        int result = elemId;
-        result = 31 * result + (paramNameFk != null ? paramNameFk.hashCode() : 0);
-        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        return result;
+        return Objects.hash(elemId, paramNameFk, parentId, color, date, automobileEnginesByElemId, parameterNamesByParamNameFk, parentElements, parametersByElemId, childElements, fileStorages, sortNumber, status);
     }
 
     @OneToMany(mappedBy = "elementsByElemId")
@@ -182,6 +213,15 @@ public class Elements implements Comparable<Elements> {
     @Override
     public int compareTo(Elements o) {
         return parameterNamesByParamNameFk.getName().compareTo(o.getParameterNamesByParamNameFk().getName());
+    }
+
+    @OneToMany(mappedBy = "elements")
+    public List<FileStorage> getFileStorages() {
+        return fileStorages;
+    }
+
+    public void setFileStorages(List<FileStorage> fileStorages) {
+        this.fileStorages = fileStorages;
     }
     /*
     @ManyToMany(fetch = FetchType.LAZY)

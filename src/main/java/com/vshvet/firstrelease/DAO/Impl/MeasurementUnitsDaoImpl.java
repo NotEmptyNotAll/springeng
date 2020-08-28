@@ -85,7 +85,9 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
     @Override
     @Transactional
     public void delete(MeasurementUnits measurementUnits) {
-        getCurrentSession().delete(measurementUnits);
+        measurementUnits.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(measurementUnits);
+       // getCurrentSession().delete(measurementUnits);
     }
 
 

@@ -4,12 +4,20 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:postgresql://ec2-176-34-123-50.eu-west-1.compute.amazonaws.com:5432/db5qnh1bfj1gtu?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+
+        <!--
+            <property name="connection.url">jdbc:postgresql://ec2-46-137-124-19.eu-west-1.compute.amazonaws.com:5432/d55th6pgmch1u4?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.username">icwwgiydtdsnfb</property>
-        <property name="connection.password">602c9ff61a794a323808fbc51113d2c30bb259fde74fc35fcb2a5c1272c3da00</property>
+        <property name="connection.username">cucpkvyeivffzw</property>
+        <property name="connection.password">c9e33c931571c468ff36515f385dff9d684b856c9d3a4ab1e44385839b4594d0</property>
+ -->
+
+        <property name="connection.url">jdbc:mariadb://localhost:3306/engdb?sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+        <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
+        <property name="connection.username">admin</property>
+        <property name="connection.password">root</property>
         <property name="hibernate.hbm2ddl.auto" >update</property>
-        <property name="hibernate.jdbc.fetch_size">50</property>
+
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>

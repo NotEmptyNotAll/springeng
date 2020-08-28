@@ -1,5 +1,7 @@
 package com.vshvet.firstrelease.Service;
 
+import com.vshvet.firstrelease.Entity.AutoManufacture;
+import com.vshvet.firstrelease.Entity.AutoModel;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
@@ -14,6 +16,12 @@ public interface FuelTypeService {
     List<String> getAllName();
 
     List<FuelType> getAllFuelType();
+    List<DataByIdResponse> delete(Integer id);
+
+    FuelType findByName(String name);
+
+    void save(FuelType fuelType);
+
 
     List<DataByIdResponse> getCroppedData(EngineRequest engineRequest);
 

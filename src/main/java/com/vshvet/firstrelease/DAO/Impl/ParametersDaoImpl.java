@@ -1,9 +1,11 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.ParametersDao;
+import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.ParameterNames;
 import com.vshvet.firstrelease.Entity.Parameters;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
+import com.vshvet.firstrelease.payload.Response.ParamSizeNameResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +31,15 @@ public class ParametersDaoImpl implements ParametersDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional
+    public List<Parameters> getParamByAutoId(Integer autoId)  {
+        Query query =  getCurrentSession()
+                .createQuery("from Parameters p where p.elemFk>0 and p.autoId=:autoIdParam and p.date is null");
+        query.setParameter("autoIdParam", autoId);
+        return    query.list();
+    }
 
     @Override
     @Transactional
@@ -83,10 +95,17 @@ public class ParametersDaoImpl implements ParametersDao {
                 (Parameters) query.list().get(0) : null;
     }
 
+
+
     @Override
     @Transactional
     public void save(Parameters parameters) {
-        getCurrentSession().save(parameters);
+        getCurrentSession().saveOrUpdate(parameters);
+        /*Query query = getCurrentSession().createQuery("update Parameters set autoId = :autoIdParam" +
+                "  where paramId = :idParam");
+        query.setParameter("idParam", parameters.getParamId());
+        query.setParameter("autoIdParam", parameters.getAutoId());
+        query.executeUpdate();*/
     }
 
     //we do not update the object,
@@ -103,7 +122,9 @@ public class ParametersDaoImpl implements ParametersDao {
     @Override
     @Transactional
     public void delete(Parameters parameters) {
-        getCurrentSession().delete(parameters);
+        parameters.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(parameters);
+       // getCurrentSession().delete(parameters);
     }
 
     @Override

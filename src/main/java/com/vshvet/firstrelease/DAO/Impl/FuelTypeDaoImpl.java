@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -95,6 +96,21 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
         return new HashSet<>(query.list());
     }
 
+    @Override
+    public FuelType findByName(String name) {
+        try {
+            Query query = getCurrentSession()
+                    .createQuery("from FuelType where nameType=:nameParam");
+            query.setParameter("nameParam", name);
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            return (FuelType) query.getSingleResult();
+        } catch (
+                NoResultException e) {
+            return null;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     @Transactional
@@ -120,7 +136,6 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
     }
 
 
-
     @Override
     @Transactional
     public void rollbackTransaction() {
@@ -130,7 +145,9 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
     @Override
     @Transactional
     public void delete(FuelType fuelType) {
-        getCurrentSession().delete(fuelType);
+        fuelType.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(fuelType);
+        //getCurrentSession().delete(fuelType);
     }
 
     @Override

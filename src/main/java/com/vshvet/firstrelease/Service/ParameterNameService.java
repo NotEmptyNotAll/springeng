@@ -9,14 +9,20 @@ import java.util.List;
 
 public interface ParameterNameService {
     List<ParamNameNodeResponse> getAllNames();
+    List<DataByIdResponse> delete(Integer id);
 
     Integer getMaxId();
+
+    void save(ParameterNames parameterNames);
+
+    ParameterNames findByName(String name);
 
     List<DataByIdResponse> getDataByIdResponse();
 
     Boolean update(UpdateTwoDataRequest updateData);
 
     List<DataByIdResponse> getAllTreeRootName();
+    List<DataByIdResponse> getAllParameterSizeName();
 
     List<ParameterNames> getAllParametersName();
 

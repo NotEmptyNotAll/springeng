@@ -86,7 +86,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "auto_id")
+    @Column(name = "auto_id",  nullable = true)
     public int getAutoId() {
         return autoId;
     }
@@ -97,9 +97,9 @@ public class Parameters {
 
     @Id
     @Column(name = "param_Id", nullable = true)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "id_parameters_seq")
-    @SequenceGenerator(name = "id_parameters_seq", initialValue = 3115)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+            generator="id_parameters_seq")
+    @SequenceGenerator(name="id_parameters_seq", initialValue=37950)
     public int getParamId() {
         return paramId;
     }
@@ -114,7 +114,7 @@ public class Parameters {
         return elemFk;
     }
 
-    public void setElemFk(int elemFk) {
+    public void  setElemFk(int elemFk) {
         this.elemFk = elemFk;
     }
 
@@ -252,9 +252,7 @@ public class Parameters {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Parameters that = (Parameters) o;
-
         if (paramId != that.paramId) return false;
         if (elemFk != that.elemFk) return false;
         if (measurementUnitsFk != that.measurementUnitsFk) return false;

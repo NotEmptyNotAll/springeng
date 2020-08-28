@@ -11,6 +11,9 @@
         <property name="elemFk">
             <column name="elem_fk" sql-type="int(11)"/>
         </property>
+        <property name="autoId">
+            <column name="auto_id" sql-type="int(11)"/>
+        </property>
         <property name="measurementUnitsFk">
             <column name="measurement_units_fk" sql-type="int(11)"/>
         </property>

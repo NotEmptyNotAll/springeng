@@ -23,6 +23,7 @@ public class AutomobileEngine {
     private Elements elementsByElemId;
     private Collection<EngineNumber> engineNumbersById;
     private Integer status_fk;
+    private String years;
     private Status status;
 
     public AutomobileEngine(int id,
@@ -70,9 +71,7 @@ public class AutomobileEngine {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "id_automobile_engine_seq")
-    @SequenceGenerator(name = "id_automobile_engine_seq", initialValue = 193)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -80,6 +79,16 @@ public class AutomobileEngine {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "years", insertable = false, updatable = false, nullable = true)
+    public String getYears() {
+        return years;
+    }
+
+    public void setYears(String years) {
+        this.years = years;
     }
 
     @Basic

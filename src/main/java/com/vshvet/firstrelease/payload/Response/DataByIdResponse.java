@@ -5,7 +5,6 @@ public class DataByIdResponse {
     private Integer id;
     private String status;
     private String secondary_data;
-
     public DataByIdResponse() {
     }
 

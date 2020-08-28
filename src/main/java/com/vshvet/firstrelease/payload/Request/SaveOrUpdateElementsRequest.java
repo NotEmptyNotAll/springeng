@@ -5,6 +5,8 @@ public class   SaveOrUpdateElementsRequest implements Comparable<SaveOrUpdateEle
     private int elemId;
     private Integer paramNameFk;
     private Integer parentId;
+    private String color;
+    private Integer sortNumber;
 
     public SaveOrUpdateElementsRequest() {
     }
@@ -18,6 +20,22 @@ public class   SaveOrUpdateElementsRequest implements Comparable<SaveOrUpdateEle
     public SaveOrUpdateElementsRequest(int elemId, Integer paramNameFk) {
         this.elemId = elemId;
         this.paramNameFk = paramNameFk;
+    }
+
+    public Integer getSortNumber() {
+        return sortNumber;
+    }
+
+    public void setSortNumber(Integer sortNumber) {
+        this.sortNumber = sortNumber;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public int getElemId() {

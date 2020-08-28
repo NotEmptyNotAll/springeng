@@ -11,6 +11,9 @@ import java.util.Set;
 public interface EngineNumberService {
     List<String> getAllNumber();
 
+    List<DataByIdResponse> delete(Integer id);
+
+
     List<DataByIdResponse> getCroppedData(EngineRequest engineRequest);
 
     String save(SaveTwoDataRequest saveData);

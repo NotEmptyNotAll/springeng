@@ -1,6 +1,7 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.EngineManufactureDao;
+import com.vshvet.firstrelease.Entity.Engine;
 import com.vshvet.firstrelease.Entity.EngineManufacturer;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -83,6 +85,20 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
     }
 
     @Override
+    public EngineManufacturer findByName(String name) {
+        try {
+            Query query = getCurrentSession()
+                    .createQuery("from EngineManufacturer where nameManufacturer=:nameParam");
+            query.setParameter("nameParam", name);
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            return (EngineManufacturer) query.getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     @Transactional
     public Set<EngineManufacturer> getCroppedByParamName(EngineRequest engineRequest) {
         Query query = getCurrentSession()
@@ -133,7 +149,9 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
     @Override
     @Transactional
     public void delete(EngineManufacturer engineManufacturer) {
-        getCurrentSession().delete(engineManufacturer);
+        engineManufacturer.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(engineManufacturer);
+        // getCurrentSession().delete(engineManufacturer);
     }
 
 

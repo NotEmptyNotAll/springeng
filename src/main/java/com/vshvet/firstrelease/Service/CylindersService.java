@@ -10,6 +10,9 @@ import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import java.util.List;
 
 public interface CylindersService {
+
+    List<DataByIdResponse> delete(Integer id);
+
     String save(SaveDataRequest saveData);
 
     List<Cylinders> getAllCylinders();

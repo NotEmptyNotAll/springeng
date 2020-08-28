@@ -49,10 +49,11 @@ public class TransactionConfig {
         Properties properties = new Properties();
 
         // See: application.properties
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect");
+       // properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
-        properties.put("hibernate.jdbc.fetch_size", "50");
+     //   properties.put("hibernate.jdbc.fetch_size", "50");
         properties.put("log4j.logger.org.hibernate.SQ", "DEBUG");
         properties.put("log4j.logger.org.hibernate.type", "TRACE");
         properties.put("current_session_context_class", //

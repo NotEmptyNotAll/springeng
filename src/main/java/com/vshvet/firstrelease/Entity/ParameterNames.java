@@ -54,9 +54,8 @@ public class ParameterNames {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "id_parameter_names_seq")
-    @SequenceGenerator(name = "id_parameter_names_seq", initialValue = 244)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     public int getId() {
         return id;
     }
@@ -76,7 +75,7 @@ public class ParameterNames {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 64)
+    @Column(name = "name", nullable = true, length = 64)
     public String getName() {
         return name;
     }
@@ -96,7 +95,7 @@ public class ParameterNames {
     }
 
     @Basic
-    @Column(name = "date_create", nullable = false)
+    @Column(name = "date_create", nullable = true)
     public Date getDateCreate() {
         return dateCreate;
     }

@@ -25,5 +25,29 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ec2-176-34-123-50.eu-west-1.compute.amazonaws.com:5432/db5qnh1bfj1gtu</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="db5qnh1bfj1gtu@ec2-176-34-123-50.eu-west-1.compute.amazonaws.com" uuid="8ec4163e-7e58-48bf-898c-9362c35c702f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-176-34-123-50.eu-west-1.compute.amazonaws.com:5432/db5qnh1bfj1gtu</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="firstrelease/Hibernate" uuid="34a063a6-138b-4dd8-b431-7737e5f4333d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-46-137-124-19.eu-west-1.compute.amazonaws.com:5432/d55th6pgmch1u4?sslfactory=org.postgresql.ssl.NonValidatingFactory</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="8470c4a8-1de7-41b1-bdc9-cd1ce4a49ada">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+/home/gtkf-3959/project/enginefinal/src/main/resources/hibernate.cfg.xml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-176-34-123-50.eu-west-1.compute.amazonaws.com:5432/db5qnh1bfj1gtu?sslfactory=org.postgresql.ssl.NonValidatingFactory</jdbc-url>
+    </data-source>
   </component>
 </project>

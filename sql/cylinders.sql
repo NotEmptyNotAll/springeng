@@ -1,0 +1,10 @@
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (1, null, 2, 'однорядний двигун');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (0, null, 1, 'не задано');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (302, '2020-08-25', null, 'test');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (252, null, 1, 'test1');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (3, null, 2, 'VR-двигун');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (100, null, 2, 'не задано');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (152, '2020-08-12', 2, 'V-подібний двигун');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (2, null, 2, 'V-подібний двигун');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (202, '2020-08-13', 2, 'test');
+INSERT INTO engdb.cylinders (id, date, status_fk, type_name) VALUES (102, '2020-08-16', 2, 'test2');

@@ -21,6 +21,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EngineServiceImpl implements EngineService {
@@ -37,6 +38,23 @@ public class EngineServiceImpl implements EngineService {
         Engine engine = engineDao.findById(id).orElseThrow(() -> new ObjectNotFoundException("id : " + id));
         //engineDao.getByParam(new EngineRequest(engine));
         return engine;
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        Engine engine = engineDao.findById(id).get();
+        List<AutomobileEngine> automobileEngines= engine.getAutomobileEnginesById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (automobileEngines.size()==0) {
+            this.engineDao.delete(engine);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+                automobileEngines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getEngineByEngineFk().getEngineType(), elem.getId())));
+            }};
+        }
     }
 
     @Override
@@ -73,6 +91,11 @@ public class EngineServiceImpl implements EngineService {
     public List<String> getAllType() {
         List<String> engines = engineDao.getAllType();
         return engines;
+    }
+
+    @Override
+    public Engine findByName(String name) {
+        return engineDao.findByName(name);
     }
 
     @Override

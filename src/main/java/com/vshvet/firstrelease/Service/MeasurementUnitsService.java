@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MeasurementUnitsService {
     List<DataByIdResponse> getAllUnits();
+    List<DataByIdResponse> delete(Integer id);
 
     Boolean update(UpdateTwoDataRequest updateData);
 

@@ -10,6 +10,8 @@ import java.util.Map;
 public interface SearchPageLoadingService {
     DefaultDataResponse getCroppedDefaultData(EngineRequest engine);
 
+    void importExelFile();
+
      Map<String, ?> getDefaultData();
 
      Map<Object, Object> getParamName();

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SuperchargedTypeServiceImpl implements SuperchargedTypeService {
@@ -41,6 +42,23 @@ public class SuperchargedTypeServiceImpl implements SuperchargedTypeService {
         } catch (Exception e) {
             return false;
         } finally {
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        SuperchargedType superchargedType = superchargedTypeDao.findById(id).get();
+        List<Engine> engines= superchargedType.getEnginesById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (engines.size() == 0) {
+            this.superchargedTypeDao.delete(superchargedType);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+                engines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getEngineType(), elem.getId())));
+            }};
         }
     }
 

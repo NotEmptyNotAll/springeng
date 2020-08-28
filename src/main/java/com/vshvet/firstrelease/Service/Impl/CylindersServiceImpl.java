@@ -1,8 +1,7 @@
 package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.CylindersDao;
-import com.vshvet.firstrelease.Entity.Cylinders;
-import com.vshvet.firstrelease.Entity.Status;
+import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.CylindersService;
 import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
 import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
@@ -15,12 +14,30 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CylindersServiceImpl implements CylindersService {
 
     @Autowired
     private CylindersDao cylindersDao;
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        Cylinders cylinders = cylindersDao.findById(id).get();
+        List<Engine> engines= cylinders.getEnginesById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (engines.size()==0) {
+            this.cylindersDao.delete(cylinders);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+               engines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getEngineType(), elem.getId())));
+            }};
+        }
+    }
 
     @Override
     @Transactional

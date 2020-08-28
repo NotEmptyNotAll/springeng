@@ -16,6 +16,17 @@ public class ParametersResponse {
     private Integer status;
     private Integer select;
 
+    public ParametersResponse(Integer name) {
+        this.name = name;
+        this.id = -1;
+        this.editRow = false;
+        this.doubleNum = 0d;
+        this.source = "";
+        this.status = 1;
+        this.units = 5;
+    }
+
+
 
     public ParametersResponse(Parameters parameters) {
         this.units = parameters.getMeasurementUnitsByMeasurementUnitsFk().getId();
@@ -25,7 +36,7 @@ public class ParametersResponse {
         this.textData = parameters.getTextData();
         this.author = parameters.getAuthor();
         this.source = parameters.getSource();
-        this.name = parameters.getElementsByElemFk().getParameterNamesByParamNameFk().getId();
+        this.name = parameters.getElementsByElemFk().getParamNameFk();
         this.id = parameters.getParamId();
         this.editRow = false;
         this.status = parameters.getStatus().getId();

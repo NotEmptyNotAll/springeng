@@ -2,6 +2,8 @@ package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.AutoManufactureDao;
 import com.vshvet.firstrelease.Entity.AutoManufacture;
+import com.vshvet.firstrelease.Entity.AutomobileEngine;
+import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.Status;
 import com.vshvet.firstrelease.Service.AutoManufactureService;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
@@ -16,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class AutoManufactureServiceImpl implements AutoManufactureService {
@@ -23,6 +27,37 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
     @Autowired
     private AutoManufactureDao autoManufactureDao;
 
+
+    @Override
+    public AutoManufacture findByName(String name) {
+        return autoManufactureDao.findByName(name);
+    }
+
+    @Override
+    public void save(AutoManufacture autoManufacture) {
+        try {
+            autoManufactureDao.save(autoManufacture);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        AutoManufacture autoManufacture = autoManufactureDao.findById(id).get();
+        List<AutomobileEngine> automobileEngines= autoManufacture.getAutomobileEnginesById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (automobileEngines.size()==0) {
+            this.autoManufactureDao.delete(autoManufacture);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+               automobileEngines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getEngineByEngineFk().getEngineType(), elem.getId())));
+            }};
+        }
+    }
 
     @Override
     @Transactional
@@ -99,5 +134,6 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
                 add(new DataByIdResponse(elem.getManufactureName(),
                         elem.getId()));
             });
-        }};    }
+        }};
+    }
 }

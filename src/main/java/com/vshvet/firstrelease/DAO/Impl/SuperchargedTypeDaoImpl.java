@@ -88,7 +88,9 @@ public class SuperchargedTypeDaoImpl implements SuperchargedTypeDao {
     @Override
     @Transactional
     public void delete(SuperchargedType superchargedType) {
-        getCurrentSession().delete(superchargedType);
+        superchargedType.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(superchargedType);
+       // getCurrentSession().delete(superchargedType);
     }
 
 

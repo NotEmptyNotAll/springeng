@@ -1,9 +1,8 @@
 package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.EngineManufactureDao;
-import com.vshvet.firstrelease.Entity.Cylinders;
-import com.vshvet.firstrelease.Entity.EngineManufacturer;
-import com.vshvet.firstrelease.Entity.Status;
+import com.vshvet.firstrelease.Entity.*;
+
 import com.vshvet.firstrelease.Service.EngineManufactureService;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
@@ -18,6 +17,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EngineManufactureServiceImpl implements EngineManufactureService {
@@ -31,6 +31,37 @@ public class EngineManufactureServiceImpl implements EngineManufactureService {
     public List<String> getAllName() {
         List<String> allName = engineManufactureDao.getAllName();
         return allName;
+    }
+
+    @Override
+    public EngineManufacturer findByName(String name) {
+        return engineManufactureDao.findByName(name);
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        EngineManufacturer engineManufacturer = engineManufactureDao.findById(id).get();
+        List<Engine> engines = engineManufacturer.getEnginesById()
+                .stream().filter(item -> item.getDate() == null).collect(Collectors.toList());
+        if (engines.size() == 0) {
+            this.engineManufactureDao.delete(engineManufacturer);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+                engines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getEngineType(), elem.getId())));
+            }};
+        }
+    }
+
+    @Override
+    public void save(EngineManufacturer engineManufacturer) {
+        try {
+            engineManufactureDao.save(engineManufacturer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

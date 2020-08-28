@@ -10,6 +10,8 @@ public interface AutoManufactureDao extends Dao<AutoManufacture> {
 
     List<AutoManufacture> getCroppedByParamName(EngineRequest engineRequest);
 
+    AutoManufacture findByName(String name);
+
     List<String> getAllNameOfManufacture();
 
 }

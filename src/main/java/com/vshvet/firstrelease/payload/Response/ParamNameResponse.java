@@ -10,12 +10,14 @@ public class ParamNameResponse {
 
     private String fullName;
     private boolean tree_root;
+    private String status;
 
     public ParamNameResponse() {
     }
 
 
-    public ParamNameResponse(ParameterNames parameterNames, Integer id) {
+    public ParamNameResponse(ParameterNames parameterNames,
+                             Integer id) {
         this.name = parameterNames.getName();
         this.fullName = parameterNames.getFullName();
         this.id = id;
@@ -28,10 +30,15 @@ public class ParamNameResponse {
         this.tree_root = parameterNames.getTreeRoot();
     }
 
-    public ParamNameResponse(Integer id, String name, String fullName) {
+    public ParamNameResponse(Integer id,
+                             String name,
+                             String fullName,
+                             String status,
+                             boolean tree_root) {
         this.id = id;
         this.name = name;
         this.fullName = fullName;
+        this.tree_root=tree_root;
     }
 
 
@@ -57,6 +64,14 @@ public class ParamNameResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getFullName() {

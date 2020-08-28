@@ -9,6 +9,7 @@ import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import com.vshvet.firstrelease.payload.Response.ParamNameNodeResponse;
+import com.vshvet.firstrelease.payload.Response.ParamNameResponse;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ParameterNameServiceImpl implements ParameterNameService {
@@ -44,9 +46,41 @@ public class ParameterNameServiceImpl implements ParameterNameService {
 
     @Override
     @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        ParameterNames parameterNames = parameterNameDao.findById(id).get();
+        List<Elements> elements= parameterNames.getElementsById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (elements.size()==0) {
+            this.parameterNameDao.delete(parameterNames);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+                elements.forEach(elem ->
+                        add(new DataByIdResponse(elem.getParentElements().getParameterNamesByParamNameFk().getName(),
+                                elem.getParentElements().getElemId())));
+            }};
+        }
+    }
+
+    @Override
+    @Transactional
     public Integer getMaxId() {
         Integer maxId = parameterNameDao.getMaxId();
         return maxId;
+    }
+
+    @Override
+    public void save(ParameterNames parameterNames) {
+        try {
+            parameterNameDao.save(parameterNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public ParameterNames findByName(String name) {
+        return parameterNameDao.findByName(name);
     }
 
     @Override
@@ -83,20 +117,28 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     @Override
     @Transactional
     public List<DataByIdResponse> getAllTreeRootName() {
-        List<DataByIdResponse> list = new ArrayList<DataByIdResponse>() {{
+        return new ArrayList<DataByIdResponse>() {{
             parameterNameDao.getAllTreeRootName().forEach(elem ->
                     add(new DataByIdResponse(elem.getFullName(), elem.getName(),
                             elem.getId(), elem.getStatus().getStatus()))
             );
         }};
-        return list;
+    }
+
+    @Override
+    public List<DataByIdResponse> getAllParameterSizeName() {
+        return new ArrayList<DataByIdResponse>() {{
+            parameterNameDao.getAllParameterSizeName().forEach(elem ->
+                    add(new DataByIdResponse(elem.getFullName(), elem.getName(),
+                            elem.getId(), elem.getStatus().getStatus()))
+            );
+        }};
     }
 
     @Override
     @Transactional
     public List<ParameterNames> getAllParametersName() {
-        List all = parameterNameDao.getAll();
-        return all;
+        return parameterNameDao.getAll();
     }
 
     @Override
@@ -107,7 +149,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
             parameterNames.setStatus(new Status(saveData.getStatus()));
             parameterNames.setName(saveData.getSaveData_primary());
             parameterNames.setFullName(saveData.getSaveData_secondary());
-            parameterNames.setTreeRoot(false);
+            parameterNames.setTreeRoot(true);
             parameterNameDao.save(parameterNames);
             return "збереження було успішним";
         } catch (Exception e) {

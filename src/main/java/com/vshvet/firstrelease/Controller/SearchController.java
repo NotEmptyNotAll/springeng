@@ -5,6 +5,7 @@ import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.payload.Request.IdRequest;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.ParametersPageRequest;
 import com.vshvet.firstrelease.payload.Response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -42,12 +43,10 @@ public class SearchController {
     public Map<String, Object> getElements(@RequestBody IdRequest elementsIdRequest) {
         return new HashMap<String, Object>() {{
             put("name", automobileEngineService.getNameAuto(elementsIdRequest.getId()));
-            put("maxId", elementsService.getMaxId()+1);
+            put("maxId", elementsService.getMaxId() + 1);
             put("elementsCh", elementsService.getAllRootElemByAutoId(elementsIdRequest.getId()));
         }};
     }
-
-
 
 
     @RequestMapping(value = "/getElementsAndMaxId", //
@@ -70,8 +69,29 @@ public class SearchController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public List<ParametersResponse> getParameters(@RequestBody IdRequest elementsIdRequest) {
-        return   parametrsService.getParamByIdElem(elementsIdRequest.getId(),elementsIdRequest.getAuto_id());
-           
+        return parametrsService.getParamByIdElem(elementsIdRequest.getId(), elementsIdRequest.getAuto_id());
+    }
+
+
+    @RequestMapping(value = "/getFileUrlById", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public Map<String, Object> getFileUrlById(@RequestBody IdRequest elementsIdRequest) {
+        return new HashMap<String, Object>() {{
+            put("listUrl", elementsService.getListFileUrlById(elementsIdRequest.getId()));
+        }};
+    }
+
+
+    @RequestMapping(value = "/getParametersSizeName", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public List<ParamSizeNameResponse> getParametersSizeName(@RequestBody IdRequest elementsIdRequest) {
+        return elementsService.getParametersSizeName(elementsIdRequest.getId());
     }
 
 
@@ -134,6 +154,19 @@ public class SearchController {
             }};
         }
         return list;
+    }
+
+    @RequestMapping(value = "/getAllAutoEngAndParam", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public Map<String, Object> getAllAutoEngAndParam(@RequestBody ParametersPageRequest request) {
+        return new HashMap<String, Object>() {{
+            put("engineData", automobileEngineService.getAllAutoEngAndParam(request));
+            put("countResults", automobileEngineService.getNumberOfPage(request));
+            put("columnParam", elementsService.getTableColumn());
+        }};
     }
 
     // query that returns cropped data(Engine type, fuel type and other)  by information of request

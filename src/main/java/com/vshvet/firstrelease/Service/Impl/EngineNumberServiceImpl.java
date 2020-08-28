@@ -31,6 +31,14 @@ public class EngineNumberServiceImpl implements EngineNumberService {
 
     @Override
     @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        EngineNumber engineNumber = engineNumberDao.findById(id).get();
+        this.engineNumberDao.delete(engineNumber);
+        return null;
+    }
+
+    @Override
+    @Transactional
     public List<DataByIdResponse> getCroppedData(EngineRequest engineRequest) {
         return new ArrayList<DataByIdResponse>() {{
             engineNumberDao.getCroppedByParamName(engineRequest).forEach(elem -> {

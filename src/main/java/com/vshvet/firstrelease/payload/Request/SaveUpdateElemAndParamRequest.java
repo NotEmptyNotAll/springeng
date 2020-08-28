@@ -6,6 +6,7 @@ public class SaveUpdateElemAndParamRequest {
     private List<SaveOrUpdateElementsRequest> listElem;
     private List<SaveOrUpdateParametersRequest> listSaveParam;
     private List<SaveOrUpdateParametersRequest> listUpdateParam;
+    private List<SaveOrUpdateElementsRequest> listUpdateElem;
 
     public SaveUpdateElemAndParamRequest(List<SaveOrUpdateElementsRequest> listElem,
                                          List<SaveOrUpdateParametersRequest> listSaveParam,
@@ -15,7 +16,25 @@ public class SaveUpdateElemAndParamRequest {
         this.listUpdateParam = listUpdateParam;
     }
 
+    public SaveUpdateElemAndParamRequest(List<SaveOrUpdateElementsRequest> listElem,
+                                         List<SaveOrUpdateParametersRequest> listSaveParam,
+                                         List<SaveOrUpdateParametersRequest> listUpdateParam,
+                                         List<SaveOrUpdateElementsRequest> listUpdateElem) {
+        this.listElem = listElem;
+        this.listSaveParam = listSaveParam;
+        this.listUpdateParam = listUpdateParam;
+        this.listUpdateElem = listUpdateElem;
+    }
+
     public SaveUpdateElemAndParamRequest() {
+    }
+
+    public List<SaveOrUpdateElementsRequest> getListUpdateElem() {
+        return listUpdateElem;
+    }
+
+    public void setListUpdateElem(List<SaveOrUpdateElementsRequest> listUpdateElem) {
+        this.listUpdateElem = listUpdateElem;
     }
 
     public List<SaveOrUpdateElementsRequest> getListElem() {

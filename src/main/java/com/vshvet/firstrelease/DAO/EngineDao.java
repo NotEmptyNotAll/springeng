@@ -8,6 +8,6 @@ import java.util.Set;
 
 public interface EngineDao extends Dao<Engine> {
     List<String> getAllType();
-
+    Engine findByName(String name);
     Set<Engine> getCroppedType(EngineRequest engineRequest);
 }

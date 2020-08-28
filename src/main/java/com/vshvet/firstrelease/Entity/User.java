@@ -27,7 +27,7 @@ public class User {
 
     private String password;
 
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
 
     public User(Long id) {
@@ -44,8 +44,11 @@ public class User {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_user_id_seq")
+    @SequenceGenerator(name = "id_user_id_seq", initialValue = 2)
+
     public Long getId() {
         return id;
     }

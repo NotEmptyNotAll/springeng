@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.vshvet.firstrelease.Entity.FileStorage" table="file_storage" schema="engdb">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="fileUrl">
+            <column name="file_url" sql-type="varchar(124)" length="124"/>
+        </property>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <many-to-one name="automobileEngine" class="com.vshvet.firstrelease.Entity.AutomobileEngine">
+            <column name="automobile_engine_fk"/>
+        </many-to-one>
+        <many-to-one name="elements" class="com.vshvet.firstrelease.Entity.Elements">
+            <column name="elements_fk"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

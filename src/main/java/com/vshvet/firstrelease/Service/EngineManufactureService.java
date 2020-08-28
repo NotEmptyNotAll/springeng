@@ -8,10 +8,16 @@ import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 
 import java.util.List;
-import java.util.Set;
 
 public interface EngineManufactureService {
     List<String> getAllName();
+
+    EngineManufacturer findByName(String name);
+
+    List<DataByIdResponse> delete(Integer id);
+
+    void save(EngineManufacturer engineManufacturer);
+
 
     List<DataByIdResponse> getDataByIdResponse();
     Boolean update(UpdateDataRequest updateData);

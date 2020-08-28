@@ -1,13 +1,9 @@
 package com.vshvet.firstrelease.Controller;
 
 import com.vshvet.firstrelease.Service.*;
-import com.vshvet.firstrelease.Service.EngineManufactureService;
 import com.vshvet.firstrelease.Service.Impl.*;
 import com.vshvet.firstrelease.payload.Request.IdRequest;
-import com.vshvet.firstrelease.payload.Response.AllAdditionalDataResponse;
-import com.vshvet.firstrelease.payload.Response.AllParanNameResponse;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
-import com.vshvet.firstrelease.payload.Response.ParamNameResponse;
+import com.vshvet.firstrelease.payload.Response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +47,12 @@ public class MainController {
         return searchPageLoadingService.getDefaultData();
     }
 
+
+    @GetMapping("/lolkek")
+    public String lolkek() {
+        this.searchPageLoadingService.importExelFile();
+        return "ok";
+    }
 
     @GetMapping("/getAllAdditionalData")
     public AllAdditionalDataResponse getAllAdditionalData() {

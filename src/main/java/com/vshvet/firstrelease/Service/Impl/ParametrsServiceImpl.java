@@ -2,25 +2,23 @@ package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.Impl.ElementsDaoImpl;
 import com.vshvet.firstrelease.DAO.ParametersDao;
-import com.vshvet.firstrelease.Entity.Elements;
-import com.vshvet.firstrelease.Entity.MeasurementUnits;
-import com.vshvet.firstrelease.Entity.Parameters;
-import com.vshvet.firstrelease.Entity.Status;
+import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Exception.ObjectNotFoundException;
 import com.vshvet.firstrelease.Service.ElementsService;
 import com.vshvet.firstrelease.Service.ParametrsService;
 import com.vshvet.firstrelease.payload.Request.SaveOrUpdateElementsRequest;
 import com.vshvet.firstrelease.payload.Request.SaveOrUpdateParametersRequest;
 import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.payload.Response.ParamSizeNameResponse;
 import com.vshvet.firstrelease.payload.Response.ParametersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Parameter;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ParametrsServiceImpl implements ParametrsService {
@@ -45,13 +43,15 @@ public class ParametrsServiceImpl implements ParametrsService {
                         .orElseThrow(() -> new ObjectNotFoundException("id : " + id))
                         .getChildElements().forEach(
                         elements -> {
-                            if (elements.getParametersByElemId() != null)
-                                if (elements.getParametersByElemId().size() > 0)
+                                if (elements.getParametersByElemId().size() > 0) {
                                     elements.getParametersByElemId().forEach(
                                             param -> {
-                                                if (param.getAutoId() == auto_id)
+                                                if (param.getAutoId() == auto_id && param.getDate() == null)
                                                     add(new ParametersResponse(param));
                                             });
+                                }else {
+                                    add(new ParametersResponse(elements.getParamNameFk()));
+                                }
                         }
                 );
             }};
@@ -62,6 +62,67 @@ public class ParametrsServiceImpl implements ParametrsService {
         }
         return responses;
     }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        Parameters parameters = parametersDao.findById(id).get();
+        this.parametersDao.delete(parameters);
+        return null;
+
+    }
+
+    @Override
+    @Transactional
+    public void save(Parameters parameter) {
+        try {
+            parametersDao.save(parameter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    @Transactional
+    public Map<String, Object> getParamMap(Integer autoId) {
+        return new HashMap<String, Object>() {{
+            parametersDao.getParamByAutoId(autoId).forEach(parameter -> {
+                String temp = getValueParam(parameter);
+                List<String> tempList = getFileUrl(parameter.getElementsByElemFk().getParentElements().getFileStorages());
+                if (tempList.size() > 0) {
+                    put("listImage" + parameter.getElementsByElemFk().getElemId(), tempList);
+                }
+                if (!temp.equals("")) {
+                    put(Integer.toString(parameter.getElementsByElemFk().getElemId()), temp);
+                }
+            });
+
+        }};
+    }
+
+    @Transactional
+    public List<String> getFileUrl(List<FileStorage> list) {
+        return new ArrayList<String>() {{
+            list.forEach(elem -> {
+                add(elem.getFileUrl());
+            });
+        }};
+    }
+
+    @Transactional
+    String getValueParam(Parameters parameter) {
+        if (parameter.getDoubleMin() != null) {
+            return parameter.getDoubleMin() + " - " + parameter.getDoubleMax();
+        } else if (parameter.getDoubleNum() != null) {
+            return parameter.getDoubleNum().toString();
+        } else if (parameter.getTextData() != null) {
+            return parameter.getTextData();
+        } else {
+            return "";
+        }
+    }
+
 
     @Override
     @Transactional

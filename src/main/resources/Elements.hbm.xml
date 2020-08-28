@@ -14,6 +14,12 @@
         <property name="parentId" >
             <column name="parent_id" sql-type="int(11)" not-null="true"/>
         </property>
+        <property name="color">
+            <column name="color" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="sortNumber">
+            <column name="sort_number" sql-type="int(11)" not-null="false"/>
+        </property>
         <property name="date">
             <column name="date" sql-type="date"/>
         </property>
@@ -28,6 +34,12 @@
                 <column name="parent_id" not-null="true"/>
             </key>
             <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.Elements"/>
+        </set>
+        <set name="fileStorages" inverse="true">
+            <key>
+                <column name="elements_fk" not-null="false"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.FileStorage"/>
         </set>
         <set name="automobileEnginesByElemId" inverse="true">
             <key>

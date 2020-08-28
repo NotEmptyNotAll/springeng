@@ -2,10 +2,7 @@ package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.Dao;
 import com.vshvet.firstrelease.DAO.MeasurementUnitsDao;
-import com.vshvet.firstrelease.Entity.AutoManufacture;
-import com.vshvet.firstrelease.Entity.EngineManufacturer;
-import com.vshvet.firstrelease.Entity.MeasurementUnits;
-import com.vshvet.firstrelease.Entity.Status;
+import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.MeasurementUnitsService;
 import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
@@ -17,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MeasurementUnitsServiceImpl implements MeasurementUnitsService {
@@ -35,6 +33,23 @@ public class MeasurementUnitsServiceImpl implements MeasurementUnitsService {
             });
         }};
         return responses;
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        MeasurementUnits measurementUnits = measurementUnitsDao.findById(id).get();
+        List<Parameters> engines= measurementUnits.getParametersById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (engines.size()==0) {
+            this.measurementUnitsDao.delete(measurementUnits);
+        return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+                engines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getElementsByElemFk().getParameterNamesByParamNameFk().getName(), elem.getParamId())));
+            }};
+        }
     }
 
     @Override

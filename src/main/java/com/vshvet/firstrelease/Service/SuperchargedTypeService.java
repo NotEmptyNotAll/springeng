@@ -11,6 +11,7 @@ public interface SuperchargedTypeService {
     List<String> getAllNameOfModel();
 
     Boolean update(UpdateTwoDataRequest updateData);
+    List<DataByIdResponse> delete(Integer id);
 
     List<DataByIdResponse> getDataByIdResponse();
 

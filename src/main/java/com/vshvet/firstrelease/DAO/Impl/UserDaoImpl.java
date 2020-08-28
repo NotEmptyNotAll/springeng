@@ -87,6 +87,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Optional<User> findById(Long id) {
+        return Optional.of(getCurrentSession().get(User.class, id));
+    }
+
+
+    @Override
     public List<User> getAll() {
         return null;
     }
@@ -102,6 +108,14 @@ public class UserDaoImpl implements UserDao {
         getCurrentSession().update(newEngine);
         save(oldEngine);
     }
+
+
+    @Override
+    @Transactional
+    public void update( User user) {
+        getCurrentSession().update(user);
+    }
+
 
 
     @Override

@@ -10,25 +10,38 @@ public class TreeElementsResponse {
     private Integer id;
     private String name;
     private List<TreeElementsResponse> elementsCh;
+    private Integer sortNumber;
 
 
     public TreeElementsResponse() {
     }
 
     public TreeElementsResponse(Elements elements) {
-            this.elementsCh = new ArrayList<TreeElementsResponse>() {{
-                elements.getChildElements().forEach(elements -> {
+        this.elementsCh = new ArrayList<TreeElementsResponse>() {{
+            elements.getChildElements().forEach(elements -> {
+                        if (elements.getDate() == null) {
                             add(new TreeElementsResponse(elements));
                         }
-                );
-            }};
-            this.id = elements.getElemId();
-            this.name = elements.getParameterNamesByParamNameFk().getName();
+                    }
+            );
+        }};
+        this.sortNumber = elements.getSortNumber();
+        this.id = elements.getElemId();
+        this.name = elements.getParameterNamesByParamNameFk().getName();
 
     }
+
     public TreeElementsResponse(Parameters parameters) {
-        this.name =parameters.getElementsByElemFk().getParameterNamesByParamNameFk().getName();
+        this.name = parameters.getElementsByElemFk().getParameterNamesByParamNameFk().getName();
         this.id = parameters.getElemFk();
+    }
+
+    public Integer getSortNumber() {
+        return sortNumber;
+    }
+
+    public void setSortNumber(Integer sortNumber) {
+        this.sortNumber = sortNumber;
     }
 
     public Integer getId() {

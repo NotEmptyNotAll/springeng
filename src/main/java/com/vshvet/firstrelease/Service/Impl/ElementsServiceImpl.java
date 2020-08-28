@@ -33,6 +33,30 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
     @Override
+    public Elements findByParentIdAndParamNameFk(Integer paramFk, Integer parentId) {
+        return elementsDao.findByParentIdAndParamFk(paramFk, parentId);
+    }
+
+    @Override
+    public void save(Elements elements) {
+        try {
+            elementsDao.save(elements);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<String> getListFileUrlById(Integer id) {
+        return new ArrayList<String>() {{
+            elementsDao.findById(id).get().getFileStorages().forEach(elements -> {
+                add(elements.getFileUrl());
+            });
+        }};
+    }
+
+    @Override
     @Transactional
     public List<TreeElementsResponse> getTreeElements() {
         return new ArrayList<TreeElementsResponse>() {{
@@ -51,6 +75,23 @@ public class ElementsServiceImpl implements ElementsService {
 
     @Override
     @Transactional
+    public List<ElementsResponse> delete(Integer id) {
+        Elements elements = elementsDao.findById(id).get();
+        this.elementsDao.delete(elements);
+        return null;
+    }
+
+    @Transactional
+    public List<TreeToColumnsResponse> getTableColumn() {
+        return new ArrayList<TreeToColumnsResponse>() {{
+            elementsDao.getAllRootElemByAutoId().forEach(elem -> {
+                add(new TreeToColumnsResponse(elem));
+            });
+        }};
+    }
+
+    @Override
+    @Transactional
     public List<ElementsResponse> getAllRootElemByAutoId(Integer id) {
         return new ArrayList<ElementsResponse>() {{
             elementsDao.getAllRootElemByAutoId().forEach(elements -> {
@@ -63,13 +104,12 @@ public class ElementsServiceImpl implements ElementsService {
     // that the user measured and return a list of root id elements
     @Override
     @Transactional
-    public Set<Integer> getParentElemId(EngineRequest request) {
+    public Set<Integer> getParentElemId(List<ParamsRequest> request) {
         Set<Integer> elements = new HashSet<>();
         List<AutomobileEngine> autoEng = null;
-
         try {
             for (ParamsRequest paramsRequest :
-                    request.getParamList()) {
+                    request) {
                 if (autoEng == null) {
                     autoEng = getAutoEngByElem(paramsRequest);
                 } else {
@@ -100,6 +140,7 @@ public class ElementsServiceImpl implements ElementsService {
                     .filter(e -> e.getElemId() == elem.getElemId()).findFirst();
             if (!tempElements.isPresent()) {
                 Elements elements = new Elements();
+                elements.setSortNumber(elem.getSortNumber());
                 elements.setElemId(elem.getElemId());
                 elements.setParentElements(new Elements(elem.getParentId()));
                 elements.setParameterNamesByParamNameFk(new ParameterNames(elem.getParamNameFk()));
@@ -116,13 +157,20 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
     @Override
+    @Transactional
     public void save(List<SaveOrUpdateElementsRequest> listElem) {
         listElem.forEach(elem -> {
             try {
                 Elements elements = new Elements();
                 elements.setElemId(elem.getElemId());
+                elements.setSortNumber(elem.getSortNumber());
+                elements.setColor(elem.getColor());
                 elements.setParentElements(new Elements(elem.getParentId()));
-                elements.setParameterNamesByParamNameFk(new ParameterNames(elem.getParamNameFk()));
+                if (elem.getParamNameFk() != -1) {
+                    elements.setParameterNamesByParamNameFk(new ParameterNames(elem.getParamNameFk()));
+                } else {
+                    elements.setParameterNamesByParamNameFk(new ParameterNames(1));//this name params id is the default for the empty node child
+                }
                 try {
                     elementsDao.save(elements);
                 } catch (Exception e) {
@@ -139,10 +187,16 @@ public class ElementsServiceImpl implements ElementsService {
     @Transactional
     public String save(SaveOrUpdateElementsRequest saveData) {
         try {
+
             Elements elements = new Elements();
             elements.setElemId(saveData.getElemId());
+            elements.setSortNumber(saveData.getSortNumber());
             elements.setParentElements(new Elements(saveData.getParentId()));
-            elements.setParameterNamesByParamNameFk(new ParameterNames(saveData.getParamNameFk()));
+            if (saveData.getParamNameFk() != -1) {
+                elements.setParameterNamesByParamNameFk(new ParameterNames(saveData.getParamNameFk()));
+            } else {
+                elements.setParameterNamesByParamNameFk(new ParameterNames(0));//this name params id is the default for the empty node child
+            }
             try {
                 elementsDao.save(elements);
             } catch (Exception e) {
@@ -153,6 +207,20 @@ public class ElementsServiceImpl implements ElementsService {
             return "збереження не вдалося, спробуйте ще раз";
         }
     }
+
+    @Override
+    @Transactional
+    public List<ParamSizeNameResponse> getParametersSizeName(Integer id) {
+        return new ArrayList<ParamSizeNameResponse>() {{
+            elementsDao.getElementByParentId(id).forEach(elements -> {
+                if (elements.getChildElements().size() == 0)
+                    add(new ParamSizeNameResponse(elements.getParameterNamesByParamNameFk().getFullName(),
+                            elements.getParameterNamesByParamNameFk().getName(),
+                            elements.getSortNumber()));
+            });
+        }};
+    }
+
 
     @Override
     @Transactional
@@ -171,14 +239,25 @@ public class ElementsServiceImpl implements ElementsService {
     @Transactional
     public Boolean update(SaveOrUpdateElementsRequest updateData) {
         try {
-            Elements  newElements= elementsDao.findById(updateData.getElemId()).get();
+            Elements newElements = elementsDao.findById(updateData.getElemId()).get();
             Elements oldElements = new Elements();
             oldElements.setParameterNamesByParamNameFk(new ParameterNames(newElements.getParamNameFk()));
-            newElements.setParameterNamesByParamNameFk(new ParameterNames(updateData.getParamNameFk()));
-            oldElements.setElemId(elementsDao.getMaxId()+1);
-            oldElements.setParentElements(oldElements.getParentElements());
+            oldElements.setColor(newElements.getColor());
+            oldElements.setSortNumber(newElements.getSortNumber());
+            if (updateData.getParamNameFk() != null) {
+                newElements.setParameterNamesByParamNameFk(new ParameterNames(updateData.getParamNameFk()));
+            }
+            if (updateData.getColor() != null) {
+                newElements.setColor(updateData.getColor());
+            }
+            if (updateData.getSortNumber() != null) {
+                newElements.setSortNumber(updateData.getSortNumber());
+            }
+            oldElements.setElemId(elementsDao.getMaxId() + 1);
+            oldElements.setDate(new java.sql.Date(new java.util.Date().getTime()));
+            oldElements.setParentElements(newElements.getParentElements());
             try {
-                elementsDao.update(newElements,oldElements);
+                elementsDao.update(newElements, oldElements);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -188,30 +267,59 @@ public class ElementsServiceImpl implements ElementsService {
         }
     }
 
+    @Override
+    @Transactional
+    public Boolean update(List<SaveOrUpdateElementsRequest> updateData) {
+        try {
+            updateData.forEach(this::update);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    private boolean paramListIsEmpty(List<ParamsRequest> request) {
+        if (request.size() > 0) {
+            for (ParamsRequest paramsRequest :
+                    request) {
+                if (!paramsRequest.getParameterNumber().equals("")) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return true;
+        }
+    }
 
     @Override
     @Transactional
-    public List<AutomobileEngineResponse> getParentElements(EngineRequest request) {
-        List<AutomobileEngineResponse> elements = new ArrayList<>();
+    public List<AutomobileEngine> getParentElements(List<ParamsRequest> request) {
+        List<AutomobileEngine> elements = new ArrayList<>();
         List<AutomobileEngine> autoEng = null;
-        try {
-            for (ParamsRequest paramsRequest :
-                    request.getParamList()) {
-                if (autoEng == null) {
-                    autoEng = getAutoEngByElem(paramsRequest);
-                } else {
-                    List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest);
-                    autoEng.removeIf(eng -> !autoEngTemp.contains(eng));
+        if (!paramListIsEmpty(request)) {
+            try {
+                for (ParamsRequest paramsRequest :
+                        request) {
+                    if (autoEng == null) {
+                        autoEng = getAutoEngByElem(paramsRequest);
+                    } else {
+                        List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest);
+                        autoEng.removeIf(eng -> !autoEngTemp.contains(eng));
+                    }
                 }
+                if (autoEng != null) {
+                    autoEng.forEach(elements::add);
+                }
+            } catch (ClassCastException e) {
+                System.out.println(e);
+            } finally {
             }
-            if (autoEng != null) {
-                autoEng.forEach(auto -> elements.add(new AutomobileEngineResponse(auto)));
-            }
-        } catch (ClassCastException e) {
-            System.out.println(e);
-        } finally {
+            return elements;
+        } else {
+            return null;
         }
-        return elements.size() < 10 ? elements : null;
     }
 
     @Override

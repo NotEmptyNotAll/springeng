@@ -1,15 +1,23 @@
 package com.vshvet.firstrelease.Service;
 
+import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.payload.Request.*;
-import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
-import com.vshvet.firstrelease.payload.Response.AutoEngineResponse;
-import com.vshvet.firstrelease.payload.Response.AutomobileEngineResponse;
-import com.vshvet.firstrelease.payload.Response.DefaultDataResponse;
+import com.vshvet.firstrelease.payload.Response.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AutomobileEngineService {
+
+    AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years);
+    void save(AutomobileEngine automobileEngine);
+    List<DataByIdResponse> delete(Integer id);
+
+    Integer getNumberOfPage(ParametersPageRequest request);
+
+    List<Map<String, Object>> getAllAutoEngAndParam(ParametersPageRequest request);
+
     List<AutomobileEngineResponse> findByParam(EngineRequest engineRequest);
 
     List<AutoEngineResponse> findByParamForUpdate(EngineRequest engineRequest);

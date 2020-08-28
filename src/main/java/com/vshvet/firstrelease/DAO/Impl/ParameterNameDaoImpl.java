@@ -1,7 +1,9 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.ParameterNameDao;
+import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.EngineManufacturer;
+import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Entity.ParameterNames;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import org.hibernate.ObjectNotFoundException;
@@ -15,9 +17,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.hibernate.query.Query;
+
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 
 @Repository("parameterNameDao")
 @Transactional
@@ -65,7 +71,7 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
     @Transactional
     public List<ParameterNames> getAll() {
         return (List<ParameterNames>) getCurrentSession()
-                .createQuery("from ParameterNames pn where   pn.dateCreate is null").list();
+                .createQuery("from ParameterNames pn where pn.id<>1 and pn.dateCreate is null").list();
     }
 
     @Override
@@ -85,11 +91,12 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
     }
 
 
-
     @Override
     @Transactional
     public void delete(ParameterNames parameterNames) {
-        getCurrentSession().delete(parameterNames);
+        parameterNames.setDateCreate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(parameterNames);
+        //getCurrentSession().delete(parameterNames);
     }
 
 
@@ -115,8 +122,32 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
     @Transactional
     public List<ParameterNames> getAllTreeRootName() {
         return (List<ParameterNames>) getCurrentSession()
-                .createQuery("from ParameterNames pn where treeRoot=true and pn.dateCreate is null").list();
+                .createQuery("from ParameterNames pn where pn.dateCreate is null").list();
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional
+    public List<ParameterNames> getAllParameterSizeName() {
+        return (List<ParameterNames>) getCurrentSession()
+                .createQuery("from ParameterNames pn where treeRoot=false and pn.dateCreate is null").list();
+    }
+
+    @Override
+    public ParameterNames findByName(String name) {
+        try {
+            Query query = getCurrentSession()
+                    .createQuery("from ParameterNames where name=:nameParam or  fullName=:nameParam");
+            query.setParameter("nameParam", name);
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            return (ParameterNames) query.getSingleResult();
+        } catch (
+                NoResultException e) {
+            return null;
+        }
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override

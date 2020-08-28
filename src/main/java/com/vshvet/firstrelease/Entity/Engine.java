@@ -110,7 +110,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "engine_type", nullable = false, length = 64)
+    @Column(name = "engine_type", nullable = true, length = 64)
     public String getEngineType() {
         return engineType;
     }
@@ -260,7 +260,7 @@ public class Engine {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = true)
     public Date getDate() {
         return date;
     }

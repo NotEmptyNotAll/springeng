@@ -1,10 +1,12 @@
 package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.AutoModelDao;
-import com.vshvet.firstrelease.Entity.AutoModel;
-import com.vshvet.firstrelease.Entity.Status;
+import com.vshvet.firstrelease.DAO.RoleDao;
+import com.vshvet.firstrelease.DAO.UserDao;
+import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Exception.ObjectNotFoundException;
 import com.vshvet.firstrelease.Service.AutoModelService;
+import com.vshvet.firstrelease.Service.AutomobileEngineService;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
 import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
@@ -18,12 +20,33 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AutoModelServiceImpl implements AutoModelService {
 
     @Autowired
     private AutoModelDao autoModelDao;
+
+
+
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        AutoModel autoModel = autoModelDao.findById(id).get();
+        List<AutomobileEngine> automobileEngines= autoModel.getAutomobileEnginesById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (automobileEngines.size()==0) {
+            this.autoModelDao.delete(autoModel);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+                automobileEngines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getEngineByEngineFk().getEngineType(), elem.getId())));
+            }};
+        }
+    }
 
     @Override
     @Transactional
@@ -33,12 +56,26 @@ public class AutoModelServiceImpl implements AutoModelService {
     }
 
     @Override
+    public void save(AutoModel autoModel) {
+        try {
+            autoModelDao.save(autoModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public AutoModel findByName(String name) {
+        return autoModelDao.findByName(name);
+    }
+
+    @Override
     @Transactional
     public List<DataByIdResponse> getCroppedData(EngineRequest engineRequest) {
         return new ArrayList<DataByIdResponse>() {{
             autoModelDao.getCroppedModel(engineRequest).forEach(elem -> {
                 add(new DataByIdResponse(elem.getModelName(),
-                        elem.getId(),elem.getStatus().getStatus()));
+                        elem.getId(), elem.getStatus().getStatus()));
             });
         }};
     }
@@ -50,7 +87,7 @@ public class AutoModelServiceImpl implements AutoModelService {
             List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
                 autoModelDao.getAll().forEach(elem -> {
                     add(new DataByIdResponse(elem.getModelName(),
-                            elem.getId(),elem.getStatus().getStatus()));
+                            elem.getId(), elem.getStatus().getStatus()));
                 });
             }};
             return all;
@@ -71,7 +108,7 @@ public class AutoModelServiceImpl implements AutoModelService {
             newAutoModel.setStatus(new Status(updateData.getStatus()));
             newAutoModel.setModelName(updateData.getUpdateData());
             newAutoModel.setId(updateData.getObjToBeChanged());
-            autoModelDao.update(newAutoModel,oldAutoModel);
+            autoModelDao.update(newAutoModel, oldAutoModel);
             oldAutoModel.setDate(new Date(new java.util.Date().getTime()));
             return true;
         } catch (Exception e) {

@@ -1,8 +1,7 @@
 package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.FuelTypeDao;
-import com.vshvet.firstrelease.Entity.FuelType;
-import com.vshvet.firstrelease.Entity.Status;
+import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.FuelTypeService;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
@@ -17,6 +16,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FuelTypeServiceImpl implements FuelTypeService {
@@ -40,11 +40,42 @@ public class FuelTypeServiceImpl implements FuelTypeService {
 
     @Override
     @Transactional
+    public List<DataByIdResponse> delete(Integer id) {
+        FuelType fuelType = fuelTypeDao.findById(id).get();
+        List<Engine> engines= fuelType.getEnginesById()
+                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
+        if (engines.size()==0) {
+            this.fuelTypeDao.delete(fuelType);
+            return null;
+        } else {
+            return new ArrayList<DataByIdResponse>() {{
+                engines.forEach(elem ->
+                        add(new DataByIdResponse(elem.getEngineType(), elem.getId())));
+            }};
+        }
+    }
+
+    @Override
+    public FuelType findByName(String name) {
+        return fuelTypeDao.findByName(name);
+    }
+
+    @Override
+    public void save(FuelType fuelType) {
+        try {
+            fuelTypeDao.save(fuelType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    @Transactional
     public List<DataByIdResponse> getCroppedData(EngineRequest engineRequest) {
-        return  new ArrayList<DataByIdResponse>() {{
+        return new ArrayList<DataByIdResponse>() {{
             fuelTypeDao.getCroppedByParamType(engineRequest).forEach(elem -> {
                 add(new DataByIdResponse(elem.getNameType(),
-                        elem.getId(),elem.getStatus().getStatus()));
+                        elem.getId(), elem.getStatus().getStatus()));
             });
         }};
     }
@@ -73,7 +104,7 @@ public class FuelTypeServiceImpl implements FuelTypeService {
             newFuelType.setNameType(updateData.getUpdateData());
             newFuelType.setId(updateData.getObjToBeChanged());
             oldFuelType.setDate(new Date(new java.util.Date().getTime()));
-            fuelTypeDao.update(newFuelType,oldFuelType);
+            fuelTypeDao.update(newFuelType, oldFuelType);
             return true;
         } catch (Exception e) {
             return false;
@@ -87,7 +118,7 @@ public class FuelTypeServiceImpl implements FuelTypeService {
         List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
             fuelTypeDao.getAll().forEach(elem -> {
                 add(new DataByIdResponse(elem.getNameType(),
-                        elem.getId(),elem.getStatus().getStatus()));
+                        elem.getId(), elem.getStatus().getStatus()));
             });
         }};
         return all;

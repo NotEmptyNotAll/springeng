@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -93,12 +94,12 @@ public class ElementsDaoImpl implements ElementsDao {
     @Override
     @Transactional
     public List<AutomobileEngine> findParentsElemByParam(ParamsRequest paramsRequest) throws ClassCastException {
-        Double number ;
+        Double number;
         try {
-             number =Double.parseDouble(paramsRequest.getParameterNumber());
-        }catch (NumberFormatException e){
+            number = Double.parseDouble(paramsRequest.getParameterNumber());
+        } catch (NumberFormatException e) {
             System.out.println(e);
-            number=-1d;
+            number = -1d;
         }
 
         Query query = getCurrentSession()
@@ -108,12 +109,43 @@ public class ElementsDaoImpl implements ElementsDao {
                         "where ech.elemId=:nameChild  " +
                         //"and p.measurementUnitsFk=:unitsParam " +
                         "and ((p.doubleMax>=:numberParam and p.doubleMin<=:numberParam) or p.doubleNum=:numberParam or p.textData=:textData) and p.date is null");
-       //query.setParameter("nameParent", paramsRequest.getParameterNodeId());
+        //query.setParameter("nameParent", paramsRequest.getParameterNodeId());
         query.setParameter("nameChild", paramsRequest.getParameterChildId());
-   //     query.setParameter("unitsParam", paramsRequest.getUnitsFullName());
+        //     query.setParameter("unitsParam", paramsRequest.getUnitsFullName());
         query.setParameter("numberParam", number);
         query.setParameter("textData", paramsRequest.getParameterNumber());
         return (List<AutomobileEngine>) query.list();
+    }
+
+    @Override
+    public Elements findByParentIdAndParamFk(Integer paramFk, Integer parentId) {
+        try {
+            Query query = getCurrentSession()
+                    .createQuery("from Elements where paramNameFk=:paramFkParam and  parentId=:parentIdParam");
+            query.setParameter("paramFkParam", paramFk);
+            query.setParameter("parentIdParam", parentId);
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            return (Elements) query.getSingleResult();
+        } catch (
+                NoResultException e) {
+            return null;
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional
+    public List<Elements> getElementByParentId(Integer id) {
+        Query query = getCurrentSession()
+                .createQuery("from Elements e " +
+                        "where e.parentId=:idParam  and  e.childElements.size=0 " +
+                        "and e.date is null  ");
+        query.setFirstResult(0);
+        query.setMaxResults(1);
+        query.setParameter("idParam", id);
+        return (List<Elements>) query.list();
     }
 
     @SuppressWarnings("unchecked")
@@ -121,7 +153,7 @@ public class ElementsDaoImpl implements ElementsDao {
     @Transactional
     public List<Elements> getAllNodeOfTree() {
         return (List<Elements>) getCurrentSession()
-                .createQuery("from Elements where parentId is not null and parameterNamesByParamNameFk.treeRoot=true").list();
+                .createQuery("from Elements where parentId is not null and parameterNamesByParamNameFk.treeRoot=true and date is null").list();
     }
 
 
@@ -129,27 +161,37 @@ public class ElementsDaoImpl implements ElementsDao {
     @Transactional
     public void save(Elements parentElements) {
         getCurrentSession().save(parentElements);
+        Query query = getCurrentSession().createQuery("update Elements set color = :colorParam," +
+                " sortNumber=:sortParam where elemId = :idParam");
+        query.setParameter("colorParam", parentElements.getColor());
+        query.setParameter("sortParam", parentElements.getSortNumber());
+        query.setParameter("idParam", parentElements.getElemId());
+        query.executeUpdate();
     }
 
     //we do not update the object,
     // but create a new one,
     // so the object does not get deleted from the database
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional
     public void update(Elements newEngine, Elements oldEngine) {
-        getCurrentSession().update(newEngine);
+        Query query = getCurrentSession().createQuery("update Elements set color = :colorParam," +
+                " sortNumber=:sortParam where elemId = :idParam");
+        query.setParameter("colorParam", newEngine.getColor());
+        query.setParameter("sortParam", newEngine.getSortNumber());
+        query.setParameter("idParam", newEngine.getElemId());
+        query.executeUpdate();
+        //  getCurrentSession().update(newEngine);
         save(oldEngine);
     }
 
 
-
-
-
     @Override
     @Transactional
-    public void delete(Elements parentElements) {
-        getCurrentSession().delete(parentElements);
-
+    public void delete(Elements elements) {
+        elements.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        getCurrentSession().update(elements);
     }
 
 

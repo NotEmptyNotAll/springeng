@@ -10,5 +10,7 @@ public interface FuelTypeDao extends Dao<FuelType> {
 
     Set<FuelType> getCroppedByParamType(EngineRequest engineRequest);
 
+    FuelType findByName(String name);
+
     List<String> getAllName() ;
 }

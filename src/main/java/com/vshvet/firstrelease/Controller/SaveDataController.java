@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/save")
 public class SaveDataController {
@@ -37,6 +39,8 @@ public class SaveDataController {
 
     public final SuperchargedTypeService superchargedTypeService;
 
+    public final FileStorageService fileStorageService;
+
 
     @RequestMapping(value = "/saveEngManufacture", //
             method = RequestMethod.POST, //
@@ -53,9 +57,20 @@ public class SaveDataController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public String saveParamElements(@RequestBody SaveUpdateElemAndParamRequest saveData) {
-     //   elementsService.save(saveData.getListElem(),saveData.getListSaveParam(),saveData.getListUpdateParam());
+        //   elementsService.save(saveData.getListElem(),saveData.getListSaveParam(),saveData.getListUpdateParam());
         parametrsService.save(saveData.getListSaveParam());
         parametrsService.update(saveData.getListUpdateParam());
+        return "ok";
+    }
+
+
+    @RequestMapping(value = "/saveFileData", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public String saveFileData(@RequestBody FileListRequest saveData) {
+        fileStorageService.save(saveData);
         return "ok";
     }
 
@@ -65,7 +80,8 @@ public class SaveDataController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public String saveElements(@RequestBody SaveUpdateElemAndParamRequest saveData) {
-          elementsService.save(saveData.getListElem());
+        elementsService.save(saveData.getListElem());
+        elementsService.update(saveData.getListUpdateElem());
         return "ok";
     }
 
@@ -176,8 +192,10 @@ public class SaveDataController {
                               ParameterNameService parameterNameService,
                               CylindersService cylindersService,
                               AutoManufactureService autoManufactureService,
+                              FileStorageService fileStorageService,
                               SuperchargedTypeService superchargedTypeService) {
         this.superchargedTypeService = superchargedTypeService;
+        this.fileStorageService = fileStorageService;
         this.cylindersService = cylindersService;
         this.autoManufactureService = autoManufactureService;
         this.engineManufactureService = engineManufactureService;

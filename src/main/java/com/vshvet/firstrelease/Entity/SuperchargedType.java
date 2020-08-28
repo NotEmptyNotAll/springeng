@@ -82,7 +82,7 @@ public class SuperchargedType {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = true)
     public Date getDate() {
         return date;
     }
