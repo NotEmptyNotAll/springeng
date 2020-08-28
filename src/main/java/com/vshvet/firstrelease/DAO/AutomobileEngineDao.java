@@ -3,6 +3,7 @@ package com.vshvet.firstrelease.DAO;
 import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import com.vshvet.firstrelease.payload.Request.ParametersPageRequest;
 import com.vshvet.firstrelease.payload.Response.DefaultDataResponse;
 
@@ -14,8 +15,13 @@ public interface AutomobileEngineDao extends Dao<AutomobileEngine> {
 
     AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years);
 
-    Long getCountResults(ParametersPageRequest request);
+    Long getCountResultsByParam(ParametersPageRequest request);
 
-    List<AutomobileEngine> getPaginationAutoEng(ParametersPageRequest request);
+
+    List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request);
+
+    List<AutomobileEngine> getPaginationAutoEng(PaginationDataRequest paginationDataRequest);
+
+    Long getCountResults(PaginationDataRequest request);
 
 }

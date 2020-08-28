@@ -1,7 +1,9 @@
 package com.vshvet.firstrelease.DAO;
 
+import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.ParameterNames;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 
 import java.util.List;
 
@@ -13,4 +15,10 @@ public interface ParameterNameDao extends Dao<ParameterNames> {
     ParameterNames findByName(String name);
 
     Integer getMaxId();
+
+    List<ParameterNames> getPagination(PaginationDataRequest request);
+
+    Long getCountResults(PaginationDataRequest request);
+
+    long getCountResultsParamSize(PaginationDataRequest request);
 }

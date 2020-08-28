@@ -3,9 +3,11 @@ package com.vshvet.firstrelease.DAO.Impl;
 import com.vshvet.firstrelease.DAO.AutoManufactureDao;
 import com.vshvet.firstrelease.DAO.Dao;
 import com.vshvet.firstrelease.Entity.AutoManufacture;
+import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -164,5 +166,28 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
         return getCurrentSession()
                 .createQuery("select am.manufactureName from AutoManufacture am  where  am.manufactureName<>'не задано' and date is null").list();
 
+    }
+
+    @Override
+    @Transactional
+    public List<AutoManufacture> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select am from AutoManufacture am " +
+                        "where (:dataParam IS NULL or  UPPER(am.manufactureName) like :dataParam ) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();
+    }
+
+    @Override
+    @Transactional
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from AutoManufacture am " +
+                        "where (:dataParam IS NULL or  UPPER(am.manufactureName) like :dataParam ) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
     }
 }

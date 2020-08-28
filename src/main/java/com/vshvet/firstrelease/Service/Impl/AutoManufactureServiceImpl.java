@@ -6,10 +6,8 @@ import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.Status;
 import com.vshvet.firstrelease.Service.AutoManufactureService;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
-import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Request.*;
+import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +29,22 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
     @Override
     public AutoManufacture findByName(String name) {
         return autoManufactureDao.findByName(name);
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>(){{
+            autoManufactureDao.getPagination(request).forEach(item->{
+                add(new DataByIdResponse(item.getManufactureName(),item.getId(),item.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(autoManufactureDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
     }
 
     @Override

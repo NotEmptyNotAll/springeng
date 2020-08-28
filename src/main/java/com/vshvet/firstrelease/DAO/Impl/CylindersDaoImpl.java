@@ -5,9 +5,11 @@ import com.vshvet.firstrelease.DAO.Dao;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Cylinders;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -116,5 +118,28 @@ public class CylindersDaoImpl implements CylindersDao {
     public List<String> getAllType() {
         return getCurrentSession()
                 .createQuery("select c.typeName from Cylinders c  where  date is null").list();
+    }
+
+    @Override
+    @Transactional
+    public List<Cylinders> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select c from Cylinders c " +
+                        "where (:dataParam IS NULL or  UPPER(c.typeName) like :dataParam) and c.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();
+    }
+
+    @Override
+    @Transactional
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(c.id) from Cylinders c " +
+                        "where (:dataParam IS NULL or  UPPER(c.typeName) like :dataParam) and c.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
     }
 }

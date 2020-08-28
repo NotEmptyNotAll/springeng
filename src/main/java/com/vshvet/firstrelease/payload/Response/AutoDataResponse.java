@@ -1,5 +1,7 @@
 package com.vshvet.firstrelease.payload.Response;
 
+import com.vshvet.firstrelease.Entity.AutomobileEngine;
+
 public class AutoDataResponse {
 
     private int id;
@@ -9,6 +11,16 @@ public class AutoDataResponse {
     private Integer releaseYearFrom;
     private Integer releaseYearBy;
     private String status;
+
+    public AutoDataResponse(AutomobileEngine automobileEngine){
+        this.id = automobileEngine.getId();
+        this.autoManufactureFk = automobileEngine.getAutoManufactureByAutoManufactureFk().getManufactureName();
+        this.autoModelFk = automobileEngine.getAutoModelByAutoModelFk().getModelName();
+        this.engineFk =automobileEngine.getEngineByEngineFk().getEngineType();
+        this.releaseYearFrom = automobileEngine.getReleaseYearFrom();
+        this.releaseYearBy = automobileEngine.getReleaseYearBy();
+        this.status = automobileEngine.getStatus().getStatus();
+    }
 
     public AutoDataResponse(int id,
                               String autoManufactureFk,

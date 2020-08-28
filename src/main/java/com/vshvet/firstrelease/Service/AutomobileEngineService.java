@@ -11,10 +11,16 @@ import java.util.Map;
 public interface AutomobileEngineService {
 
     AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years);
+
     void save(AutomobileEngine automobileEngine);
+
     List<DataByIdResponse> delete(Integer id);
 
-    Integer getNumberOfPage(ParametersPageRequest request);
+    List<AutoDataResponse> getPaginationData(PaginationDataRequest request);
+
+    Integer getNumberOfPage(PaginationDataRequest request);
+
+    Integer getNumberOfPageByParam(ParametersPageRequest request);
 
     List<Map<String, Object>> getAllAutoEngAndParam(ParametersPageRequest request);
 

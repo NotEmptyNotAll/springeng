@@ -29,6 +29,23 @@ public class SuperchargedTypeServiceImpl implements SuperchargedTypeService {
 
     @Override
     @Transactional
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>(){{
+            superchargedTypeDao.getPagination(request).forEach(item->{
+                add(new DataByIdResponse(item.getNameType(),item.getMark(),item.getId(),item.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(superchargedTypeDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+
+    }
+
+    @Override
+    @Transactional
     public Boolean update(UpdateTwoDataRequest updateData) {
         try {
             SuperchargedType newSuperchargedType = superchargedTypeDao.findById(updateData.getObjToBeChanged()).get();

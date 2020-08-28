@@ -4,9 +4,11 @@ import com.vshvet.firstrelease.DAO.MeasurementUnitsDao;
 import com.vshvet.firstrelease.Entity.EngineManufacturer;
 import com.vshvet.firstrelease.Entity.MeasurementUnits;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -108,4 +110,29 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
         this.currentTransaction = currentTransaction;
     }
 
+    @Override
+    @Transactional
+    public List<MeasurementUnits> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select am from MeasurementUnits am " +
+                        "where (:dataParam IS NULL or  UPPER(am.fullNameM) like :dataParam " +
+                        " or  UPPER(am.shortNameM) like :dataParam) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+
+        return query.list();    }
+
+    @Override
+    @Transactional
+
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from MeasurementUnits am " +
+                        "where (:dataParam IS NULL or  UPPER(am.fullNameM) like :dataParam " +
+                        " or  UPPER(am.shortNameM) like :dataParam) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
+    }
 }

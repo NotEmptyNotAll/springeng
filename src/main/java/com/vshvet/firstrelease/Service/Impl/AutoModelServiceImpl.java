@@ -7,10 +7,7 @@ import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Exception.ObjectNotFoundException;
 import com.vshvet.firstrelease.Service.AutoModelService;
 import com.vshvet.firstrelease.Service.AutomobileEngineService;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
-import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +43,23 @@ public class AutoModelServiceImpl implements AutoModelService {
                         add(new DataByIdResponse(elem.getEngineByEngineFk().getEngineType(), elem.getId())));
             }};
         }
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>(){{
+            autoModelDao.getPagination(request).forEach(item->{
+                add(new DataByIdResponse(item.getModelName(),item.getId(),item.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(autoModelDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+
     }
 
     @Override

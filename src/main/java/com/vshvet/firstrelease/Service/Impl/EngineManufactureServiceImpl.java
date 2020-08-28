@@ -4,10 +4,7 @@ import com.vshvet.firstrelease.DAO.EngineManufactureDao;
 import com.vshvet.firstrelease.Entity.*;
 
 import com.vshvet.firstrelease.Service.EngineManufactureService;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
-import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +28,22 @@ public class EngineManufactureServiceImpl implements EngineManufactureService {
     public List<String> getAllName() {
         List<String> allName = engineManufactureDao.getAllName();
         return allName;
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>(){{
+            engineManufactureDao.getPagination(request).forEach(item->{
+                add(new DataByIdResponse(item.getNameManufacturer(),item.getId(),item.getStatus().getStatus()));
+            });
+        }};    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(engineManufactureDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+
     }
 
     @Override

@@ -10,7 +10,12 @@ import java.util.List;
 public interface SuperchargedTypeService {
     List<String> getAllNameOfModel();
 
+    List<DataByIdResponse> getPaginationData(PaginationDataRequest request);
+
+    Integer getNumberOfPage(PaginationDataRequest request);
+
     Boolean update(UpdateTwoDataRequest updateData);
+
     List<DataByIdResponse> delete(Integer id);
 
     List<DataByIdResponse> getDataByIdResponse();

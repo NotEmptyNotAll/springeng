@@ -4,8 +4,10 @@ import com.vshvet.firstrelease.DAO.CylindersDao;
 import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.CylindersService;
 import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
 import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,23 @@ public class CylindersServiceImpl implements CylindersService {
 
     @Autowired
     private CylindersDao cylindersDao;
+
+    @Override
+    @Transactional
+
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>(){{
+            cylindersDao.getPagination(request).forEach(item->{
+                add(new DataByIdResponse(item.getTypeName(),item.getId(),item.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(cylindersDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+    }
 
     @Override
     @Transactional

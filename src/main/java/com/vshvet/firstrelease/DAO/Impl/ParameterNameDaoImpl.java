@@ -6,6 +6,7 @@ import com.vshvet.firstrelease.Entity.EngineManufacturer;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Entity.ParameterNames;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -155,5 +156,49 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
     public Integer getMaxId() {
         return (Integer) getCurrentSession()
                 .createQuery("select MAX(pn.id) from ParameterNames pn where treeRoot=true and dateCreate is null").list().get(0);
+    }
+
+    @Override
+    @Transactional
+    public List<ParameterNames> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select am from ParameterNames am " +
+                        "where (:dataParam IS NULL or  UPPER(am.fullName) like :dataParam  or  UPPER(am.name) like :dataParam) and am.dateCreate is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        Long  countRes=getCountRes(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();
+    }
+
+    @Transactional
+    private Long getCountRes(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from ParameterNames am " +
+                        "where (:dataParam IS NULL or  UPPER(am.fullName) like :dataParam  or  UPPER(am.name) like :dataParam) and am.dateCreate is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+
+        return (Long) query.uniqueResult();
+    }
+
+    @Override
+    @Transactional
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from ParameterNames am " +
+                        "where (:dataParam IS NULL or  UPPER(am.fullName) like :dataParam  or  UPPER(am.name) like :dataParam) and am.treeRoot=true  and am.dateCreate is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+
+        return (Long) query.uniqueResult();
+    }
+
+    @Override
+    @Transactional
+    public long getCountResultsParamSize(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from ParameterNames am " +
+                        "where (:dataParam IS NULL or  UPPER(am.fullName) like :dataParam  or  UPPER(am.name) like :dataParam) and am.treeRoot=false   and am.dateCreate is null");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
     }
 }

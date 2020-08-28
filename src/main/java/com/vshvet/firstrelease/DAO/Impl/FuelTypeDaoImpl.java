@@ -4,6 +4,7 @@ import com.vshvet.firstrelease.DAO.FuelTypeDao;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -109,6 +110,27 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
                 NoResultException e) {
             return null;
         }
+    }
+
+    @Override
+    public List<FuelType> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select am from FuelType am " +
+                        "where (:dataParam IS NULL or  UPPER(am.nameType) like :dataParam ) and  am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();
+    }
+
+    @Override
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from FuelType am " +
+                        "where (:dataParam IS NULL or  UPPER(am.nameType) like :dataParam ) and  am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
     }
 
     @SuppressWarnings("unchecked")

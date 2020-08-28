@@ -5,10 +5,7 @@ import com.vshvet.firstrelease.DAO.EngineDao;
 import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Exception.ObjectNotFoundException;
 import com.vshvet.firstrelease.Service.EngineService;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.ImprtOrUpdateEngineRequest;
-import com.vshvet.firstrelease.payload.Request.SaveOrUpdateEngineRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import com.vshvet.firstrelease.payload.Response.EngineDataResponse;
 import com.vshvet.firstrelease.payload.Response.EngineResponse;
@@ -96,6 +93,39 @@ public class EngineServiceImpl implements EngineService {
     @Override
     public Engine findByName(String name) {
         return engineDao.findByName(name);
+    }
+
+    @Override
+    @Transactional
+    public List<EngineDataResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<EngineDataResponse>(){{
+            engineDao.getPaginationData(request).forEach(elem->{
+                add(new EngineDataResponse(
+                        elem.getId(),
+                        elem.getEngineType(),
+                        elem.getEngineManufacturerByEngineManufacturerFk().getNameManufacturer(),
+                        elem.getCylindersByCylindersPlacementFk().getTypeName(),
+                        elem.getFuelTypeByFuelTypeFk().getNameType(),
+                        elem.getSuperchargedTypeBySuperchargedTypeFk().getNameType(),
+                        elem.getCylindersNumber(),
+                        elem.getFlapNumber(),
+                        elem.getPistonDiameter(),
+                        elem.getPistonStroke(),
+                        elem.getEngineCapacity(),
+                        elem.getPowerKwt(),
+                        elem.getHorsepower(),
+                        elem.getDegreeCompression(),
+                        elem.getReleaseYearFrom(),
+                        elem.getReleaseYearBy(),
+                        elem.getStatus().getStatus()
+                ));
+            });
+        }};    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(engineDao
+                .getNumberOfPage(request)) / Double.valueOf(request.getPageSize()));
     }
 
     @Override

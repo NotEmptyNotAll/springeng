@@ -2,9 +2,11 @@ package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.Dao;
 import com.vshvet.firstrelease.DAO.SuperchargedTypeDao;
+import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Parameters;
 import com.vshvet.firstrelease.Entity.SuperchargedType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -117,5 +119,32 @@ public class SuperchargedTypeDaoImpl implements SuperchargedTypeDao {
     public List<String> getAllType() {
         return getCurrentSession()
                 .createQuery("select st.nameType from SuperchargedType st where  date is null").list();
+    }
+
+    @Override
+    @Transactional
+    public List<SuperchargedType> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select am from SuperchargedType am " +
+                        "where (:dataParam IS NULL or  UPPER(am.nameType) like :dataParam " +
+                        " or  UPPER(am.mark) like :dataParam) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();      }
+
+    @Override
+    @Transactional
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from SuperchargedType am " +
+                        "where (:dataParam IS NULL or  UPPER(am.nameType) like :dataParam " +
+                        " or  UPPER(am.mark) like :dataParam) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        query.setMaxResults(request.getPageSize());
+        return (Long) query.uniqueResult();
+
     }
 }

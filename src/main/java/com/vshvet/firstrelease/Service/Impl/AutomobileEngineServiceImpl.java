@@ -5,7 +5,6 @@ import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.*;
-import net.bytebuddy.build.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,9 +36,25 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
 
     @Override
     @Transactional
+    public List<AutoDataResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<AutoDataResponse>(){{
+            automobileEngineDao.getPaginationAutoEng(request).forEach(item->{
+                add(new AutoDataResponse(item));
+            });
+        }};
+    }
+
+    @Override
+    @Transactional
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(automobileEngineDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));    }
+
+    @Override
+    @Transactional
     public List<Map<String, Object>> getAllAutoEngAndParam(ParametersPageRequest request) {
         List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList());
-        List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEng(request);
+        List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request);
         if (autoeng.size() > 0) {
             return new ArrayList<Map<String, Object>>() {{
                 if(autoListByParam==null){
@@ -90,11 +105,13 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
         return null;
     }
 
+
+
     @Override
     @Transactional
-    public Integer getNumberOfPage(ParametersPageRequest request) {
+    public Integer getNumberOfPageByParam(ParametersPageRequest request) {
         return (int) Math.ceil(Double.valueOf(automobileEngineDao
-                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+                .getCountResultsByParam(request)) / Double.valueOf(request.getPageSize()));
     }
 
     //This service contains a list of auto engines

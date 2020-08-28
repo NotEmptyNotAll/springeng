@@ -3,10 +3,7 @@ package com.vshvet.firstrelease.Service.Impl;
 import com.vshvet.firstrelease.DAO.FuelTypeDao;
 import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.FuelTypeService;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
-import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +26,23 @@ public class FuelTypeServiceImpl implements FuelTypeService {
     public List<String> getAllName() {
         List<String> autoModels = fuelTypeDao.getAllName();
         return autoModels;
+    }
+
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>(){{
+            fuelTypeDao.getPagination(request).forEach(item->{
+                add(new DataByIdResponse(item.getNameType(),item.getId(),item.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(fuelTypeDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+
     }
 
     @Override

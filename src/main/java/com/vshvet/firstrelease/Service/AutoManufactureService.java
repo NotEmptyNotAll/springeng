@@ -3,10 +3,8 @@ package com.vshvet.firstrelease.Service;
 
 import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.AutoModel;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
-import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Request.*;
+import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 
 import java.util.List;
@@ -15,7 +13,13 @@ import java.util.List;
 public interface AutoManufactureService {
 
     AutoManufacture findByName(String name);
+
+    List<DataByIdResponse> getPaginationData(PaginationDataRequest request);
+
+    Integer getNumberOfPage(PaginationDataRequest request);
+
     void save(AutoManufacture autoManufacture);
+
     List<DataByIdResponse> delete(Integer id);
 
     AutoManufacture findById(Integer id);

@@ -30,6 +30,38 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     @Autowired
     private ElementsService elementsService;
 
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>() {{
+            parameterNameDao.getPagination(request).forEach(item -> {
+                if (item.getTreeRoot())
+                    add(new DataByIdResponse(item.getFullName(), item.getName(), item.getId(), item.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    public List<DataByIdResponse> getPaginationDataParamSize(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>() {{
+            parameterNameDao.getPagination(request).forEach(item -> {
+                if (!item.getTreeRoot())
+                    add(new DataByIdResponse(item.getFullName(), item.getName(), item.getId(), item.getStatus().getStatus()));
+            });
+        }};
+    }
+    @Override
+    public Integer getNumberOfPageParamSize(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(parameterNameDao
+                .getCountResultsParamSize(request)) / Double.valueOf(request.getPageSize()));
+    }
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(parameterNameDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+
+    }
+
     //get a list of parameter names and create an answer from them
     @Override
     @Transactional
@@ -48,9 +80,9 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     @Transactional
     public List<DataByIdResponse> delete(Integer id) {
         ParameterNames parameterNames = parameterNameDao.findById(id).get();
-        List<Elements> elements= parameterNames.getElementsById()
-                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
-        if (elements.size()==0) {
+        List<Elements> elements = parameterNames.getElementsById()
+                .stream().filter(item -> item.getDate() == null).collect(Collectors.toList());
+        if (elements.size() == 0) {
             this.parameterNameDao.delete(parameterNames);
             return null;
         } else {
@@ -177,5 +209,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     public void imprt(ImprtTwoDataRequest imprtData) {
         imprtData.getList().forEach(this::save);
     }
+
+
 
 }

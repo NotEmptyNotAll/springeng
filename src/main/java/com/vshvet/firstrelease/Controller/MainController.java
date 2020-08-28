@@ -48,7 +48,11 @@ public class MainController {
     }
 
 
-
+    @GetMapping("/importExelFile")
+    public String importExelFile() {
+        this.searchPageLoadingService.importExelFile();
+        return "ok";
+    }
 
     @GetMapping("/getAllAdditionalData")
     public AllAdditionalDataResponse getAllAdditionalData() {

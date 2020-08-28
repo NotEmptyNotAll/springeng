@@ -6,6 +6,8 @@ import com.vshvet.firstrelease.Entity.Engine;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
+import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -125,6 +127,29 @@ public class EngineDaoImpl implements EngineDao {
         query.setParameter("releaseYearF", engineRequest.getProduceYear());
 
         return new HashSet<>(query.list());
+    }
+
+    @Override
+    @Transactional
+    public List<Engine> getPaginationData(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select e from Engine e " +
+                        "where (:dataParam IS NULL or  UPPER(e.engineType) like :dataParam ) and e.date is null");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+          Long  countRes=getNumberOfPage(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();
+    }
+
+    @Override
+    @Transactional
+    public Long getNumberOfPage(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(e.id) from Engine e " +
+                        "where (:dataParam IS NULL or  UPPER(e.engineType) like :dataParam ) and e.date is null");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
     }
 
 

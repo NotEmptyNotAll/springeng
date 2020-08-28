@@ -1,16 +1,18 @@
 package com.vshvet.firstrelease.Service;
 
+import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.EngineManufacturer;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.ImprtDataRequest;
-import com.vshvet.firstrelease.payload.Request.SaveDataRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
+import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 
 import java.util.List;
 
 public interface EngineManufactureService {
     List<String> getAllName();
+    List<DataByIdResponse> getPaginationData(PaginationDataRequest request);
+
+    Integer getNumberOfPage(PaginationDataRequest request);
+
 
     EngineManufacturer findByName(String name);
 

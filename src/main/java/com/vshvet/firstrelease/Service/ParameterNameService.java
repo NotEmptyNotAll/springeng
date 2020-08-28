@@ -1,5 +1,6 @@
 package com.vshvet.firstrelease.Service;
 
+import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.ParameterNames;
 import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
@@ -8,6 +9,10 @@ import com.vshvet.firstrelease.payload.Response.ParamNameNodeResponse;
 import java.util.List;
 
 public interface ParameterNameService {
+    List<DataByIdResponse> getPaginationData(PaginationDataRequest request);
+    List<DataByIdResponse> getPaginationDataParamSize(PaginationDataRequest request);
+
+    Integer getNumberOfPage(PaginationDataRequest request);
     List<ParamNameNodeResponse> getAllNames();
     List<DataByIdResponse> delete(Integer id);
 
@@ -31,4 +36,6 @@ public interface ParameterNameService {
     String save(SaveParameterNameRequest saveData);
 
     void imprt(ImprtTwoDataRequest imprtData);
+
+    Integer getNumberOfPageParamSize(PaginationDataRequest request);
 }

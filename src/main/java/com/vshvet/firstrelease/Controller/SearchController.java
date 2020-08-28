@@ -1,7 +1,6 @@
 package com.vshvet.firstrelease.Controller;
 
 
-import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.payload.Request.IdRequest;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
@@ -164,7 +163,7 @@ public class SearchController {
     public Map<String, Object> getAllAutoEngAndParam(@RequestBody ParametersPageRequest request) {
         return new HashMap<String, Object>() {{
             put("engineData", automobileEngineService.getAllAutoEngAndParam(request));
-            put("countResults", automobileEngineService.getNumberOfPage(request));
+            put("countResults", automobileEngineService.getNumberOfPageByParam(request));
             put("columnParam", elementsService.getTableColumn());
         }};
     }

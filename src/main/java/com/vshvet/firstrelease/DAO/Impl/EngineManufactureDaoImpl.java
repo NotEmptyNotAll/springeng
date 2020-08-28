@@ -6,6 +6,7 @@ import com.vshvet.firstrelease.Entity.EngineManufacturer;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -127,6 +128,29 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
         query.setParameter("powerKwtParam", engineRequest.getPowerKWt());
         query.setParameter("releaseYearF", engineRequest.getProduceYear());
         return new HashSet<>(query.list());
+    }
+
+    @Override
+    @Transactional
+    public List<EngineManufacturer> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select am from EngineManufacturer am " +
+                        "where (:dataParam IS NULL or  UPPER(am.nameManufacturer) like :dataParam)  and am.date  is null");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+          Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();
+    }
+
+    @Override
+    @Transactional
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from EngineManufacturer am " +
+                        "where (:dataParam IS NULL or  UPPER(am.nameManufacturer) like :dataParam)  and am.date  is null");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
     }
 
     @Override

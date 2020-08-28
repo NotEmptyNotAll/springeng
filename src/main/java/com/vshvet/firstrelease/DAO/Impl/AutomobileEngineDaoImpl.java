@@ -1,13 +1,11 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.AutomobileEngineDao;
-import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
-import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import com.vshvet.firstrelease.payload.Request.ParametersPageRequest;
-import com.vshvet.firstrelease.payload.Response.DefaultDataResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -132,7 +129,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
             query.setParameter("autoModelParam", autoModel);
             query.setParameter("autoManufParam", autoManuf);
             query.setParameter("releaseYearF", year);
-            query.setParameter("releaseYear", years != null && year==null ? years : null);
+            query.setParameter("releaseYear", years != null && year == null ? years : null);
             query.setFirstResult(0);
             query.setMaxResults(1);
             return (AutomobileEngine) query.getSingleResult();
@@ -144,14 +141,14 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     @SuppressWarnings("unchecked")
     @Override
     @Transactional
-    public List<AutomobileEngine> getPaginationAutoEng(ParametersPageRequest request) {
+    public List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request) {
         Integer year;
         try {
             year = Integer.parseInt(request.getReleaseYear());
         } catch (NumberFormatException e) {
             year = null;
         }
-        this.countResults = getCountResults(request);
+        this.countResults = getCountResultsByParam(request);
         //  int lastPageNumber = (int) (Math.ceil(((double) this.countResults) / ((double) pageSize)));
         Query query = getCurrentSession()
                 .createQuery("select ae from AutomobileEngine ae " +
@@ -188,10 +185,45 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
         query.setParameter("engineCapParam", request.getEngineCapacity());
         query.setParameter("powerKwtParam", request.getPowerKWT() != null ? ("%" + request.getPowerKWT().toUpperCase() + "%") : null);
         query.setParameter("releaseYearF", year);
-        query.setParameter("releaseYear", request.getReleaseYear() != null && year==null ? ("%" + request.getReleaseYear().toUpperCase() + "%") : null);
+        query.setParameter("releaseYear", request.getReleaseYear() != null && year == null ? ("%" + request.getReleaseYear().toUpperCase() + "%") : null);
         query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
         query.setMaxResults(request.getPageSize());
         return query.list();
+    }
+
+    @Override
+    @Transactional
+    public List<AutomobileEngine> getPaginationAutoEng(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select ae from AutomobileEngine ae " +
+                        "INNER JOIN ae.engineByEngineFk e " +
+                        "INNER JOIN ae.autoManufactureByAutoManufactureFk am " +
+                        "INNER JOIN  ae.autoModelByAutoModelFk m " +
+                        "where (:dataParam IS NULL or  UPPER(e.engineType) like :dataParam " +
+                        "or  UPPER(am.manufactureName) like :dataParam  " +
+                        "or  UPPER(m.modelName) like :dataParam ) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+          Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+
+        return query.list();
+    }
+
+    @Override
+    @Transactional
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(ae.id) from AutomobileEngine ae " +
+                        "INNER JOIN ae.engineByEngineFk e " +
+                        "INNER JOIN ae.autoManufactureByAutoManufactureFk am " +
+                        "INNER JOIN  ae.autoModelByAutoModelFk m " +
+                        "INNER JOIN FuelType ft on e.fuelTypeFk=ft.id " +
+                        "where (:dataParam IS NULL or  UPPER(e.engineType) like :dataParam " +
+                        "or  UPPER(am.manufactureName) like :dataParam  " +
+                        "or  UPPER(m.modelName) like :dataParam ) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        return (Long) query.uniqueResult();
     }
 
     @Override
@@ -230,7 +262,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     @SuppressWarnings("unchecked")
     @Transactional
     @Override
-    public Long getCountResults(ParametersPageRequest request) {
+    public Long getCountResultsByParam(ParametersPageRequest request) {
         Integer year;
         try {
             year = Integer.parseInt(request.getReleaseYear());
@@ -272,9 +304,10 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
         query.setParameter("engineCapParam", request.getEngineCapacity());
         query.setParameter("powerKwtParam", request.getPowerKWT() != null ? ("%" + request.getPowerKWT().toUpperCase() + "%") : null);
         query.setParameter("releaseYearF", year);
-        query.setParameter("releaseYear", request.getReleaseYear() != null && year==null ? ("%" + request.getReleaseYear().toUpperCase() + "%") : null);
+        query.setParameter("releaseYear", request.getReleaseYear() != null && year == null ? ("%" + request.getReleaseYear().toUpperCase() + "%") : null);
         return (Long) query.uniqueResult();
     }
+
 
     @Override
     public Session getCurrentSession() {

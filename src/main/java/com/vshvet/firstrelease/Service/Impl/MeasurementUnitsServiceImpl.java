@@ -22,6 +22,23 @@ public class MeasurementUnitsServiceImpl implements MeasurementUnitsService {
     @Autowired
     private MeasurementUnitsDao measurementUnitsDao;
 
+    @Override
+    @Transactional
+    public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
+        return new ArrayList<DataByIdResponse>(){{
+            measurementUnitsDao.getPagination(request).forEach(item->{
+                add(new DataByIdResponse(item.getFullNameM(),item.getShortNameM(),item.getId(),item.getStatus().getStatus()));
+            });
+        }};
+    }
+
+    @Override
+    public Integer getNumberOfPage(PaginationDataRequest request) {
+        return (int) Math.ceil(Double.valueOf(measurementUnitsDao
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+
+    }
+
     // get the units of calculation and create an answer from them
     @Override
     @Transactional

@@ -1,12 +1,11 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.AutoModelDao;
-import com.vshvet.firstrelease.Entity.AutoModel;
-import com.vshvet.firstrelease.Entity.Cylinders;
-import com.vshvet.firstrelease.Entity.Engine;
-import com.vshvet.firstrelease.Entity.FuelType;
+import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
+import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -69,7 +68,8 @@ public class AutoModelDaoImpl implements AutoModelDao {
     @Transactional
     public List<AutoModel> getAll() {
         return (List<AutoModel>) getCurrentSession()
-                .createQuery("from AutoModel where  date is null").list();
+                .createQuery("from AutoModel where  date is null").setFirstResult(1)
+                .setMaxResults(300).list();
     }
 
     @SuppressWarnings("unchecked")
@@ -124,6 +124,31 @@ public class AutoModelDaoImpl implements AutoModelDao {
         query.setParameter("powerKwtParam", engineRequest.getPowerKWt());
         query.setParameter("releaseYearF", engineRequest.getProduceYear());
         return new HashSet<>(query.list());
+    }
+
+    @Override
+    @Transactional
+    public List<AutoModel> getPagination(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select am from AutoModel am " +
+                        "where (:dataParam IS NULL or  UPPER(am.modelName) like :dataParam ) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        Long  countRes=getCountResults(request);
+        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        return query.list();
+    }
+
+    @Override
+    @Transactional
+    public Long getCountResults(PaginationDataRequest request) {
+        Query query = getCurrentSession()
+                .createQuery("select count(am.id) from AutoModel am " +
+                        "where (:dataParam IS NULL or  UPPER(am.modelName) like :dataParam ) and am.date is null ");
+        query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
+        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        query.setMaxResults(request.getPageSize());
+        return (Long) query.uniqueResult();
     }
 
     @Override
