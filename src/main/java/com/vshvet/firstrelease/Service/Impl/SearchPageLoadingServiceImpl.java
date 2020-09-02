@@ -429,7 +429,7 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
             myExcelBook = new XSSFWorkbook(new FileInputStream("/home/gtkf-3959/project/enginefinal/tehinfo.xlsx"));
             this.autoid = -1;
             XSSFSheet myExcelSheet = myExcelBook.getSheet("к.вал");
-            for (int i = 75000; i < 100000; i++) {
+            for (int i = 2; i < 14499; i++) {
                 System.out.println("///");
                 System.out.println(i);
                 System.out.println("///");
