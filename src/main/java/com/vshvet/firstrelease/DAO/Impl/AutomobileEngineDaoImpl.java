@@ -56,7 +56,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<AutomobileEngine> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(AutomobileEngine.class, id));
@@ -64,7 +64,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutomobileEngine> getAll() {
         return (List<AutomobileEngine>) getCurrentSession()
                 .createQuery("from AutomobileEngine where  date is null ").setFirstResult(1)
@@ -79,7 +79,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
      * */
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutomobileEngine> getAutoByParam(EngineRequest engineRequest) {
         Query query = getCurrentSession()
                 .createQuery("select ae from AutomobileEngine ae " +
@@ -110,6 +110,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years) {
         try {
             Integer year;
@@ -192,7 +193,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutomobileEngine> getPaginationAutoEng(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select ae from AutomobileEngine ae " +
@@ -211,7 +212,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getCountResults(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(ae.id) from AutomobileEngine ae " +
@@ -260,7 +261,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public Long getCountResultsByParam(ParametersPageRequest request) {
         Integer year;

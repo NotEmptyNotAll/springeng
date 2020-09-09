@@ -65,7 +65,7 @@ public class ParametersDaoImpl implements ParametersDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Parameters> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(Parameters.class, id));
@@ -73,7 +73,7 @@ public class ParametersDaoImpl implements ParametersDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Parameters> getAll() {
         return (List<Parameters>) getCurrentSession()
                 .createQuery("from Parameters where date is null").list();
@@ -86,7 +86,7 @@ public class ParametersDaoImpl implements ParametersDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Parameters findParamByElemId(Integer id) {
         Query query = getCurrentSession()
                 .createQuery("from Parameters p where p.elemFk=:idParam and date is null  ");

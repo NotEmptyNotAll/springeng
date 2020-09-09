@@ -81,6 +81,7 @@ public class AutoModelDaoImpl implements AutoModelDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AutoModel findByName(String name) {
         try {
             Query query = getCurrentSession()

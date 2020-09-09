@@ -146,6 +146,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AutoManufacture findByName(String name) {
         try {
             Query query = getCurrentSession()

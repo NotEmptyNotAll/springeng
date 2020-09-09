@@ -73,7 +73,7 @@ public class FileStorageDaoImpl implements FileStorageDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<FileStorage> findById(int id) {
         return Optional.of(getCurrentSession().get(FileStorage.class, id));
 
@@ -81,7 +81,7 @@ public class FileStorageDaoImpl implements FileStorageDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<FileStorage> getAll() {
         return (List<FileStorage>) getCurrentSession()
                 .createQuery("from FileStorage am where   date is null").list();
