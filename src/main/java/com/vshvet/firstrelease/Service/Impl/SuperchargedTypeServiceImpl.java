@@ -21,14 +21,14 @@ public class SuperchargedTypeServiceImpl implements SuperchargedTypeService {
     private SuperchargedTypeDao superchargedTypeDao;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllNameOfModel() {
         List<String> allType = superchargedTypeDao.getAllType();
         return allType;
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<DataByIdResponse>(){{
             superchargedTypeDao.getPagination(request).forEach(item->{
@@ -80,7 +80,7 @@ public class SuperchargedTypeServiceImpl implements SuperchargedTypeService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getDataByIdResponse() {
         List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
             superchargedTypeDao.getAll().forEach(elem -> {
@@ -93,7 +93,7 @@ public class SuperchargedTypeServiceImpl implements SuperchargedTypeService {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<SuperchargedType> getAllSuperchargedType() {
         List<SuperchargedType> all = superchargedTypeDao.getAll();
 

@@ -32,7 +32,7 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<DataByIdResponse>(){{
             autoManufactureDao.getPagination(request).forEach(item->{
@@ -74,13 +74,13 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public AutoManufacture findById(Integer id) {
         return autoManufactureDao.findById(id).get();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllManufacture() {
         List<String> allName = autoManufactureDao.getAllNameOfManufacture();
         return allName;
@@ -104,7 +104,7 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getDataByIdResponse() {
         List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
             autoManufactureDao.getAll().forEach(elem -> {
@@ -116,7 +116,7 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoManufacture> getAllAutoManufacture() {
         List<AutoManufacture> all = autoManufactureDao.getAll();
         return all;
@@ -141,7 +141,7 @@ public class AutoManufactureServiceImpl implements AutoManufactureService {
         imprtData.getList().forEach(this::save);
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getCroppedData(EngineRequest engine) {
         return new ArrayList<DataByIdResponse>() {{
             autoManufactureDao.getCroppedByParamName(engine).forEach(elem -> {

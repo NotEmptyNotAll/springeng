@@ -55,7 +55,7 @@ public class EngineServiceImpl implements EngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EngineDataResponse> getDataByIdResponse() {
         List<EngineDataResponse> all = new ArrayList<EngineDataResponse>() {{
             engineDao.getAll().forEach(elem -> {
@@ -84,7 +84,7 @@ public class EngineServiceImpl implements EngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllType() {
         List<String> engines = engineDao.getAllType();
         return engines;
@@ -96,7 +96,7 @@ public class EngineServiceImpl implements EngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EngineDataResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<EngineDataResponse>(){{
             engineDao.getPaginationData(request).forEach(elem->{
@@ -129,7 +129,7 @@ public class EngineServiceImpl implements EngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getCroppedData(EngineRequest engineRequest) {
         return new ArrayList<DataByIdResponse>() {{
             engineDao.getCroppedType(engineRequest).forEach(elem -> {
@@ -171,7 +171,7 @@ public class EngineServiceImpl implements EngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Engine> getAll() {
         List<Engine> engines = engineDao.getAll();
         return engines;

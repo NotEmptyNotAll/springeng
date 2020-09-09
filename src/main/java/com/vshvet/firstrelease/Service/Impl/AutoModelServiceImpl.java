@@ -46,7 +46,7 @@ public class AutoModelServiceImpl implements AutoModelService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<DataByIdResponse>(){{
             autoModelDao.getPagination(request).forEach(item->{
@@ -63,7 +63,7 @@ public class AutoModelServiceImpl implements AutoModelService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoModel> getAutoModel() {
         List<AutoModel> autoModels = autoModelDao.getAll();
         return autoModels;
@@ -84,7 +84,7 @@ public class AutoModelServiceImpl implements AutoModelService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getCroppedData(EngineRequest engineRequest) {
         return new ArrayList<DataByIdResponse>() {{
             autoModelDao.getCroppedModel(engineRequest).forEach(elem -> {
@@ -95,7 +95,7 @@ public class AutoModelServiceImpl implements AutoModelService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getDataByIdResponse() {
         try {
             List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
@@ -148,14 +148,14 @@ public class AutoModelServiceImpl implements AutoModelService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllNameOfModel() {
         List<String> models = autoModelDao.getAllNameOfModel();
         return models;
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public AutoModel findById(int id) {
 
         AutoModel model = null;

@@ -155,6 +155,12 @@ public class SearchController {
         return list;
     }
 
+
+    @GetMapping(value = "/getColumnParam")
+    public List<TreeToColumnsResponse> getColumnParam() {
+        return elementsService.getTableColumn();
+    }
+
     @RequestMapping(value = "/getAllAutoEngAndParam", //
             method = RequestMethod.POST, //
             produces = {MediaType.APPLICATION_JSON_VALUE, //
@@ -164,7 +170,7 @@ public class SearchController {
         return new HashMap<String, Object>() {{
             put("engineData", automobileEngineService.getAllAutoEngAndParam(request));
             put("countResults", automobileEngineService.getNumberOfPageByParam(request));
-            put("columnParam", elementsService.getTableColumn());
+           // put("columnParam", elementsService.getTableColumn());
         }};
     }
 

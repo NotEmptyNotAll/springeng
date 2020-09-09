@@ -58,7 +58,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<AutoManufacture> findById(int id) {
         return Optional.of(getCurrentSession().get(AutoManufacture.class, id));
     }
@@ -66,7 +66,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoManufacture> getAll() {
         return (List<AutoManufacture>) getCurrentSession()
                 .createQuery("from AutoManufacture am where  am.manufactureName<>'не задано' and date is null").list();
@@ -115,7 +115,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoManufacture> getCroppedByParamName(EngineRequest engineRequest) {
         Query query = getCurrentSession()
                 .createQuery("select  DISTINCT ae.autoManufactureByAutoManufactureFk " +
@@ -161,7 +161,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllNameOfManufacture() {
         return getCurrentSession()
                 .createQuery("select am.manufactureName from AutoManufacture am  where  am.manufactureName<>'не задано' and date is null").list();
@@ -169,7 +169,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoManufacture> getPagination(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select am from AutoManufacture am " +
@@ -182,7 +182,7 @@ public class AutoManufactureDaoImpl implements AutoManufactureDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getCountResults(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(am.id) from AutoManufacture am " +

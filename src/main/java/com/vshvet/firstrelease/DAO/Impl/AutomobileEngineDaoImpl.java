@@ -140,7 +140,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request) {
         Integer year;
         try {

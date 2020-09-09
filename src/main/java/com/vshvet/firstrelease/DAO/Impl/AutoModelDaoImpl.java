@@ -58,14 +58,14 @@ public class AutoModelDaoImpl implements AutoModelDao {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<AutoModel> findById(int id) {
         return Optional.of(getCurrentSession().get(AutoModel.class, id));
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoModel> getAll() {
         return (List<AutoModel>) getCurrentSession()
                 .createQuery("from AutoModel where  date is null").setFirstResult(1)
@@ -74,7 +74,7 @@ public class AutoModelDaoImpl implements AutoModelDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllNameOfModel() {
         return getCurrentSession()
                 .createQuery("select am.modelName from AutoModel am where  date is null").list();
@@ -95,7 +95,7 @@ public class AutoModelDaoImpl implements AutoModelDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Set<AutoModel> getCroppedModel(EngineRequest engineRequest) {
         Query query = getCurrentSession()
                 .createQuery("select DISTINCT ae.autoModelByAutoModelFk " +
@@ -127,7 +127,7 @@ public class AutoModelDaoImpl implements AutoModelDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoModel> getPagination(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select am from AutoModel am " +
@@ -140,7 +140,7 @@ public class AutoModelDaoImpl implements AutoModelDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getCountResults(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(am.id) from AutoModel am " +

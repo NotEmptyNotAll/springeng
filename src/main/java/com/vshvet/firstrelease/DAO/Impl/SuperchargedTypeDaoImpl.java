@@ -55,7 +55,7 @@ public class SuperchargedTypeDaoImpl implements SuperchargedTypeDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<SuperchargedType> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(SuperchargedType.class, id));
@@ -63,6 +63,7 @@ public class SuperchargedTypeDaoImpl implements SuperchargedTypeDao {
 
     @SuppressWarnings("unchecked")
     @Override
+    @Transactional(readOnly = true)
     public List<SuperchargedType> getAll() {
         return (List<SuperchargedType>) getCurrentSession()
                 .createQuery("from SuperchargedType where  date is null").list();
@@ -115,14 +116,14 @@ public class SuperchargedTypeDaoImpl implements SuperchargedTypeDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllType() {
         return getCurrentSession()
                 .createQuery("select st.nameType from SuperchargedType st where  date is null").list();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<SuperchargedType> getPagination(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select am from SuperchargedType am " +
@@ -135,7 +136,7 @@ public class SuperchargedTypeDaoImpl implements SuperchargedTypeDao {
         return query.list();      }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getCountResults(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(am.id) from SuperchargedType am " +

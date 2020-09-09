@@ -33,7 +33,7 @@ public class ParametersDaoImpl implements ParametersDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Parameters> getParamByAutoId(Integer autoId)  {
         Query query =  getCurrentSession()
                 .createQuery("from Parameters p where p.elemFk>0 and p.autoId=:autoIdParam and p.date is null");
@@ -100,12 +100,13 @@ public class ParametersDaoImpl implements ParametersDao {
     @Override
     @Transactional
     public void save(Parameters parameters) {
-        getCurrentSession().saveOrUpdate(parameters);
-        /*Query query = getCurrentSession().createQuery("update Parameters set autoId = :autoIdParam" +
+        getCurrentSession().save(parameters);
+        Query query = getCurrentSession().createQuery("update Parameters set autoId = :autoIdParam, elemFk=:idElem" +
                 "  where paramId = :idParam");
         query.setParameter("idParam", parameters.getParamId());
+        query.setParameter("idElem", parameters.getElemFk());
         query.setParameter("autoIdParam", parameters.getAutoId());
-        query.executeUpdate();*/
+        query.executeUpdate();
     }
 
     //we do not update the object,

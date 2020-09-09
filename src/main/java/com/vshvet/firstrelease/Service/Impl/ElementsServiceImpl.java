@@ -81,7 +81,7 @@ public class ElementsServiceImpl implements ElementsService {
         return null;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<TreeToColumnsResponse> getTableColumn() {
         return new ArrayList<TreeToColumnsResponse>() {{
             elementsDao.getAllRootElemByAutoId().forEach(elem -> {
@@ -91,7 +91,7 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ElementsResponse> getAllRootElemByAutoId(Integer id) {
         return new ArrayList<ElementsResponse>() {{
             elementsDao.getAllRootElemByAutoId().forEach(elements -> {
@@ -103,7 +103,7 @@ public class ElementsServiceImpl implements ElementsService {
     //we get the elements according to the data
     // that the user measured and return a list of root id elements
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Set<Integer> getParentElemId(List<ParamsRequest> request) {
         Set<Integer> elements = new HashSet<>();
         List<AutomobileEngine> autoEng = null;
@@ -209,7 +209,7 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParamSizeNameResponse> getParametersSizeName(Integer id) {
         return new ArrayList<ParamSizeNameResponse>() {{
             elementsDao.getElementByParentId(id).forEach(elements -> {
@@ -223,7 +223,7 @@ public class ElementsServiceImpl implements ElementsService {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer getMaxId() {
         Integer maxId = elementsDao.getMaxId();
         return maxId;
@@ -294,7 +294,7 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutomobileEngine> getParentElements(List<ParamsRequest> request) {
         List<AutomobileEngine> elements = new ArrayList<>();
         List<AutomobileEngine> autoEng = null;
@@ -323,7 +323,7 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoEngineResponse> getParentElementsUpdate(EngineRequest request) {
         List<AutoEngineResponse> elements = new ArrayList<>();
         List<AutomobileEngine> autoEng = null;

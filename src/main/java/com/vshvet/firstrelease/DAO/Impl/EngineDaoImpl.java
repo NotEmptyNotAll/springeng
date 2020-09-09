@@ -60,7 +60,7 @@ public class EngineDaoImpl implements EngineDao {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Engine> findById(int id) {
 
         return Optional.of(getCurrentSession()
@@ -69,13 +69,14 @@ public class EngineDaoImpl implements EngineDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllType() {
         return (List<String>) getCurrentSession()
                 .createQuery("select e.engineType from Engine e where  e.engineType IS NOT NULL and date is null").list();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Engine findByName(String name) {
         try {
             Query query = getCurrentSession()
@@ -98,7 +99,7 @@ public class EngineDaoImpl implements EngineDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Set<Engine> getCroppedType(EngineRequest engineRequest) {
         Query query = getCurrentSession()
                 .createQuery("select DISTINCT e " +
@@ -130,7 +131,7 @@ public class EngineDaoImpl implements EngineDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Engine> getPaginationData(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select e from Engine e " +
@@ -143,7 +144,7 @@ public class EngineDaoImpl implements EngineDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getNumberOfPage(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(e.id) from Engine e " +
@@ -155,7 +156,7 @@ public class EngineDaoImpl implements EngineDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Engine> getAll() {
         return (List<Engine>) getCurrentSession()
                 .createQuery("from Engine e where  e.engineType IS NOT NULL and date is null").setFirstResult(1)

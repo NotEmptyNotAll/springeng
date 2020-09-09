@@ -24,14 +24,14 @@ public class EngineManufactureServiceImpl implements EngineManufactureService {
 
     //get from database all name of engine manufacture
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllName() {
         List<String> allName = engineManufactureDao.getAllName();
         return allName;
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<DataByIdResponse>(){{
             engineManufactureDao.getPagination(request).forEach(item->{
@@ -78,7 +78,7 @@ public class EngineManufactureServiceImpl implements EngineManufactureService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getDataByIdResponse() {
         List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
             engineManufactureDao.getAll().forEach(elem -> {
@@ -107,7 +107,7 @@ public class EngineManufactureServiceImpl implements EngineManufactureService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getCroppedData(EngineRequest engineRequest) {
         return new ArrayList<DataByIdResponse>() {{
             engineManufactureDao.getCroppedByParamName(engineRequest).forEach(elem -> {
@@ -132,7 +132,7 @@ public class EngineManufactureServiceImpl implements EngineManufactureService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EngineManufacturer> getAllEngineManufacture() {
         List<EngineManufacturer> autoModels = engineManufactureDao.getAll();
         return autoModels;

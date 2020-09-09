@@ -31,7 +31,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     private ElementsService elementsService;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<DataByIdResponse>() {{
             parameterNameDao.getPagination(request).forEach(item -> {
@@ -64,7 +64,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
 
     //get a list of parameter names and create an answer from them
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParamNameNodeResponse> getAllNames() {
         Set<Elements> elements = new TreeSet<>(elementsService.getAllNodeOfTree());
         return new ArrayList<ParamNameNodeResponse>() {{
@@ -95,7 +95,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer getMaxId() {
         Integer maxId = parameterNameDao.getMaxId();
         return maxId;
@@ -116,7 +116,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getDataByIdResponse() {
         List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
             parameterNameDao.getAll().forEach(elem -> {
@@ -147,7 +147,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getAllTreeRootName() {
         return new ArrayList<DataByIdResponse>() {{
             parameterNameDao.getAllTreeRootName().forEach(elem ->
@@ -168,7 +168,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParameterNames> getAllParametersName() {
         return parameterNameDao.getAll();
     }

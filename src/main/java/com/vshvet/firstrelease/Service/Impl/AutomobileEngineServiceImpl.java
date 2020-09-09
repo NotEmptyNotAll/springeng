@@ -35,7 +35,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     private EngineService engineService;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoDataResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<AutoDataResponse>(){{
             automobileEngineDao.getPaginationAutoEng(request).forEach(item->{
@@ -45,13 +45,13 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer getNumberOfPage(PaginationDataRequest request) {
         return (int) Math.ceil(Double.valueOf(automobileEngineDao
                 .getCountResults(request)) / Double.valueOf(request.getPageSize()));    }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> getAllAutoEngAndParam(ParametersPageRequest request) {
         List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList());
         List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request);
@@ -108,7 +108,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer getNumberOfPageByParam(ParametersPageRequest request) {
         return (int) Math.ceil(Double.valueOf(automobileEngineDao
                 .getCountResultsByParam(request)) / Double.valueOf(request.getPageSize()));
@@ -117,7 +117,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     //This service contains a list of auto engines
     // to return the result to the user.
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutomobileEngineResponse> findByParam(EngineRequest engineRequest) {
         List<AutomobileEngineResponse> responses = null;
         if (!engineRequest.findOnlyByParam()) {
@@ -148,7 +148,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutoEngineResponse> findByParamForUpdate(EngineRequest engineRequest) {
         List<AutoEngineResponse> responses = null;
         if (!engineRequest.findOnlyByParam()) {
@@ -217,7 +217,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public String getNameAuto(Integer id) {
         AutomobileEngine autoEng = automobileEngineDao.findById(id).get();
         return autoEng.getAutoManufactureByAutoManufactureFk().getManufactureName()
@@ -241,7 +241,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
         return automobileEngineDao.getAll();
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public List<AutoDataResponse> getAllAuto() {
         return new ArrayList<AutoDataResponse>() {{
             automobileEngineDao.getAll().forEach(elem -> {

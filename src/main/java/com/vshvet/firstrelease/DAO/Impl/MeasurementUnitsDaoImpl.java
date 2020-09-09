@@ -53,7 +53,7 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<MeasurementUnits> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(MeasurementUnits.class, id));
@@ -61,7 +61,7 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<MeasurementUnits> getAll() {
         return (List<MeasurementUnits>) getCurrentSession()
                 .createQuery("from MeasurementUnits where  date is null").list();
@@ -111,7 +111,7 @@ public class MeasurementUnitsDaoImpl implements MeasurementUnitsDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<MeasurementUnits> getPagination(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select am from MeasurementUnits am " +

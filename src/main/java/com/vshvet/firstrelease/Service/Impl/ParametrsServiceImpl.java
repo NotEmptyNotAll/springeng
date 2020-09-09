@@ -34,7 +34,7 @@ public class ParametrsServiceImpl implements ParametrsService {
 
     //get a list of parameters and create an answer from them
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParametersResponse> getParamByIdElem(Integer id, Integer auto_id) {
         List<ParametersResponse> responses = null;
         try {
@@ -84,7 +84,7 @@ public class ParametrsServiceImpl implements ParametrsService {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Map<String, Object> getParamMap(Integer autoId) {
         return new HashMap<String, Object>() {{
             parametersDao.getParamByAutoId(autoId).forEach(parameter -> {
@@ -101,7 +101,7 @@ public class ParametrsServiceImpl implements ParametrsService {
         }};
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getFileUrl(List<FileStorage> list) {
         return new ArrayList<String>() {{
             list.forEach(elem -> {
@@ -110,7 +110,7 @@ public class ParametrsServiceImpl implements ParametrsService {
         }};
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     String getValueParam(Parameters parameter) {
         if (parameter.getDoubleMin() != null) {
             return parameter.getDoubleMin() + " - " + parameter.getDoubleMax();

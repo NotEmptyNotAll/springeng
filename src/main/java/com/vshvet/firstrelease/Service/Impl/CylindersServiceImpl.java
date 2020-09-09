@@ -25,8 +25,7 @@ public class CylindersServiceImpl implements CylindersService {
     private CylindersDao cylindersDao;
 
     @Override
-    @Transactional
-
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getPaginationData(PaginationDataRequest request) {
         return new ArrayList<DataByIdResponse>(){{
             cylindersDao.getPagination(request).forEach(item->{
@@ -80,7 +79,7 @@ public class CylindersServiceImpl implements CylindersService {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Cylinders> getAllCylinders() {
         List<Cylinders> all = cylindersDao.getAll();
         return all;
@@ -105,7 +104,7 @@ public class CylindersServiceImpl implements CylindersService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DataByIdResponse> getDataByIdResponse() {
         List<DataByIdResponse> all = new ArrayList<DataByIdResponse>() {{
             cylindersDao.getAll().forEach(elem -> {
@@ -118,7 +117,7 @@ public class CylindersServiceImpl implements CylindersService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllNameOfCylinders() {
         List<String> allType = cylindersDao.getAllType();
         return allType;

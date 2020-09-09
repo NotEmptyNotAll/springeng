@@ -58,7 +58,7 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<EngineManufacturer> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(EngineManufacturer.class, id));
@@ -67,7 +67,7 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EngineManufacturer> getAll() {
         return (List<EngineManufacturer>) getCurrentSession()
                 .createQuery("from EngineManufacturer ").list();
@@ -78,7 +78,7 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllName() {
         return (List<String>) getCurrentSession()
                 .createQuery("select new java.lang.String(em.nameManufacturer)" +
@@ -100,7 +100,7 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Set<EngineManufacturer> getCroppedByParamName(EngineRequest engineRequest) {
         Query query = getCurrentSession()
                 .createQuery("select  e.engineManufacturerByEngineManufacturerFk " +
@@ -131,7 +131,7 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EngineManufacturer> getPagination(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select am from EngineManufacturer am " +
@@ -144,7 +144,7 @@ public class EngineManufactureDaoImpl implements EngineManufactureDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getCountResults(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(am.id) from EngineManufacturer am " +

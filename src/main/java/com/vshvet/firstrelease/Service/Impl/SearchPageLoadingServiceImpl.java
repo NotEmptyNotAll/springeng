@@ -1,5 +1,7 @@
 package com.vshvet.firstrelease.Service.Impl;
 
+import com.vshvet.firstrelease.DAO.ElementsDao;
+import com.vshvet.firstrelease.DAO.ParametersDao;
 import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
@@ -36,7 +38,11 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
 
     private final EngineService engineService;
 
+    private final ParametersDao parametersDao;
+
     private final FuelTypeService fuelTypeService;
+
+    private final ElementsDao elementsDao;
 
     private final AutoModelService autoModelService;
 
@@ -68,7 +74,7 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
         return defaultDataResponse;
     }
 
-
+/*
     private FuelType saveFuelTypeByRow(XSSFRow row) {
         FuelType fuelType = new FuelType();
         fuelType.setStatus(new Status(2));
@@ -113,7 +119,7 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
         } else {
             engine.setEngineType("NA");
         }
-        if (getTextFromCell(row.getCell(4))!=null) {
+        if (getTextFromCell(row.getCell(4)) != null) {
             FuelType fuelType = fuelTypeService.findByName(getTextFromCell(row.getCell(4)));
             if (fuelType != null) {
                 engine.setFuelTypeByFuelTypeFk(fuelType);
@@ -385,7 +391,8 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
                     parameters.setStatus(new Status(2));
                     parametrsService.save(parameters);
                 }
-            }}catch (Exception e){
+            }
+        } catch (Exception e) {
 
         }
     }
@@ -421,9 +428,12 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
             }
         }
     }
+*/
 
     @Override
+    @Transactional
     public void importExelFile() {
+        /*
         XSSFWorkbook myExcelBook = null;
         try {
             myExcelBook = new XSSFWorkbook(new FileInputStream("/home/gtkf-3959/project/enginefinal/tehinfo.xlsx"));
@@ -438,8 +448,10 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
             myExcelBook.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
+
+
 
     @Override
     @Transactional
@@ -485,8 +497,6 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
     }
 
 
-
-
     //autowired our service
     @Autowired
     public SearchPageLoadingServiceImpl(AutomobileEngineService automobileEngineService,
@@ -502,7 +512,11 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
                                         CylindersService cylindersService,
                                         AutoManufactureService autoManufactureService,
                                         SuperchargedTypeService superchargedTypeService,
+                                        ElementsDao elementsDao,
+                                        ParametersDao parametersDao,
                                         StatusService statusService) {
+        this.parametersDao=parametersDao;
+        this.elementsDao = elementsDao;
         this.statusService = statusService;
         this.superchargedTypeService = superchargedTypeService;
         this.cylindersService = cylindersService;
@@ -552,4 +566,3 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
     }
 
 }
-    

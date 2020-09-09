@@ -58,7 +58,7 @@ public class ElementsDaoImpl implements ElementsDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer getMaxId() {
         return (Integer) getCurrentSession()
                 .createQuery("select MAX(e.id) from Elements e").list().get(0);
@@ -66,13 +66,14 @@ public class ElementsDaoImpl implements ElementsDao {
 
     @SuppressWarnings("unchecked")
     @Override
+    @Transactional(readOnly = true)
     public List<Elements> getAllRootElemByAutoId() {
         return (List<Elements>) getCurrentSession()
                 .createQuery("select e from Elements e where e.parentId=0").list();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Elements> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(Elements.class, id));
@@ -80,7 +81,7 @@ public class ElementsDaoImpl implements ElementsDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Elements> getAll() {
         return (List<Elements>) getCurrentSession()
                 .createQuery("from Elements").list();
@@ -92,7 +93,7 @@ public class ElementsDaoImpl implements ElementsDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AutomobileEngine> findParentsElemByParam(ParamsRequest paramsRequest) throws ClassCastException {
         Double number;
         try {
@@ -117,6 +118,7 @@ public class ElementsDaoImpl implements ElementsDao {
         return (List<AutomobileEngine>) query.list();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Elements findByParentIdAndParamFk(Integer paramFk, Integer parentId) {
         try {
@@ -136,7 +138,7 @@ public class ElementsDaoImpl implements ElementsDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Elements> getElementByParentId(Integer id) {
         Query query = getCurrentSession()
                 .createQuery("from Elements e " +
@@ -150,7 +152,7 @@ public class ElementsDaoImpl implements ElementsDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Elements> getAllNodeOfTree() {
         return (List<Elements>) getCurrentSession()
                 .createQuery("from Elements where parentId is not null and parameterNamesByParamNameFk.treeRoot=true and date is null").list();

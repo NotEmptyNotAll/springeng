@@ -61,7 +61,7 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<ParameterNames> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(ParameterNames.class, id));
@@ -69,7 +69,7 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParameterNames> getAll() {
         return (List<ParameterNames>) getCurrentSession()
                 .createQuery("from ParameterNames pn where pn.id<>1 and pn.dateCreate is null").list();
@@ -120,7 +120,7 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParameterNames> getAllTreeRootName() {
         return (List<ParameterNames>) getCurrentSession()
                 .createQuery("from ParameterNames pn where pn.dateCreate is null").list();
@@ -128,13 +128,14 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParameterNames> getAllParameterSizeName() {
         return (List<ParameterNames>) getCurrentSession()
                 .createQuery("from ParameterNames pn where treeRoot=false and pn.dateCreate is null").list();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ParameterNames findByName(String name) {
         try {
             Query query = getCurrentSession()
@@ -152,14 +153,14 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer getMaxId() {
         return (Integer) getCurrentSession()
                 .createQuery("select MAX(pn.id) from ParameterNames pn where treeRoot=true and dateCreate is null").list().get(0);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ParameterNames> getPagination(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select am from ParameterNames am " +
@@ -171,7 +172,7 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
         return query.list();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     private Long getCountRes(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(am.id) from ParameterNames am " +
@@ -182,7 +183,7 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getCountResults(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(am.id) from ParameterNames am " +
@@ -193,7 +194,7 @@ public class ParameterNameDaoImpl implements ParameterNameDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public long getCountResultsParamSize(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(am.id) from ParameterNames am " +

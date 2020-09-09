@@ -55,14 +55,14 @@ public class CylindersDaoImpl implements CylindersDao {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Cylinders> findById(int id) {
         return Optional.of(getCurrentSession().get(Cylinders.class, id));
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Cylinders> getAll() {
         return (List<Cylinders>) getCurrentSession()
                 .createQuery("from Cylinders c  where  date is null").list();
@@ -114,14 +114,14 @@ public class CylindersDaoImpl implements CylindersDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getAllType() {
         return getCurrentSession()
                 .createQuery("select c.typeName from Cylinders c  where  date is null").list();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Cylinders> getPagination(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select c from Cylinders c " +
@@ -134,7 +134,7 @@ public class CylindersDaoImpl implements CylindersDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getCountResults(PaginationDataRequest request) {
         Query query = getCurrentSession()
                 .createQuery("select count(c.id) from Cylinders c " +

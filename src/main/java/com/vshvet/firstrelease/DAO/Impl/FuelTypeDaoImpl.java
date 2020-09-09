@@ -51,7 +51,7 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<FuelType> findById(int id) {
         return Optional.of(getCurrentSession()
                 .get(FuelType.class, id));
@@ -59,7 +59,7 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<FuelType> getAll() {
         return (List<FuelType>) getCurrentSession()
                 .createQuery("from FuelType where date is null ").list();
@@ -67,7 +67,7 @@ public class FuelTypeDaoImpl implements FuelTypeDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Set<FuelType> getCroppedByParamType(EngineRequest engineRequest) {
         Query query = getCurrentSession()
                 .createQuery("select  e.fuelTypeByFuelTypeFk " +
