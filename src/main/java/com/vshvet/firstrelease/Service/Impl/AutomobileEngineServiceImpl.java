@@ -47,43 +47,46 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     @Override
     @Transactional(readOnly = true)
     public Integer getNumberOfPage(PaginationDataRequest request) {
+
         return (int) Math.ceil(Double.valueOf(automobileEngineDao
                 .getCountResults(request)) / Double.valueOf(request.getPageSize()));    }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Map<String, Object>> getAllAutoEngAndParam(ParametersPageRequest request) {
+    public AutoEngineMapByParamResponse getAllAutoEngAndParam(ParametersPageRequest request) {
         List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList());
-        List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request);
-        if (autoeng.size() > 0) {
-            return new ArrayList<Map<String, Object>>() {{
-                if(autoListByParam==null){
+        List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request,autoListByParam);
+        Integer countResult=getNumberOfPageByParam(request,autoListByParam);
+    //    if (autoeng.size() > 0) {
+            return new AutoEngineMapByParamResponse(new ArrayList<Map<String, Object>>() {{
+            //    if(autoListByParam==null){
                     autoeng.forEach(elem -> {
-                        add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem.getId())).getMapThisElem());
+                        add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem)).getMapThisElem());
                     });
-                }else if (autoListByParam.size() > 0) {
+              /*  }else if (autoListByParam.size() > 0) {
                     autoeng.stream()
                             .filter(autoListByParam::contains)
                             .forEach(elem -> {
                                 add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem.getId())).getMapThisElem());
                             });
-                }/* else {
+                } else {
                     autoeng.forEach(elem -> {
                         add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem.getId())).getMapThisElem());
                     });
                 }*/
-            }};
-        } else {
+            }},countResult);
+      /*  } else {
             return new ArrayList<Map<String, Object>>() {{
                 autoListByParam.forEach(elem -> {
                     add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem.getId())).getMapThisElem());
                 });
             }};
-        }
+        }*/
     }
 
 
     @Override
+    @Transactional(readOnly = true)
     public AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years) {
         return automobileEngineDao.findByNames(autoModel,engineType,autoManuf,years);
     }
@@ -109,9 +112,9 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
 
     @Override
     @Transactional(readOnly = true)
-    public Integer getNumberOfPageByParam(ParametersPageRequest request) {
+    public Integer getNumberOfPageByParam(ParametersPageRequest request, List<AutomobileEngine> autoListByParam) {
         return (int) Math.ceil(Double.valueOf(automobileEngineDao
-                .getCountResultsByParam(request)) / Double.valueOf(request.getPageSize()));
+                .getCountResultsByParam(request,autoListByParam)) / Double.valueOf(request.getPageSize()));
     }
 
     //This service contains a list of auto engines

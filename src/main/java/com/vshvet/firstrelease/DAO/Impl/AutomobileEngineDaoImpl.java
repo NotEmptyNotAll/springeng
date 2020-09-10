@@ -6,6 +6,7 @@ import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
 import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import com.vshvet.firstrelease.payload.Request.ParametersPageRequest;
+import com.vshvet.firstrelease.payload.Request.ParamsRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -142,14 +143,25 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
-    public List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request) {
+    public List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request, List<AutomobileEngine> automobileEngineList) {
         Integer year;
         try {
             year = Integer.parseInt(request.getReleaseYear());
         } catch (NumberFormatException e) {
             year = null;
         }
-        this.countResults = getCountResultsByParam(request);
+        StringBuilder paramSunQuery = new StringBuilder();
+        if (automobileEngineList!=null) {
+
+            for (AutomobileEngine automobileEngine :
+                    automobileEngineList) {
+                paramSunQuery.append(" or ae.id=" + automobileEngine.getId());
+            }
+            paramSunQuery.delete(1,3);
+        }
+
+        //this.countResults = getCountResultsByParam(request);
+
         //  int lastPageNumber = (int) (Math.ceil(((double) this.countResults) / ((double) pageSize)));
         Query query = getCurrentSession()
                 .createQuery("select ae from AutomobileEngine ae " +
@@ -165,6 +177,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                         "and (:fuelTypeParam IS NULL or  upper(e.fuelTypeByFuelTypeFk.nameType) like :fuelTypeParam) " +
                         "and (:engineCapParam IS NULL or  e.engineCapacity=:engineCapParam) " +
                         "and (:cylinderNum IS NULL or  e.cylindersNumber=:cylinderNum) " +
+                        (automobileEngineList!=null ? "and (" + paramSunQuery + ")" : "") +
                         "and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
                         "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
                         "and (:degreeCompression IS NULL or  e.degreeCompression=:degreeCompression) " +
@@ -205,8 +218,8 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                         "or  UPPER(m.modelName) like :dataParam ) and am.date is null ");
         query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
         query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
-          Long  countRes=getCountResults(request);
-        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        Long countRes = getCountResults(request);
+        query.setMaxResults(request.getPageSize() > countRes ? countRes.intValue() : request.getPageSize());
 
         return query.list();
     }
@@ -263,15 +276,28 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     @Override
-    public Long getCountResultsByParam(ParametersPageRequest request) {
+    public Long getCountResultsByParam(ParametersPageRequest request,List<AutomobileEngine> automobileEngineList) {
         Integer year;
         try {
             year = Integer.parseInt(request.getReleaseYear());
         } catch (NumberFormatException e) {
             year = null;
         }
+        StringBuilder paramSunQuery = new StringBuilder();
+        if (automobileEngineList!=null) {
+
+            for (AutomobileEngine automobileEngine :
+                    automobileEngineList) {
+                paramSunQuery.append(" or ae.id=" + automobileEngine.getId());
+            }
+            paramSunQuery.delete(1,3);
+        }
+
+        //this.countResults = getCountResultsByParam(request);
+
+        //  int lastPageNumber = (int) (Math.ceil(((double) this.countResults) / ((double) pageSize)));
         Query query = getCurrentSession()
-                .createQuery("select count(ae.id)  from AutomobileEngine ae " +
+                .createQuery("select count (ae.id) from AutomobileEngine ae " +
                         "INNER JOIN ae.engineByEngineFk e " +
                         "INNER JOIN ae.autoManufactureByAutoManufactureFk am " +
                         "INNER JOIN  ae.autoModelByAutoModelFk m " +
@@ -284,14 +310,15 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                         "and (:fuelTypeParam IS NULL or  upper(e.fuelTypeByFuelTypeFk.nameType) like :fuelTypeParam) " +
                         "and (:engineCapParam IS NULL or  e.engineCapacity=:engineCapParam) " +
                         "and (:cylinderNum IS NULL or  e.cylindersNumber=:cylinderNum) " +
+                        (automobileEngineList!=null ? "and (" + paramSunQuery + ")" : "") +
                         "and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
-                        "and (:degreeCompression IS NULL or  e.degreeCompression=:degreeCompression) " +
                         "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
+                        "and (:degreeCompression IS NULL or  e.degreeCompression=:degreeCompression) " +
                         "and (:powerKwtParam IS NULL or  upper(e.powerKwt) like :powerKwtParam) " +
                         "and (((:releaseYearF IS NULL or ae.releaseYearFrom=:releaseYearF ) and ae.releaseYearFrom is not null and ae.releaseYearBy is null ) " +
                         "or ((:releaseYearF IS NULL or ae.releaseYearBy=:releaseYearF ) and ae.releaseYearFrom is null and ae.releaseYearBy is not null ) " +
                         "or (   :releaseYearF IS NULL ) " +
-                        "or ((:releaseYearF IS NULL or (ae.releaseYearBy>:releaseYearF and ae.releaseYearFrom<:releaseYearF) ) " +
+                        "or ((:releaseYearF IS NULL or (ae.releaseYearBy>=:releaseYearF and ae.releaseYearFrom<=:releaseYearF) ) " +
                         "and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) and ae.date is null");
         query.setParameter("engineTypeParam", request.getEngineType() != null ? ("%" + request.getEngineType().toUpperCase() + "%") : null);
         query.setParameter("autoManufParam", request.getAutoManufacture() != null ? ("%" + request.getAutoManufacture().toUpperCase() + "%") : null);

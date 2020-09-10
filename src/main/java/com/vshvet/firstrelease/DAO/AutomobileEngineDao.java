@@ -15,10 +15,10 @@ public interface AutomobileEngineDao extends Dao<AutomobileEngine> {
 
     AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years);
 
-    Long getCountResultsByParam(ParametersPageRequest request);
+    Long getCountResultsByParam(ParametersPageRequest request,List<AutomobileEngine> automobileEngineList);
 
 
-    List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request);
+    List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request,List<AutomobileEngine> automobileEngineList);
 
     List<AutomobileEngine> getPaginationAutoEng(PaginationDataRequest paginationDataRequest);
 

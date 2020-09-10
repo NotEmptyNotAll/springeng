@@ -85,13 +85,13 @@ public class ParametrsServiceImpl implements ParametrsService {
 
     @Override
     @Transactional(readOnly = true)
-    public Map<String, Object> getParamMap(Integer autoId) {
+    public Map<String, Object> getParamMap(AutomobileEngine automobileEngine) {
         return new HashMap<String, Object>() {{
-            parametersDao.getParamByAutoId(autoId).forEach(parameter -> {
+            automobileEngine.getParametersList().forEach(parameter -> {
                 String temp = getValueParam(parameter);
-                List<String> tempList = getFileUrl(parameter.getElementsByElemFk().getParentElements().getFileStorages());
-                if (tempList.size() > 0) {
-                    put("listImage" + parameter.getElementsByElemFk().getElemId(), tempList);
+                List<FileStorage> tempList = parameter.getElementsByElemFk().getParentElements().getFileStorages();
+                if (tempList.size() > 0 ) {
+                    put("listImage" + parameter.getElementsByElemFk().getElemId(), getFileUrl(tempList));
                 }
                 if (!temp.equals("")) {
                     put(Integer.toString(parameter.getElementsByElemFk().getElemId()), temp);

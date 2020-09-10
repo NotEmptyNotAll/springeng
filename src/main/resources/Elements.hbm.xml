@@ -41,12 +41,7 @@
             </key>
             <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.FileStorage"/>
         </set>
-        <set name="automobileEnginesByElemId" inverse="true">
-            <key>
-                <column name="elem_id" not-null="true"/>
-            </key>
-            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.AutomobileEngine"/>
-        </set>
+
         <set name="parametersByElemId" inverse="true">
             <key>
                 <column name="elem_fk"/>

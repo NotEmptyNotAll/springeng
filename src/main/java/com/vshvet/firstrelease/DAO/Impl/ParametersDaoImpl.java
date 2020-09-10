@@ -36,7 +36,7 @@ public class ParametersDaoImpl implements ParametersDao {
     @Transactional(readOnly = true)
     public List<Parameters> getParamByAutoId(Integer autoId)  {
         Query query =  getCurrentSession()
-                .createQuery("from Parameters p where p.elemFk>0 and p.autoId=:autoIdParam and p.date is null");
+                .createQuery("from Parameters p  where p.elemFk>0 and p.autoId=:autoIdParam and p.date is null");
         query.setParameter("autoIdParam", autoId);
         return    query.list();
     }

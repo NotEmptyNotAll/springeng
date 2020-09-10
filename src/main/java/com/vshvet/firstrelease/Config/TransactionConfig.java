@@ -53,6 +53,7 @@ public class TransactionConfig {
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.jdbc.fetch_size", "100");
      //   properties.put("hibernate.jdbc.fetch_size", "50");
         properties.put("log4j.logger.org.hibernate.SQ", "DEBUG");
         properties.put("log4j.logger.org.hibernate.type", "TRACE");

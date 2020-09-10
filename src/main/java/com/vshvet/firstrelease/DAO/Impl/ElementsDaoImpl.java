@@ -6,6 +6,7 @@ import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Entity.Parameters;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
+import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
 import com.vshvet.firstrelease.payload.Request.ParamsRequest;
 import com.vshvet.firstrelease.payload.Response.ElementsResponse;
 import org.hibernate.Session;
@@ -109,14 +110,16 @@ public class ElementsDaoImpl implements ElementsDao {
                         "INNER JOIN  AutomobileEngine ae on ae.id=p.autoId " +
                         "where ech.elemId=:nameChild  " +
                         //"and p.measurementUnitsFk=:unitsParam " +
-                        "and ((p.doubleMax>=:numberParam and p.doubleMin<=:numberParam) or p.doubleNum=:numberParam or p.textData=:textData) and p.date is null");
+                        "and ((p.doubleMax>=:numberParam and p.doubleMin<=:numberParam) or p.doubleNum=:numberParam " +
+                        " or  p.textData like :textDataParam) and p.date is null");
         //query.setParameter("nameParent", paramsRequest.getParameterNodeId());
         query.setParameter("nameChild", paramsRequest.getParameterChildId());
         //     query.setParameter("unitsParam", paramsRequest.getUnitsFullName());
         query.setParameter("numberParam", number);
-        query.setParameter("textData", paramsRequest.getParameterNumber());
+        query.setParameter("textDataParam", "%" + paramsRequest.getParameterNumber() + "%" );
         return (List<AutomobileEngine>) query.list();
     }
+
 
     @Transactional(readOnly = true)
     @Override

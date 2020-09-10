@@ -19,6 +19,7 @@ public class Parameters {
     private Double doubleNum;
     private String textData;
     private Byte logic;
+    private  AutomobileEngine automobileEngine;
     private String recordStatus;
     private String author;
     private String source;
@@ -86,7 +87,7 @@ public class Parameters {
     }
 
     @Basic
-    @Column(name = "auto_id",  nullable = true)
+    @Column(name = "auto_id", insertable = false, updatable = false,  nullable = true)
     public int getAutoId() {
         return autoId;
     }
@@ -300,6 +301,16 @@ public class Parameters {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "auto_id", referencedColumnName = "id")
+    public AutomobileEngine getAutomobileEngine() {
+        return automobileEngine;
+    }
+
+    public void setAutomobileEngine(AutomobileEngine automobileEngine) {
+        this.automobileEngine = automobileEngine;
     }
 
     @ManyToOne

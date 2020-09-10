@@ -20,9 +20,9 @@ public interface AutomobileEngineService {
 
     Integer getNumberOfPage(PaginationDataRequest request);
 
-    Integer getNumberOfPageByParam(ParametersPageRequest request);
+    Integer getNumberOfPageByParam(ParametersPageRequest request,List<AutomobileEngine> automobileEngines);
 
-    List<Map<String, Object>> getAllAutoEngAndParam(ParametersPageRequest request);
+    AutoEngineMapByParamResponse getAllAutoEngAndParam(ParametersPageRequest request);
 
     List<AutomobileEngineResponse> findByParam(EngineRequest engineRequest);
 

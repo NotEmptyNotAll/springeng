@@ -1,6 +1,8 @@
 package com.vshvet.firstrelease.Entity;
 
 import com.vshvet.firstrelease.ConstValue;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Date;

@@ -167,9 +167,10 @@ public class SearchController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Map<String, Object> getAllAutoEngAndParam(@RequestBody ParametersPageRequest request) {
+        AutoEngineMapByParamResponse temp=automobileEngineService.getAllAutoEngAndParam(request);
         return new HashMap<String, Object>() {{
-            put("engineData", automobileEngineService.getAllAutoEngAndParam(request));
-            put("countResults", automobileEngineService.getNumberOfPageByParam(request));
+            put("engineData", temp.getList());
+            put("countResults", temp.getCountResult());
            // put("columnParam", elementsService.getTableColumn());
         }};
     }

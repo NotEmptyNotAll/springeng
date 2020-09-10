@@ -5,6 +5,7 @@ import com.vshvet.firstrelease.ConstValue;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "automobile_engine", schema = ConstValue.SCHEMA_NAME)
@@ -20,6 +21,7 @@ public class AutomobileEngine {
     private AutoManufacture autoManufactureByAutoManufactureFk;
     private AutoModel autoModelByAutoModelFk;
     private Engine engineByEngineFk;
+    private List<Parameters> parametersList;
     private Elements elementsByElemId;
     private Collection<EngineNumber> engineNumbersById;
     private Integer status_fk;
@@ -214,6 +216,16 @@ public class AutomobileEngine {
     public void setAutoModelByAutoModelFk(AutoModel autoModelByAutoModelFk) {
         this.autoModelByAutoModelFk = autoModelByAutoModelFk;
     }
+
+    @OneToMany(mappedBy = "automobileEngine")
+    public List<Parameters> getParametersList() {
+        return parametersList;
+    }
+
+    public void setParametersList(List<Parameters> parametersList) {
+        this.parametersList = parametersList;
+    }
+
 
     @ManyToOne
     @JoinColumn(name = "engine_fk", referencedColumnName = "id")

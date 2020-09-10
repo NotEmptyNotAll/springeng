@@ -38,6 +38,12 @@
         <many-to-one name="engineByEngineFk" class="com.vshvet.firstrelease.Entity.Engine">
             <column name="engine_fk" />
         </many-to-one>
+        <set name="parametersList" inverse="true">
+            <key>
+                <column name="auto_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.vshvet.firstrelease.Entity.Parameters"/>
+        </set>
         <many-to-one name="elementsByElemId" class="com.vshvet.firstrelease.Entity.Elements">
             <column name="elem_id" />
         </many-to-one>
