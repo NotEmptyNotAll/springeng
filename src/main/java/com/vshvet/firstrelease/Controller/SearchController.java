@@ -47,6 +47,16 @@ public class SearchController {
         }};
     }
 
+    //returns a specific element
+    @GetMapping(value = "/getElementsStruct")
+    public Map<String, Object> getElements() {
+        return new HashMap<String, Object>() {{
+            put("maxId", elementsService.getMaxId() + 1);
+            put("elementsCh", elementsService.getAllRootElem());
+        }};
+    }
+
+
 
     @RequestMapping(value = "/getElementsAndMaxId", //
             method = RequestMethod.POST, //

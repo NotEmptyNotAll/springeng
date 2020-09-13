@@ -24,10 +24,29 @@
   <component name="ChangeListManager">
     <list default="true" id="0d5e3c8b-5bd7-4ef5-bd0b-62c67038d02a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/vshvet/firstrelease/Dao/AutoEngineTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/vshvet/firstrelease/Service/AutoEngineServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/vshvet/firstrelease/Service/ElementsServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/vshvet/firstrelease/Service/ParameterServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/ElementsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/ElementsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/ElementsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/ElementsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/payload/Response/ElementsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/payload/Response/ElementsResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/ElementsDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/ElementsDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/ElementsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/ElementsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/payload/Response/ElementsResponse$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/payload/Response/ElementsResponse$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/payload/Response/ElementsResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/payload/Response/ElementsResponse.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,17 +128,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.FirstreleaseApplication">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="firstrelease [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -377,7 +385,14 @@
       <workItem from="1599747871172" duration="7680000" />
       <workItem from="1599758202697" duration="7519000" />
       <workItem from="1599766111484" duration="463000" />
-      <workItem from="1599919577441" duration="49000" />
+      <workItem from="1599919577441" duration="2203000" />
+      <workItem from="1599938842567" duration="1505000" />
+      <workItem from="1599950397153" duration="2213000" />
+      <workItem from="1599953412076" duration="137000" />
+      <workItem from="1599953571674" duration="1303000" />
+      <workItem from="1599997182037" duration="4326000" />
+      <workItem from="1600007645714" duration="611000" />
+      <workItem from="1600008523146" duration="694000" />
     </task>
     <servers />
   </component>
@@ -413,14 +428,14 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="479" y="130" width="1024" height="852" key="#Project_Structure/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597508948497" />
-    <state x="490" y="284" width="1056" height="761" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599919625580">
+    <state x="490" y="284" width="1317" height="761" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599931045015">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="836" y="297" width="1046" height="688" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598651821921" />
     <state x="836" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597792252809" />
     <state x="2813" y="281" width="800" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597489732019" />
-    <state x="490" y="284" width="1056" height="761" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.29.1848.1051@72.29.1848.1051" timestamp="1599919625580" />
-    <state x="808" y="235" width="374" height="633" key="#com.intellij.ide.util.MemberChooser" timestamp="1599757753973">
+    <state x="490" y="284" width="1317" height="761" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.29.1848.1051@72.29.1848.1051" timestamp="1599931045015" />
+    <state x="808" y="235" width="374" height="633" key="#com.intellij.ide.util.MemberChooser" timestamp="1600006413087">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591439030289" />
@@ -428,7 +443,7 @@
     <state x="765" y="234" width="374" height="592" key="#com.intellij.ide.util.MemberChooser/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598622068912" />
     <state x="2685" y="212" width="374" height="633" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596673504536" />
     <state x="808" y="234" width="553" height="569" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597322180729" />
-    <state x="808" y="235" width="374" height="633" key="#com.intellij.ide.util.MemberChooser/72.29.1848.1051@72.29.1848.1051" timestamp="1599757753973" />
+    <state x="808" y="235" width="374" height="633" key="#com.intellij.ide.util.MemberChooser/72.29.1848.1051@72.29.1848.1051" timestamp="1600006413087" />
     <state x="775" y="422" width="574" height="279" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1599693193828">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
@@ -473,150 +488,138 @@
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1802" height="263" key="GridCell.Tab.-1.right/72.29.1848.1051@72.29.1848.1051" timestamp="1599756051223" />
-    <state width="1802" height="263" key="GridCell.Tab.0.bottom" timestamp="1599765367144">
+    <state width="1802" height="263" key="GridCell.Tab.0.bottom" timestamp="1600006862140">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191761" />
     <state width="1874" height="433" key="GridCell.Tab.0.bottom/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690857" />
     <state width="1874" height="456" key="GridCell.Tab.0.bottom/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848089" />
     <state width="1874" height="2" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635734" />
     <state width="1291" height="117" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597491589306" />
     <state width="1802" height="217" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104588" />
-    <state width="1802" height="263" key="GridCell.Tab.0.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367144" />
-    <state width="1802" height="263" key="GridCell.Tab.0.center" timestamp="1599765367143">
+    <state width="1802" height="263" key="GridCell.Tab.0.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1600006862140" />
+    <state width="1802" height="263" key="GridCell.Tab.0.center" timestamp="1600006862139">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191761" />
     <state width="1874" height="433" key="GridCell.Tab.0.center/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690856" />
     <state width="1874" height="456" key="GridCell.Tab.0.center/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848089" />
     <state width="1874" height="2" key="GridCell.Tab.0.center/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.0.center/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635734" />
     <state width="1291" height="117" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597491589305" />
     <state width="1802" height="217" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104587" />
-    <state width="1802" height="263" key="GridCell.Tab.0.center/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367143" />
-    <state width="1802" height="263" key="GridCell.Tab.0.left" timestamp="1599765367143">
+    <state width="1802" height="263" key="GridCell.Tab.0.center/72.29.1848.1051@72.29.1848.1051" timestamp="1600006862139" />
+    <state width="1802" height="263" key="GridCell.Tab.0.left" timestamp="1600006862137">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191760" />
     <state width="1874" height="433" key="GridCell.Tab.0.left/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690856" />
     <state width="1874" height="456" key="GridCell.Tab.0.left/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848089" />
     <state width="1874" height="2" key="GridCell.Tab.0.left/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.0.left/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635733" />
     <state width="1291" height="117" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597491589305" />
     <state width="1802" height="217" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104587" />
-    <state width="1802" height="263" key="GridCell.Tab.0.left/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367143" />
-    <state width="1802" height="263" key="GridCell.Tab.0.right" timestamp="1599765367144">
+    <state width="1802" height="263" key="GridCell.Tab.0.left/72.29.1848.1051@72.29.1848.1051" timestamp="1600006862137" />
+    <state width="1802" height="263" key="GridCell.Tab.0.right" timestamp="1600006862139">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191761" />
     <state width="1874" height="433" key="GridCell.Tab.0.right/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690856" />
     <state width="1874" height="456" key="GridCell.Tab.0.right/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848089" />
     <state width="1874" height="2" key="GridCell.Tab.0.right/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.0.right/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635734" />
     <state width="1291" height="117" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597491589305" />
     <state width="1802" height="217" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104587" />
-    <state width="1802" height="263" key="GridCell.Tab.0.right/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367144" />
-    <state width="1802" height="263" key="GridCell.Tab.1.bottom" timestamp="1599765367145">
+    <state width="1802" height="263" key="GridCell.Tab.0.right/72.29.1848.1051@72.29.1848.1051" timestamp="1600006862139" />
+    <state width="1802" height="263" key="GridCell.Tab.1.bottom" timestamp="1600006969723">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191762" />
     <state width="1874" height="433" key="GridCell.Tab.1.bottom/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690857" />
     <state width="1874" height="456" key="GridCell.Tab.1.bottom/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848090" />
     <state width="1874" height="2" key="GridCell.Tab.1.bottom/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.1.bottom/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635734" />
     <state width="1874" height="345" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596673236002" />
     <state width="1802" height="217" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104588" />
-    <state width="1802" height="263" key="GridCell.Tab.1.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367145" />
-    <state width="1802" height="263" key="GridCell.Tab.1.center" timestamp="1599765367145">
+    <state width="1802" height="263" key="GridCell.Tab.1.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1600006969723" />
+    <state width="1802" height="263" key="GridCell.Tab.1.center" timestamp="1600006969723">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191762" />
     <state width="1874" height="433" key="GridCell.Tab.1.center/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690857" />
     <state width="1874" height="456" key="GridCell.Tab.1.center/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848089" />
     <state width="1874" height="2" key="GridCell.Tab.1.center/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.1.center/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635734" />
     <state width="1874" height="345" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596673236002" />
     <state width="1802" height="217" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104588" />
-    <state width="1802" height="263" key="GridCell.Tab.1.center/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367145" />
-    <state width="1802" height="263" key="GridCell.Tab.1.left" timestamp="1599765367144">
+    <state width="1802" height="263" key="GridCell.Tab.1.center/72.29.1848.1051@72.29.1848.1051" timestamp="1600006969723" />
+    <state width="1802" height="263" key="GridCell.Tab.1.left" timestamp="1600006969718">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191762" />
     <state width="1874" height="433" key="GridCell.Tab.1.left/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690857" />
     <state width="1874" height="456" key="GridCell.Tab.1.left/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848089" />
     <state width="1874" height="2" key="GridCell.Tab.1.left/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.1.left/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635734" />
     <state width="1874" height="345" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596673236002" />
     <state width="1802" height="217" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104588" />
-    <state width="1802" height="263" key="GridCell.Tab.1.left/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367144" />
-    <state width="1802" height="263" key="GridCell.Tab.1.right" timestamp="1599765367145">
+    <state width="1802" height="263" key="GridCell.Tab.1.left/72.29.1848.1051@72.29.1848.1051" timestamp="1600006969718" />
+    <state width="1802" height="263" key="GridCell.Tab.1.right" timestamp="1600006969723">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480779" />
-    <state width="1877" height="369" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591361191762" />
     <state width="1874" height="433" key="GridCell.Tab.1.right/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598659690857" />
     <state width="1874" height="456" key="GridCell.Tab.1.right/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848090" />
     <state width="1874" height="2" key="GridCell.Tab.1.right/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598263740665" />
     <state width="1874" height="364" key="GridCell.Tab.1.right/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597792635734" />
     <state width="1874" height="345" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596673236002" />
     <state width="1802" height="217" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597492104588" />
-    <state width="1802" height="263" key="GridCell.Tab.1.right/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367145" />
-    <state width="1802" height="263" key="GridCell.Tab.2.bottom" timestamp="1599765367145">
+    <state width="1802" height="263" key="GridCell.Tab.1.right/72.29.1848.1051@72.29.1848.1051" timestamp="1600006969723" />
+    <state width="1802" height="263" key="GridCell.Tab.2.bottom" timestamp="1600006861848">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480780" />
-    <state width="1877" height="360" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591359109501" />
     <state width="1874" height="225" key="GridCell.Tab.2.bottom/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598657175680" />
     <state width="1874" height="456" key="GridCell.Tab.2.bottom/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848090" />
     <state width="1874" height="220" key="GridCell.Tab.2.bottom/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598055431490" />
     <state width="1874" height="152" key="GridCell.Tab.2.bottom/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597623684242" />
     <state width="1874" height="229" key="GridCell.Tab.2.bottom/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596672035985" />
     <state width="1802" height="227" key="GridCell.Tab.2.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597404549693" />
-    <state width="1802" height="263" key="GridCell.Tab.2.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367145" />
-    <state width="1802" height="263" key="GridCell.Tab.2.center" timestamp="1599765367145">
+    <state width="1802" height="263" key="GridCell.Tab.2.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1600006861848" />
+    <state width="1802" height="263" key="GridCell.Tab.2.center" timestamp="1600006861847">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480780" />
-    <state width="1877" height="360" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591359109501" />
     <state width="1874" height="225" key="GridCell.Tab.2.center/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598657175680" />
     <state width="1874" height="456" key="GridCell.Tab.2.center/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848090" />
     <state width="1874" height="220" key="GridCell.Tab.2.center/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598055431490" />
     <state width="1874" height="152" key="GridCell.Tab.2.center/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597623684242" />
     <state width="1874" height="229" key="GridCell.Tab.2.center/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596672035985" />
     <state width="1802" height="227" key="GridCell.Tab.2.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597404549693" />
-    <state width="1802" height="263" key="GridCell.Tab.2.center/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367145" />
-    <state width="1802" height="263" key="GridCell.Tab.2.left" timestamp="1599765367145">
+    <state width="1802" height="263" key="GridCell.Tab.2.center/72.29.1848.1051@72.29.1848.1051" timestamp="1600006861847" />
+    <state width="1802" height="263" key="GridCell.Tab.2.left" timestamp="1600006861846">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480780" />
-    <state width="1877" height="360" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591359109501" />
     <state width="1874" height="225" key="GridCell.Tab.2.left/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598657175679" />
     <state width="1874" height="456" key="GridCell.Tab.2.left/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848090" />
     <state width="1874" height="220" key="GridCell.Tab.2.left/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598055431490" />
     <state width="1874" height="152" key="GridCell.Tab.2.left/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597623684241" />
     <state width="1874" height="229" key="GridCell.Tab.2.left/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596672035985" />
     <state width="1802" height="227" key="GridCell.Tab.2.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597404549693" />
-    <state width="1802" height="263" key="GridCell.Tab.2.left/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367145" />
-    <state width="1802" height="263" key="GridCell.Tab.2.right" timestamp="1599765367145">
+    <state width="1802" height="263" key="GridCell.Tab.2.left/72.29.1848.1051@72.29.1848.1051" timestamp="1600006861846" />
+    <state width="1802" height="263" key="GridCell.Tab.2.right" timestamp="1600006861847">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1877" height="525" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591837480780" />
-    <state width="1877" height="360" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591359109501" />
     <state width="1874" height="225" key="GridCell.Tab.2.right/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1598657175680" />
     <state width="1874" height="456" key="GridCell.Tab.2.right/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598624848090" />
     <state width="1874" height="220" key="GridCell.Tab.2.right/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1598055431490" />
     <state width="1874" height="152" key="GridCell.Tab.2.right/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597623684242" />
     <state width="1874" height="229" key="GridCell.Tab.2.right/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596672035985" />
     <state width="1802" height="227" key="GridCell.Tab.2.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1597404549693" />
-    <state width="1802" height="263" key="GridCell.Tab.2.right/72.29.1848.1051@72.29.1848.1051" timestamp="1599765367145" />
+    <state width="1802" height="263" key="GridCell.Tab.2.right/72.29.1848.1051@72.29.1848.1051" timestamp="1600006861847" />
     <state x="543" y="296" width="824" height="515" key="IDE.errors.dialog" timestamp="1598563904698">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
@@ -650,18 +653,19 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="650" y="311" width="610" height="492" key="refactoring.ChangeSignatureDialog/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597768176507" />
-    <state x="665" y="271" width="673" height="687" key="run.anything.popup" timestamp="1599763548758">
+    <state x="665" y="271" width="673" height="687" key="run.anything.popup" timestamp="1600008064723">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="2536" y="249" width="699" height="705" key="run.anything.popup/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1598487134002" />
     <state x="2536" y="249" width="672" height="704" key="run.anything.popup/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596153107773" />
     <state x="665" y="270" width="672" height="687" key="run.anything.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1596468554539" />
-    <state x="665" y="271" width="673" height="687" key="run.anything.popup/72.29.1848.1051@72.29.1848.1051" timestamp="1599763548758" />
-    <state x="299" y="272" width="672" height="688" key="search.everywhere.popup" timestamp="1597964474455">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="665" y="271" width="673" height="687" key="run.anything.popup/72.29.1848.1051@72.29.1848.1051" timestamp="1600008064723" />
+    <state x="360" y="274" width="672" height="687" key="search.everywhere.popup" timestamp="1599998041707">
+      <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="299" y="272" width="672" height="688" key="search.everywhere.popup/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1597964474455" />
     <state x="2219" y="251" width="672" height="705" key="search.everywhere.popup/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1596153073876" />
+    <state x="360" y="274" width="672" height="687" key="search.everywhere.popup/72.29.1848.1051@72.29.1848.1051" timestamp="1599998041707" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -723,7 +727,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java</url>
-          <line>109</line>
+          <line>119</line>
           <option name="timeStamp" value="138" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -733,7 +737,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java</url>
-          <line>55</line>
+          <line>65</line>
           <option name="timeStamp" value="147" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -813,22 +817,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>232</line>
+          <line>243</line>
           <option name="timeStamp" value="250" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>238</line>
+          <line>249</line>
           <option name="timeStamp" value="252" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>196</line>
+          <line>207</line>
           <option name="timeStamp" value="253" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>208</line>
+          <line>219</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -836,17 +840,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>207</line>
+          <line>218</line>
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>205</line>
+          <line>216</line>
           <option name="timeStamp" value="266" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>225</line>
+          <line>236</line>
           <option name="timeStamp" value="267" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -886,38 +890,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>126</line>
-          <option name="timeStamp" value="299" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>140</line>
+          <line>151</line>
           <option name="timeStamp" value="300" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>131</line>
+          <line>142</line>
           <option name="timeStamp" value="301" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>133</line>
+          <line>144</line>
           <option name="timeStamp" value="302" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>135</line>
+          <line>146</line>
           <option name="timeStamp" value="303" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/AutomobileEngineServiceImpl.java</url>
-          <line>128</line>
-          <option name="timeStamp" value="304" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/payload/Response/AutomobileEngineResponse.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="305" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/AutomobileEngineServiceImpl.java</url>
@@ -955,11 +944,6 @@
           <option name="timeStamp" value="314" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/AutomobileEngineDaoImpl.java</url>
-          <line>104</line>
-          <option name="timeStamp" value="315" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl.java</url>
           <line>150</line>
           <option name="timeStamp" value="318" />
@@ -976,17 +960,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.java</url>
-          <line>189</line>
+          <line>198</line>
           <option name="timeStamp" value="325" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/AutomobileEngineServiceImpl.java</url>
-          <line>143</line>
-          <option name="timeStamp" value="326" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>296</line>
+          <line>307</line>
           <option name="timeStamp" value="327" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1016,32 +995,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>271</line>
+          <line>282</line>
           <option name="timeStamp" value="363" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.java</url>
-          <line>190</line>
+          <line>199</line>
           <option name="timeStamp" value="370" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/payload/Response/ElementsResponse.java</url>
-          <line>72</line>
+          <line>113</line>
           <option name="timeStamp" value="371" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java</url>
-          <line>92</line>
+          <line>102</line>
           <option name="timeStamp" value="373" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.java</url>
-          <line>151</line>
+          <line>160</line>
           <option name="timeStamp" value="374" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>216</line>
+          <line>227</line>
           <option name="timeStamp" value="375" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1061,18 +1040,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/payload/Response/ElementsResponse.java</url>
-          <line>59</line>
+          <line>100</line>
           <option name="timeStamp" value="392" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/payload/Response/ElementsResponse.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="393" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="394" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SaveDataController.java</url>
@@ -1081,47 +1050,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>241</line>
+          <line>252</line>
           <option name="timeStamp" value="396" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>259</line>
+          <line>270</line>
           <option name="timeStamp" value="397" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>242</line>
+          <line>253</line>
           <option name="timeStamp" value="398" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ElementsDaoImpl.java</url>
-          <line>183</line>
+          <line>192</line>
           <option name="timeStamp" value="399" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/AutomobileEngineServiceImpl.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="402" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/AutomobileEngineServiceImpl.java</url>
-          <line>127</line>
-          <option name="timeStamp" value="403" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>163</line>
-          <option name="timeStamp" value="408" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>190</line>
-          <option name="timeStamp" value="409" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
           <line>174</line>
+          <option name="timeStamp" value="408" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
+          <line>201</line>
+          <option name="timeStamp" value="409" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
+          <line>185</line>
           <option name="timeStamp" value="411" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1151,7 +1110,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java</url>
-          <line>70</line>
+          <line>80</line>
           <option name="timeStamp" value="427" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1201,18 +1160,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java</url>
-          <line>172</line>
+          <line>182</line>
           <option name="timeStamp" value="451" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/AutoManufactureDaoImpl.java</url>
-          <line>119</line>
-          <option name="timeStamp" value="467" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/AutoManufactureDaoImpl.java</url>
-          <line>144</line>
-          <option name="timeStamp" value="468" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/CylindersDaoImpl.java</url>
@@ -1256,7 +1205,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>336</line>
+          <line>347</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -1264,7 +1213,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ElementsServiceImpl.java</url>
-          <line>346</line>
+          <line>357</line>
           <option name="timeStamp" value="533" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1368,7 +1317,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/firstrelease$FirstreleaseApplication.ic" NAME="FirstreleaseApplication Coverage Results" MODIFIED="1599593197695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/firstrelease$FirstreleaseApplication.ic" NAME="FirstreleaseApplication Coverage Results" MODIFIED="1600006858413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/firstrelease$AutoEngineServiceTest_getAllAutoEngAndParamTest.ic" NAME="AutoEngineServiceTest.getAllAutoEngAndParamTest Coverage Results" MODIFIED="1595539096939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.vshvet.firstrelease.*</FILTER>
     </SUITE>

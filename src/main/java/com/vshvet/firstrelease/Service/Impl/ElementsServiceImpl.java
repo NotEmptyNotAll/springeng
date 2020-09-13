@@ -93,9 +93,20 @@ public class ElementsServiceImpl implements ElementsService {
     @Override
     @Transactional(readOnly = true)
     public List<ElementsResponse> getAllRootElemByAutoId(Integer id) {
+        List<Integer> elemFkList = elementsDao.getElemFkListByAutoId(id);
         return new ArrayList<ElementsResponse>() {{
             elementsDao.getAllRootElemByAutoId().forEach(elements -> {
-                add(new ElementsResponse(elements, id));
+                add(new ElementsResponse(elements, elemFkList));
+            });
+        }};
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ElementsResponse> getAllRootElem() {
+        return new ArrayList<ElementsResponse>() {{
+            elementsDao.getAllRootElemByAutoId().forEach(elements -> {
+                add(new ElementsResponse(elements));
             });
         }};
     }
@@ -350,7 +361,7 @@ public class ElementsServiceImpl implements ElementsService {
 
     private List<AutomobileEngine> getAutoEngByElem(ParamsRequest paramsRequest) {
         return new ArrayList<AutomobileEngine>() {{
-            elementsDao.findParentsElemByParam(paramsRequest).forEach(elem->add(elem));
+            elementsDao.findParentsElemByParam(paramsRequest).forEach(elem -> add(elem));
         }};
 
     }

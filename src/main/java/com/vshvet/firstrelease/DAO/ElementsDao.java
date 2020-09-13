@@ -12,6 +12,7 @@ import java.util.List;
 public interface ElementsDao extends Dao<Elements> {
     List<AutomobileEngine> findParentsElemByParam(ParamsRequest paramsRequest) throws ClassCastException;
 
+    List<Integer> getElemFkListByAutoId(Integer autoId);
 
     Elements findByParentIdAndParamFk(Integer paramFk, Integer parentId);
 

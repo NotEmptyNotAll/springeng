@@ -70,7 +70,7 @@ public class ElementsDaoImpl implements ElementsDao {
     @Transactional(readOnly = true)
     public List<Elements> getAllRootElemByAutoId() {
         return (List<Elements>) getCurrentSession()
-                .createQuery("select e from Elements e where e.parentId=0").list();
+                .createQuery("select e from Elements e  where  e.parentId=0 ").list();
     }
 
     @Override
@@ -116,8 +116,17 @@ public class ElementsDaoImpl implements ElementsDao {
         query.setParameter("nameChild", paramsRequest.getParameterChildId());
         //     query.setParameter("unitsParam", paramsRequest.getUnitsFullName());
         query.setParameter("numberParam", number);
-        query.setParameter("textDataParam", "%" + paramsRequest.getParameterNumber() + "%" );
+        query.setParameter("textDataParam", "%" + paramsRequest.getParameterNumber() + "%");
         return (List<AutomobileEngine>) query.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional(readOnly = true)
+    public List<Integer> getElemFkListByAutoId(Integer autoId) {
+        return (List<Integer>) getCurrentSession()
+                .createQuery("select p.elemFk from Parameters p where p.autoId=:autoIdParam")
+                .setParameter("autoIdParam", autoId).list();
     }
 
 

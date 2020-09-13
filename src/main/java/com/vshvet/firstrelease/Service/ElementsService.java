@@ -23,6 +23,7 @@ public interface ElementsService {
 
     List<TreeElementsResponse> getTreeElements();
 
+    List<ElementsResponse> getAllRootElem();
 
     List<TreeToColumnsResponse> getTableColumn();
 
