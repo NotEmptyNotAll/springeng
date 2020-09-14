@@ -13,6 +13,7 @@ public class ParametersPageRequest {
     private String engineManufacture;
     private String powerKWT;
     private Integer engineCapacity;
+    private String pistonDiameterAndStoke;
     private Integer horsepower;
     private Integer pistonStoke;
     private Double pistonDiameter;
@@ -37,6 +38,13 @@ public class ParametersPageRequest {
     }
 
 
+    public String getPistonDiameterAndStoke() {
+        return pistonDiameterAndStoke;
+    }
+
+    public void setPistonDiameterAndStoke(String pistonDiameterAndStoke) {
+        this.pistonDiameterAndStoke = pistonDiameterAndStoke;
+    }
 
     public Integer getId() {
         return id;

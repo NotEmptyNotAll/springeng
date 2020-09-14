@@ -37,8 +37,8 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     @Override
     @Transactional(readOnly = true)
     public List<AutoDataResponse> getPaginationData(PaginationDataRequest request) {
-        return new ArrayList<AutoDataResponse>(){{
-            automobileEngineDao.getPaginationAutoEng(request).forEach(item->{
+        return new ArrayList<AutoDataResponse>() {{
+            automobileEngineDao.getPaginationAutoEng(request).forEach(item -> {
                 add(new AutoDataResponse(item));
             });
         }};
@@ -49,20 +49,57 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     public Integer getNumberOfPage(PaginationDataRequest request) {
 
         return (int) Math.ceil(Double.valueOf(automobileEngineDao
-                .getCountResults(request)) / Double.valueOf(request.getPageSize()));    }
+                .getCountResults(request)) / Double.valueOf(request.getPageSize()));
+    }
+
+    private void getPistoneAndStokeFromString(ParametersPageRequest request) {
+        String[] temp = null;
+        if (request.getPistonDiameterAndStoke() != null) {
+            if (request.getPistonDiameterAndStoke().contains("x")) {
+                try {
+                    temp = request.getPistonDiameterAndStoke().split("x");
+                } catch (NullPointerException e) {
+                    temp = null;
+                }
+                if (temp != null) {
+                    if (temp.length >= 1) {
+                        try {
+                            request.setPistonDiameter(Double.parseDouble(temp[0]));
+                        } catch (NumberFormatException e) {
+                            request.setPistonDiameter(null);
+                        }
+                    }
+                    if (temp.length >= 2) {
+                        try {
+                            request.setPistonStoke(Integer.parseInt(temp[1]));
+                        } catch (NumberFormatException e) {
+                            request.setPistonStoke(null);
+                        }
+                    }
+                } else if (request.getPistonDiameterAndStoke() != null) {
+                    try {
+                        request.setPistonDiameter(Double.parseDouble(request.getPistonDiameterAndStoke()));
+                    } catch (NumberFormatException e) {
+                        request.setPistonDiameter(null);
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     @Transactional(readOnly = true)
     public AutoEngineMapByParamResponse getAllAutoEngAndParam(ParametersPageRequest request) {
+        getPistoneAndStokeFromString(request);
         List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList());
-        List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request,autoListByParam);
-        Integer countResult=getNumberOfPageByParam(request,autoListByParam);
-    //    if (autoeng.size() > 0) {
-            return new AutoEngineMapByParamResponse(new ArrayList<Map<String, Object>>() {{
+        List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request, autoListByParam);
+        Integer countResult = getNumberOfPageByParam(request, autoListByParam);
+        //    if (autoeng.size() > 0) {
+        return new AutoEngineMapByParamResponse(new ArrayList<Map<String, Object>>() {{
             //    if(autoListByParam==null){
-                    autoeng.forEach(elem -> {
-                        add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem)).getMapThisElem());
-                    });
+            autoeng.forEach(elem -> {
+                add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem)).getMapThisElem());
+            });
               /*  }else if (autoListByParam.size() > 0) {
                     autoeng.stream()
                             .filter(autoListByParam::contains)
@@ -74,7 +111,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
                         add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem.getId())).getMapThisElem());
                     });
                 }*/
-            }},countResult);
+        }}, countResult);
       /*  } else {
             return new ArrayList<Map<String, Object>>() {{
                 autoListByParam.forEach(elem -> {
@@ -88,13 +125,13 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     @Override
     @Transactional(readOnly = true)
     public AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years) {
-        return automobileEngineDao.findByNames(autoModel,engineType,autoManuf,years);
+        return automobileEngineDao.findByNames(autoModel, engineType, autoManuf, years);
     }
 
     @Override
     public void save(AutomobileEngine automobileEngine) {
         try {
-             automobileEngineDao.save(automobileEngine);
+            automobileEngineDao.save(automobileEngine);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,12 +146,11 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     }
 
 
-
     @Override
     @Transactional(readOnly = true)
     public Integer getNumberOfPageByParam(ParametersPageRequest request, List<AutomobileEngine> autoListByParam) {
         return (int) Math.ceil(Double.valueOf(automobileEngineDao
-                .getCountResultsByParam(request,autoListByParam)) / Double.valueOf(request.getPageSize()));
+                .getCountResultsByParam(request, autoListByParam)) / Double.valueOf(request.getPageSize()));
     }
 
     //This service contains a list of auto engines
