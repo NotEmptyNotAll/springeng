@@ -50,7 +50,7 @@ public class ParametrsServiceImpl implements ParametrsService {
                                                     add(new ParametersResponse(param));
                                             });
                                 }else {
-                                    add(new ParametersResponse(elements.getParamNameFk()));
+                                  //  add(new ParametersResponse(elements.getParamNameFk()));
                                 }
                         }
                 );
