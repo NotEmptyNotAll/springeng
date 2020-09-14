@@ -76,12 +76,12 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
                             request.setPistonStoke(null);
                         }
                     }
-                } else if (request.getPistonDiameterAndStoke() != null) {
-                    try {
-                        request.setPistonDiameter(Double.parseDouble(request.getPistonDiameterAndStoke()));
-                    } catch (NumberFormatException e) {
-                        request.setPistonDiameter(null);
-                    }
+                }
+            }else if (request.getPistonDiameterAndStoke() != null) {
+                try {
+                    request.setPistonDiameter(Double.parseDouble(request.getPistonDiameterAndStoke()));
+                } catch (NumberFormatException e) {
+                    request.setPistonDiameter(null);
                 }
             }
         }

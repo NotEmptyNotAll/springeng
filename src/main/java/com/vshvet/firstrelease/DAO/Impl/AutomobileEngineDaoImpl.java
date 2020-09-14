@@ -179,6 +179,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                         "and (:cylinderNum IS NULL or  e.cylindersNumber=:cylinderNum) " +
                         (automobileEngineList!=null ? "and (" + paramSunQuery + ")" : "") +
                         "and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
+                        "and (:pistonStoke IS NULL or  e.pistonStroke=:pistonStoke) " +
                         "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
                         "and (:degreeCompression IS NULL or  e.degreeCompression=:degreeCompression) " +
                         "and (:powerKwtParam IS NULL or  upper(e.powerKwt) like :powerKwtParam) " +
@@ -194,6 +195,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
         query.setParameter("cylinderPlace", request.getCylinderPlace() != null ? ("%" + request.getCylinderPlace().toUpperCase() + "%") : null);
         query.setParameter("cylinderNum", request.getCylinderNum());
         query.setParameter("pistonDiameter", request.getPistonDiameter());
+        query.setParameter("pistonStoke", request.getPistonStoke());
         query.setParameter("superchargedType", request.getSuperchargedType() != null ? ("%" + request.getSuperchargedType().toUpperCase() + "%") : null);
         query.setParameter("degreeCompression", request.getDegreeCompression());
         query.setParameter("engineCapParam", request.getEngineCapacity());
