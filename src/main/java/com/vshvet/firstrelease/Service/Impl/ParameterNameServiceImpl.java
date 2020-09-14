@@ -88,8 +88,8 @@ public class ParameterNameServiceImpl implements ParameterNameService {
         } else {
             return new ArrayList<DataByIdResponse>() {{
                 elements.forEach(elem ->
-                        add(new DataByIdResponse(elem.getParentElements().getParameterNamesByParamNameFk().getName(),
-                                elem.getParentElements().getElemId())));
+                        add(new DataByIdResponse(elem.getParameterNamesByParamNameFk().getName(),
+                                elem.getElemId())));
             }};
         }
     }
