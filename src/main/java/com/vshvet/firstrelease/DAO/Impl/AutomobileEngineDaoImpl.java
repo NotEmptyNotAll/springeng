@@ -151,13 +151,15 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
             year = null;
         }
         StringBuilder paramSunQuery = new StringBuilder();
-        if (automobileEngineList!=null) {
+        if (automobileEngineList != null) {
 
             for (AutomobileEngine automobileEngine :
                     automobileEngineList) {
                 paramSunQuery.append(" or ae.id=" + automobileEngine.getId());
             }
-            paramSunQuery.delete(1,3);
+            if (automobileEngineList.size() > 0) {
+                paramSunQuery.delete(1, 3);
+            }
         }
 
         //this.countResults = getCountResultsByParam(request);
@@ -177,7 +179,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                         "and (:fuelTypeParam IS NULL or  upper(e.fuelTypeByFuelTypeFk.nameType) like :fuelTypeParam) " +
                         "and (:engineCapParam IS NULL or  e.engineCapacity=:engineCapParam) " +
                         "and (:cylinderNum IS NULL or  e.cylindersNumber=:cylinderNum) " +
-                        (automobileEngineList!=null ? "and (" + paramSunQuery + ")" : "") +
+                        (automobileEngineList != null && automobileEngineList.size() > 0  ? "and (" + paramSunQuery + ")" : "") +
                         "and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
                         "and (:pistonStoke IS NULL or  e.pistonStroke=:pistonStoke) " +
                         "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
@@ -278,7 +280,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     @Override
-    public Long getCountResultsByParam(ParametersPageRequest request,List<AutomobileEngine> automobileEngineList) {
+    public Long getCountResultsByParam(ParametersPageRequest request, List<AutomobileEngine> automobileEngineList) {
         Integer year;
         try {
             year = Integer.parseInt(request.getReleaseYear());
@@ -286,13 +288,13 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
             year = null;
         }
         StringBuilder paramSunQuery = new StringBuilder();
-        if (automobileEngineList!=null) {
+        if (automobileEngineList != null) {
 
             for (AutomobileEngine automobileEngine :
                     automobileEngineList) {
                 paramSunQuery.append(" or ae.id=" + automobileEngine.getId());
-            }
-            paramSunQuery.delete(1,3);
+            }if(automobileEngineList.size()>0){
+            paramSunQuery.delete(1, 3);}
         }
 
         //this.countResults = getCountResultsByParam(request);
@@ -312,7 +314,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                         "and (:fuelTypeParam IS NULL or  upper(e.fuelTypeByFuelTypeFk.nameType) like :fuelTypeParam) " +
                         "and (:engineCapParam IS NULL or  e.engineCapacity=:engineCapParam) " +
                         "and (:cylinderNum IS NULL or  e.cylindersNumber=:cylinderNum) " +
-                        (automobileEngineList!=null ? "and (" + paramSunQuery + ")" : "") +
+                        (automobileEngineList != null && automobileEngineList.size()>0 ? "and (" + paramSunQuery + ")" : "") +
                         "and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
                         "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
                         "and (:degreeCompression IS NULL or  e.degreeCompression=:degreeCompression) " +
