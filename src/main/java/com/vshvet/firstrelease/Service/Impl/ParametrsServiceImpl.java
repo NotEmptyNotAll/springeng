@@ -86,8 +86,9 @@ public class ParametrsServiceImpl implements ParametrsService {
     @Override
     @Transactional(readOnly = true)
     public Map<String, Object> getParamMap(AutomobileEngine automobileEngine) {
+        List<Parameters> parametersList=automobileEngine.getParametersList();
         return new HashMap<String, Object>() {{
-            automobileEngine.getParametersList().forEach(parameter -> {
+            parametersList.forEach(parameter -> {
                 String temp = getValueParam(parameter);
                 List<FileStorage> tempList = parameter.getElementsByElemFk().getParentElements().getFileStorages();
                 if (tempList.size() > 0 ) {

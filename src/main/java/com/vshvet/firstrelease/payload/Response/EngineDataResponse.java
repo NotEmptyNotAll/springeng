@@ -11,7 +11,7 @@ public class EngineDataResponse {
     private Integer cylindersNumber;
     private Integer flapNumber;
     private Double pistonDiameter;
-    private Integer pistonStroke;
+    private Double pistonStroke;
     private int engineCapacity;
     private String powerKwt;
     private Integer horsepower;
@@ -29,7 +29,7 @@ public class EngineDataResponse {
                               Integer cylindersNumber,
                               Integer flapNumber,
                               Double pistonDiameter,
-                              Integer pistonStroke,
+                              Double pistonStroke,
                               int engineCapacity,
                               String powerKwt,
                               Integer horsepower,
@@ -128,11 +128,11 @@ public class EngineDataResponse {
         this.pistonDiameter = pistonDiameter;
     }
 
-    public Integer getPistonStroke() {
+    public Double getPistonStroke() {
         return pistonStroke;
     }
 
-    public void setPistonStroke(Integer pistonStroke) {
+    public void setPistonStroke(Double pistonStroke) {
         this.pistonStroke = pistonStroke;
     }
 

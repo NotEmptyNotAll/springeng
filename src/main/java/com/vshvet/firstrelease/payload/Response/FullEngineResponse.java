@@ -13,7 +13,7 @@ public class FullEngineResponse {
     private Integer cylindersNumber;
     private Integer flapNumber;
     private Double pistonDiameter;
-    private Integer pistonStroke;
+    private Double pistonStroke;
     private int engineCapacity;
     private String powerKwt;
     private Integer horsepower;
@@ -120,11 +120,11 @@ public class FullEngineResponse {
         this.pistonDiameter = pistonDiameter;
     }
 
-    public Integer getPistonStroke() {
+    public Double getPistonStroke() {
         return pistonStroke;
     }
 
-    public void setPistonStroke(Integer pistonStroke) {
+    public void setPistonStroke(Double pistonStroke) {
         this.pistonStroke = pistonStroke;
     }
 

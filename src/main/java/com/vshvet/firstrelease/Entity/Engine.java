@@ -19,7 +19,7 @@ public class Engine {
     private Integer cylindersNumber;
     private Integer flapNumber;
     private Double pistonDiameter;
-    private Integer pistonStroke;
+    private Double pistonStroke;
     private int engineCapacity;
     private String powerKwt;
     private Integer horsepower;
@@ -36,7 +36,23 @@ public class Engine {
     private Integer status_fk;
     private Status status;
 
-    public Engine(int id, String engineType, Integer engineManufacturerFk, int cylindersPlacementFk, int fuelTypeFk, int superchargedTypeFk, Integer cylindersNumber, Integer flapNumber, Double pistonDiameter, Integer pistonStroke, int engineCapacity, String powerKwt, Integer horsepower, Double degreeCompression, Integer releaseYearFrom, Integer releaseYearBy,Integer status_fk, Status status) {
+    public Engine(int id, String engineType,
+                  Integer engineManufacturerFk,
+                  int cylindersPlacementFk,
+                  int fuelTypeFk,
+                  int superchargedTypeFk,
+                  Integer cylindersNumber,
+                  Integer flapNumber,
+                  Double pistonDiameter,
+                  Double pistonStroke,
+                  int engineCapacity,
+                  String powerKwt,
+                  Integer horsepower,
+                  Double degreeCompression,
+                  Integer releaseYearFrom,
+                  Integer releaseYearBy,
+                  Integer status_fk,
+                  Status status) {
         this.id = id;
         this.engineType = engineType;
         this.engineManufacturerFk = engineManufacturerFk;
@@ -191,11 +207,11 @@ public class Engine {
 
     @Basic
     @Column(name = "piston_stroke", nullable = true)
-    public Integer getPistonStroke() {
+    public Double getPistonStroke() {
         return pistonStroke;
     }
 
-    public void setPistonStroke(Integer pistonStroke) {
+    public void setPistonStroke(Double pistonStroke) {
         this.pistonStroke = pistonStroke;
     }
 

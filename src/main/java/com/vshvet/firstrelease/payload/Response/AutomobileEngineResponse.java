@@ -14,7 +14,7 @@ public class AutomobileEngineResponse {
     private String powerKWT;
     private Integer engineCapacity;
     private Integer horsepower;
-    private Integer pistonStoke;
+    private Double pistonStoke;
     private Double pistonDiameter;
     private String modelName;
     private String engineType;
@@ -127,11 +127,11 @@ public class AutomobileEngineResponse {
         this.pistonDiameter = pistonDiameter;
     }
 
-    public Integer getPistonStoke() {
+    public Double getPistonStoke() {
         return pistonStoke;
     }
 
-    public void setPistonStoke(Integer pistonStoke) {
+    public void setPistonStoke(Double pistonStoke) {
         this.pistonStoke = pistonStoke;
     }
 

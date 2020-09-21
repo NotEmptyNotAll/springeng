@@ -21,7 +21,7 @@ public class AutomobileEngine {
     private AutoManufacture autoManufactureByAutoManufactureFk;
     private AutoModel autoModelByAutoModelFk;
     private Engine engineByEngineFk;
-    private List<Parameters> parametersList;
+    private List<Parameters> parametersList ;
     private Elements elementsByElemId;
     private Collection<EngineNumber> engineNumbersById;
     private Integer status_fk;
