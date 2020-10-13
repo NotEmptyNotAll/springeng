@@ -114,9 +114,9 @@ public class ParametrsServiceImpl implements ParametrsService {
     @Transactional(readOnly = true)
     String getValueParam(Parameters parameter) {
         if (parameter.getDoubleMin() != null) {
-            return parameter.getDoubleMin() + " - " + parameter.getDoubleMax();
+            return  String.format("%.4f",parameter.getDoubleMin()) + " - " + String.format("%.4f", parameter.getDoubleMax());
         } else if (parameter.getDoubleNum() != null) {
-            return parameter.getDoubleNum().toString();
+            return  String.format("%.4f",parameter.getDoubleNum());
         } else if (parameter.getTextData() != null) {
             return parameter.getTextData();
         } else {
