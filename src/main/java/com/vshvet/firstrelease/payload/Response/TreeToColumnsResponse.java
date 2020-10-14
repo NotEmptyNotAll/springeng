@@ -3,6 +3,8 @@ package com.vshvet.firstrelease.payload.Response;
 import com.vshvet.firstrelease.Entity.Elements;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TreeToColumnsResponse {
@@ -27,6 +29,7 @@ public class TreeToColumnsResponse {
             if (elem.getDate() == null) {
                 this.columnResponseList.add(new ColumnResponse(elem));
             }
+            Collections.sort(columnResponseList, Comparator.comparingInt(ColumnResponse::getSortNumber));
         });
     }
 
