@@ -77,7 +77,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
                         }
                     }
                 }
-            }else if (request.getPistonDiameterAndStoke() != null) {
+            } else if (request.getPistonDiameterAndStoke() != null) {
                 try {
                     request.setPistonDiameter(Double.parseDouble(request.getPistonDiameterAndStoke()));
                 } catch (NumberFormatException e) {
@@ -93,6 +93,9 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
         getPistoneAndStokeFromString(request);
         List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList());
         List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request, autoListByParam);
+        if (autoListByParam == null && request.getParamList() != null) {
+            return null;
+        }
         Integer countResult = getNumberOfPageByParam(request, autoListByParam);
         //    if (autoeng.size() > 0) {
         return new AutoEngineMapByParamResponse(new ArrayList<Map<String, Object>>() {{
