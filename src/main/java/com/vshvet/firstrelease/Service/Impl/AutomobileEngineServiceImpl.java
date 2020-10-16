@@ -93,7 +93,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
         getPistoneAndStokeFromString(request);
         List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList());
         List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request, autoListByParam);
-        if (autoListByParam == null && request.getParamList() != null) {
+        if (autoListByParam.size()==0 && request.getParamList() != null) {
             return null;
         }
         Integer countResult = getNumberOfPageByParam(request, autoListByParam);
