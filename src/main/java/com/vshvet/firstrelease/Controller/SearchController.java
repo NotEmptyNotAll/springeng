@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -179,8 +180,8 @@ public class SearchController {
     public Map<String, Object> getAllAutoEngAndParam(@RequestBody ParametersPageRequest request) {
         AutoEngineMapByParamResponse temp=automobileEngineService.getAllAutoEngAndParam(request);
         return new HashMap<String, Object>() {{
-            put("engineData", temp.getList());
-            put("countResults", temp.getCountResult());
+            put("engineData", temp==null?new ArrayList<>() :temp.getList());
+            put("countResults", temp==null?1:temp.getCountResult());
            // put("columnParam", elementsService.getTableColumn());
         }};
     }
