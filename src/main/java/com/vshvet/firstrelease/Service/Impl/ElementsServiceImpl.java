@@ -360,9 +360,7 @@ public class ElementsServiceImpl implements ElementsService {
 
 
     private List<AutomobileEngine> getAutoEngByElem(ParamsRequest paramsRequest) {
-        return new ArrayList<AutomobileEngine>() {{
-            elementsDao.findParentsElemByParam(paramsRequest).forEach(elem -> add(elem));
-        }};
+        return elementsDao.findParentsElemByParam(paramsRequest);
 
     }
 

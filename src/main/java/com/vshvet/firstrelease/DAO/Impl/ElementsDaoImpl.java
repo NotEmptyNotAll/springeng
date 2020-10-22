@@ -98,7 +98,7 @@ public class ElementsDaoImpl implements ElementsDao {
     public List<AutomobileEngine> findParentsElemByParam(ParamsRequest paramsRequest) throws ClassCastException {
         Double number;
         try {
-            number = Double.parseDouble(paramsRequest.getParameterNumber());
+            number = Math.floor(Double.parseDouble(paramsRequest.getParameterNumber()));
         } catch (NumberFormatException e) {
             System.out.println(e);
             number = -1d;
@@ -108,15 +108,15 @@ public class ElementsDaoImpl implements ElementsDao {
                 .createQuery("select ae from Parameters p " +
                         "INNER JOIN p.elementsByElemFk ech " +
                         "INNER JOIN  AutomobileEngine ae on ae.id=p.autoId " +
-                        "where ech.elemId=:nameChild  " +
+                        "where ech.parentId=:nameParent  " +
                         //"and p.measurementUnitsFk=:unitsParam " +
-                        "and ((p.doubleMax>=:numberParam and p.doubleMin<=:numberParam) or p.doubleNum=:numberParam " +
-                        " or  p.textData like :textDataParam) and p.date is null");
-        //query.setParameter("nameParent", paramsRequest.getParameterNodeId());
-        query.setParameter("nameChild", paramsRequest.getParameterChildId());
+                        "and ((round(p.doubleMax,0)>=:numberParam and round(p.doubleMin,0)<=:numberParam) or round(p.doubleNum)=:numberParam " +
+                        " ) and p.date is null");
+        query.setParameter("nameParent", paramsRequest.getParameterNodeId());
+       // query.setParameter("nameChild", paramsRequest.getParameterChildId());
         //     query.setParameter("unitsParam", paramsRequest.getUnitsFullName());
         query.setParameter("numberParam", number);
-        query.setParameter("textDataParam", "%" + paramsRequest.getParameterNumber() + "%");
+        //query.setParameter("textDataParam", "%" + paramsRequest.getParameterNumber() + "%");
         return (List<AutomobileEngine>) query.list();
     }
 
