@@ -97,26 +97,40 @@ public class ElementsDaoImpl implements ElementsDao {
     @Transactional(readOnly = true)
     public List<AutomobileEngine> findParentsElemByParam(ParamsRequest paramsRequest) throws ClassCastException {
         Double number;
-        try {
-            number = Math.floor(Double.parseDouble(paramsRequest.getParameterNumber()));
-        } catch (NumberFormatException e) {
-            System.out.println(e);
-            number = -1d;
+        Query query;
+        if (Double.parseDouble(paramsRequest.getParameterNumber()) > 0) {
+            try {
+                number = Math.floor(Double.parseDouble(paramsRequest.getParameterNumber()));
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+                number = -1d;
+            }
+            query = getCurrentSession()
+                    .createQuery("select ae from Parameters p " +
+                            "INNER JOIN p.elementsByElemFk ech " +
+                            "INNER JOIN  AutomobileEngine ae on ae.id=p.autoId " +
+                            "where ech.parentId=:nameParent  " +
+                            //"and p.measurementUnitsFk=:unitsParam " +
+                            "and ((round(p.doubleMax-0.5,0)>=:numberParam and round(p.doubleMin-0.5,0)<=:numberParam) or round(p.doubleNum-0.5,0)=:numberParam " +
+                            "  or p.textData like :textDataParam ) and p.date is null");
+        } else {
+            number = Double.parseDouble(paramsRequest.getParameterNumber());
+            query = getCurrentSession()
+                    .createQuery("select ae from Parameters p " +
+                            "INNER JOIN p.elementsByElemFk ech " +
+                            "INNER JOIN  AutomobileEngine ae on ae.id=p.autoId " +
+                            "where ech.parentId=:nameParent  " +
+                            //"and p.measurementUnitsFk=:unitsParam " +
+                            "and ((p.doubleMax-0.5>=:numberParam and p.doubleMin-0.5<=:numberParam) or p.doubleNum-0.5=:numberParam " +
+                            "  or p.textData like :textDataParam ) and p.date is null");
         }
 
-        Query query = getCurrentSession()
-                .createQuery("select ae from Parameters p " +
-                        "INNER JOIN p.elementsByElemFk ech " +
-                        "INNER JOIN  AutomobileEngine ae on ae.id=p.autoId " +
-                        "where ech.parentId=:nameParent  " +
-                        //"and p.measurementUnitsFk=:unitsParam " +
-                        "and ((round(p.doubleMax,0)>=:numberParam and round(p.doubleMin,0)<=:numberParam) or round(p.doubleNum)=:numberParam " +
-                        " ) and p.date is null");
+
         query.setParameter("nameParent", paramsRequest.getParameterNodeId());
-       // query.setParameter("nameChild", paramsRequest.getParameterChildId());
+        // query.setParameter("nameChild", paramsRequest.getParameterChildId());
         //     query.setParameter("unitsParam", paramsRequest.getUnitsFullName());
         query.setParameter("numberParam", number);
-        //query.setParameter("textDataParam", "%" + paramsRequest.getParameterNumber() + "%");
+        query.setParameter("textDataParam", "%" + paramsRequest.getParameterNumber() + "%");
         return (List<AutomobileEngine>) query.list();
     }
 
