@@ -91,7 +91,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     @Transactional(readOnly = true)
     public AutoEngineMapByParamResponse getAllAutoEngAndParam(ParametersPageRequest request) {
         getPistoneAndStokeFromString(request);
-        List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList());
+        List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList(),request.getSearchPercent());
         List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request, autoListByParam);
         if (autoListByParam!=null && autoListByParam.size()==0 && request.getParamList() != null) {
             return null;
@@ -181,7 +181,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
             }
         } else {
             responses = new ArrayList<AutomobileEngineResponse>() {{
-                elementsService.getParentElements(engineRequest.getParamList()).forEach(automobileEngine -> {
+                elementsService.getParentElements(engineRequest.getParamList(),0).forEach(automobileEngine -> {
                     add(new AutomobileEngineResponse(automobileEngine));
                 });
             }};

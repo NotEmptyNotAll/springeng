@@ -10,7 +10,7 @@ import com.vshvet.firstrelease.payload.Response.ElementsResponse;
 import java.util.List;
 
 public interface ElementsDao extends Dao<Elements> {
-    List<AutomobileEngine> findParentsElemByParam(ParamsRequest paramsRequest) throws ClassCastException;
+    List<AutomobileEngine> findParentsElemByParam(ParamsRequest paramsRequest,Integer searchPercent) throws ClassCastException;
 
     List<Integer> getElemFkListByAutoId(Integer autoId);
 

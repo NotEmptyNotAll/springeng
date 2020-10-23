@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ElementsServiceImpl implements ElementsService {
@@ -122,9 +123,9 @@ public class ElementsServiceImpl implements ElementsService {
             for (ParamsRequest paramsRequest :
                     request) {
                 if (autoEng == null) {
-                    autoEng = getAutoEngByElem(paramsRequest);
+                    autoEng = getAutoEngByElem(paramsRequest, 0);
                 } else {
-                    List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest);
+                    List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest, 0);
                     autoEng.removeIf(eng -> !autoEngTemp.contains(eng));
                 }
             }
@@ -306,7 +307,12 @@ public class ElementsServiceImpl implements ElementsService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<AutomobileEngine> getParentElements(List<ParamsRequest> request) {
+    public List<AutomobileEngine> getParentElements(List<ParamsRequest> request, Integer searchPercent) {
+
+        request = request.stream()
+                .filter(item -> item.getParameterNumber().equals(""))
+                .collect(Collectors.toList());
+
         List<AutomobileEngine> elements = new ArrayList<>();
         List<AutomobileEngine> autoEng = null;
         if (!paramListIsEmpty(request)) {
@@ -314,9 +320,9 @@ public class ElementsServiceImpl implements ElementsService {
                 for (ParamsRequest paramsRequest :
                         request) {
                     if (autoEng == null) {
-                        autoEng = getAutoEngByElem(paramsRequest);
+                        autoEng = getAutoEngByElem(paramsRequest, searchPercent);
                     } else {
-                        List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest);
+                        List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest, searchPercent);
                         autoEng.removeIf(eng -> !autoEngTemp.contains(eng));
                     }
                 }
@@ -342,9 +348,9 @@ public class ElementsServiceImpl implements ElementsService {
             for (ParamsRequest paramsRequest :
                     request.getParamList()) {
                 if (autoEng == null) {
-                    autoEng = getAutoEngByElem(paramsRequest);
+                    autoEng = getAutoEngByElem(paramsRequest, 0);
                 } else {
-                    List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest);
+                    List<AutomobileEngine> autoEngTemp = getAutoEngByElem(paramsRequest, 0);
                     autoEng.removeIf(eng -> !autoEngTemp.contains(eng));
                 }
             }
@@ -359,8 +365,8 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
 
-    private List<AutomobileEngine> getAutoEngByElem(ParamsRequest paramsRequest) {
-        return elementsDao.findParentsElemByParam(paramsRequest);
+    private List<AutomobileEngine> getAutoEngByElem(ParamsRequest paramsRequest, Integer searchPercent) {
+        return elementsDao.findParentsElemByParam(paramsRequest, searchPercent);
 
     }
 

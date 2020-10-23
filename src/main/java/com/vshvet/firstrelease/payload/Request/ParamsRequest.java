@@ -14,7 +14,9 @@ public class ParamsRequest {
         this.parameterNodeId = parameterNodeId;
         this.unitsFullName = unitsFullName;
         this.parameterNumber = parameterNumber;
+
     }
+
 
     public Integer getParameterChildId() {
         return parameterChildId;

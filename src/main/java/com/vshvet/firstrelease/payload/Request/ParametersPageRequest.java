@@ -27,6 +27,7 @@ public class ParametersPageRequest {
     private List<ParamsRequest> paramList;
 
     private Integer pageSize;
+    private Integer searchPercent;
     private Integer initRecordFrom;
 
     public ParametersPageRequest() {
@@ -44,6 +45,14 @@ public class ParametersPageRequest {
 
     public void setPistonDiameterAndStoke(String pistonDiameterAndStoke) {
         this.pistonDiameterAndStoke = pistonDiameterAndStoke;
+    }
+
+    public Integer getSearchPercent() {
+        return searchPercent;
+    }
+
+    public void setSearchPercent(Integer searchPercent) {
+        this.searchPercent = searchPercent;
     }
 
     public Integer getId() {

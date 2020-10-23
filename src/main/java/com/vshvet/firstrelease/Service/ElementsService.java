@@ -44,7 +44,7 @@ public interface ElementsService {
     Boolean update(List<SaveOrUpdateElementsRequest> updateData);
 
 
-    List<AutomobileEngine> getParentElements(List<ParamsRequest> request);
+    List<AutomobileEngine> getParentElements(List<ParamsRequest> request, Integer searchPercent);
 
     List<AutoEngineResponse> getParentElementsUpdate(EngineRequest request);
 
