@@ -310,7 +310,7 @@ public class ElementsServiceImpl implements ElementsService {
     public List<AutomobileEngine> getParentElements(List<ParamsRequest> request, Integer searchPercent) {
 
         request = request.stream()
-                .filter(item -> item.getParameterNumber().equals(""))
+                .filter(item -> !item.getParameterNumber().equals(""))
                 .collect(Collectors.toList());
 
         List<AutomobileEngine> elements = new ArrayList<>();
