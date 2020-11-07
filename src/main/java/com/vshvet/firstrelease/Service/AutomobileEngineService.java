@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface AutomobileEngineService {
+    Boolean save(FastAutoEngineSaveOrUpdateRequest saveData);
 
     AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years);
 

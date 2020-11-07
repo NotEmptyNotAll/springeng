@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -82,6 +83,26 @@ public class SaveDataController {
     public String saveElements(@RequestBody SaveUpdateElemAndParamRequest saveData) {
         elementsService.save(saveData.getListElem());
         elementsService.update(saveData.getListUpdateElem());
+        return "ok";
+    }
+
+    @RequestMapping(value = "/fastSaveAutoEng", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public String fastSaveAutoEng(@RequestBody FastAutoEngineSaveOrUpdateRequest saveData) {
+          //  parametrsService.fastSave(saveData);
+        return "ok";
+    }
+
+    @RequestMapping(value = "/fastSaveParam", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public String fastSaveParam(@RequestBody List<SaveOrUpdateParametersRequest> saveData) {
+        parametrsService.fastSave(saveData);
         return "ok";
     }
 

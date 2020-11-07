@@ -2,6 +2,7 @@ package com.vshvet.firstrelease.Service;
 
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Parameters;
+import com.vshvet.firstrelease.payload.Request.FastAutoEngineSaveOrUpdateRequest;
 import com.vshvet.firstrelease.payload.Request.SaveOrUpdateParametersRequest;
 import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
 import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
@@ -14,11 +15,14 @@ import java.util.Map;
 
 public interface ParametrsService {
     List<ParametersResponse> getParamByIdElem(Integer id, Integer auto_id);
+
     List<DataByIdResponse> delete(Integer id);
 
-    void  save(Parameters parameter);
+    void save(Parameters parameter);
 
-    Map<String, Object> getParamMap( AutomobileEngine automobileEngine);
+    Boolean fastSave(List<SaveOrUpdateParametersRequest> saveData);
+
+    Map<String, Object> getParamMap(AutomobileEngine automobileEngine);
 
     Boolean update(List<SaveOrUpdateParametersRequest> updateData);
 

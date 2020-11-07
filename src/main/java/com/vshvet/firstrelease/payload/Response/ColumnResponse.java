@@ -12,6 +12,7 @@ public class ColumnResponse {
     private String color;
     private String id;
     private Integer sortNumber;
+    private Integer nameId;
 
     private List<ColumnResponse> columnList;
 
@@ -28,6 +29,7 @@ public class ColumnResponse {
         this.columnList = new ArrayList<>();
         this.color = elements.getColor();
         this.sortNumber=elements.getSortNumber();
+        this.nameId=elements.getParamNameFk();
         if (elements.getChildElements().size() > 0) {
             elements.getChildElements().forEach(elem -> {
                 if (elem.getDate() == null) {
@@ -38,7 +40,13 @@ public class ColumnResponse {
         }
     }
 
+    public Integer getNameId() {
+        return nameId;
+    }
 
+    public void setNameId(Integer nameId) {
+        this.nameId = nameId;
+    }
 
     public Integer getSortNumber() {
         return sortNumber;

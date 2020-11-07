@@ -126,6 +126,11 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
 
 
     @Override
+    public Boolean save(FastAutoEngineSaveOrUpdateRequest saveData) {
+        return null;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years) {
         return automobileEngineDao.findByNames(autoModel, engineType, autoManuf, years);
