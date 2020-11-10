@@ -19,6 +19,11 @@ public class AutoManufacture {
     public AutoManufacture() {
     }
 
+    public AutoManufacture(String manufactureName, Status status) {
+        this.manufactureName = manufactureName;
+        this.status = status;
+    }
+
     public AutoManufacture(int id) {
         this.id = id;
     }

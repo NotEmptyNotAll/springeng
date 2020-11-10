@@ -92,7 +92,7 @@ public class SaveDataController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public String fastSaveAutoEng(@RequestBody FastAutoEngineSaveOrUpdateRequest saveData) {
-          //  parametrsService.fastSave(saveData);
+        //  parametrsService.fastSave(saveData);
         return "ok";
     }
 
@@ -106,6 +106,22 @@ public class SaveDataController {
         return "ok";
     }
 
+    @RequestMapping(value = "/fastSaveAutoData", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public String fastSaveAutoData(@RequestBody FastAutoEngineSaveOrUpdateRequest saveData) {
+        if (saveData.getId() == -1) {
+            automobileEngineService.fastSaveAutoData(saveData);
+            engineService.fastSaveEngineData(saveData);
+        } else {
+            automobileEngineService.fastUpdateAutoData(saveData);
+            engineService.fastUpdateEngineData(saveData);
+        }
+        return "ok";
+    }
+
     @RequestMapping(value = "/saveAutoEngine", //
             method = RequestMethod.POST, //
             produces = {MediaType.APPLICATION_JSON_VALUE, //
@@ -114,6 +130,7 @@ public class SaveDataController {
     public String saveAutoEngine(@RequestBody SaveAutoEngineRequest saveData) {
         return automobileEngineService.save(saveData);
     }
+
 
 
     @RequestMapping(value = "/saveEngNumber", //

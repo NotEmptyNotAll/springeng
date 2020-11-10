@@ -172,7 +172,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                     automobileEngineList) {
                 if (paramSunQuery.length() == 878) {
                     paramSunQuery.append("and ( ae.id in (" + automobileEngine.getId());
-                }else {
+                } else {
                     paramSunQuery.append("," + automobileEngine.getId());
 
                 }
@@ -181,9 +181,9 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
 
 
         if (automobileEngineList != null && automobileEngineList.size() > 0) {
-            paramSunQuery.append( "))");
+            paramSunQuery.append("))");
         }
-        paramSunQuery.append( "and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
+        paramSunQuery.append("and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
                 "and (:pistonStoke IS NULL or  e.pistonStroke=:pistonStoke) " +
                 "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
                 "and (:degreeCompression IS NULL or  e.degreeCompression=:degreeCompression) " +
@@ -192,7 +192,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                 "or ((:releaseYearF IS NULL or ae.releaseYearBy=:releaseYearF ) and ae.releaseYearFrom is null and ae.releaseYearBy is not null ) " +
                 "or (   :releaseYearF IS NULL ) " +
                 "or ((:releaseYearF IS NULL or (ae.releaseYearBy>=:releaseYearF and ae.releaseYearFrom<=:releaseYearF) ) " +
-                "and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) and ae.date is null");
+                "and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) and ae.date is null ORDER BY ae.id");
 
 
         //this.countResults = getCountResultsByParam(request);
@@ -275,7 +275,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
     @Transactional
     public void update(AutomobileEngine newEngine, AutomobileEngine oldEngine) {
         getCurrentSession().update(newEngine);
-        save(oldEngine);
+       // save(oldEngine);
     }
 
 
@@ -319,7 +319,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                     automobileEngineList) {
                 if (paramSunQuery.length() == 890) {
                     paramSunQuery.append("and ( ae.id in (" + automobileEngine.getId());
-                }else {
+                } else {
                     paramSunQuery.append("," + automobileEngine.getId());
 
                 }
@@ -328,7 +328,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
 
 
         if (automobileEngineList != null && automobileEngineList.size() > 0) {
-            paramSunQuery.append( "))");
+            paramSunQuery.append("))");
         }
         paramSunQuery.append(" and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
                 "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
@@ -338,7 +338,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                 "or ((:releaseYearF IS NULL or ae.releaseYearBy=:releaseYearF ) and ae.releaseYearFrom is null and ae.releaseYearBy is not null ) " +
                 "or (   :releaseYearF IS NULL ) " +
                 "or ((:releaseYearF IS NULL or (ae.releaseYearBy>=:releaseYearF and ae.releaseYearFrom<=:releaseYearF) ) " +
-                "and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) and ae.date is null");
+                "and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) and ae.date is null ORDER BY ae.id");
         //this.countResults = getCountResultsByParam(request);
 
         //  int lastPageNumber = (int) (Math.ceil(((double) this.countResults) / ((double) pageSize)));
@@ -358,6 +358,12 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
         query.setParameter("releaseYearF", year);
         query.setParameter("releaseYear", request.getReleaseYear() != null && year == null ? ("%" + request.getReleaseYear().toUpperCase() + "%") : null);
         return (Long) query.uniqueResult();
+    }
+
+    @Override
+    public Integer getMaxId() {
+        return (Integer) getCurrentSession()
+                .createQuery("select MAX(pn.id) from AutomobileEngine pn").list().get(0);
     }
 
 

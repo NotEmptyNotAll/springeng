@@ -5,6 +5,7 @@ import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.payload.Request.IdRequest;
 import com.vshvet.firstrelease.payload.Request.EngineRequest;
 import com.vshvet.firstrelease.payload.Request.ParametersPageRequest;
+import com.vshvet.firstrelease.payload.Request.SaveAutoEngineRequest;
 import com.vshvet.firstrelease.payload.Response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

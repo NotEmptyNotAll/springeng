@@ -6,10 +6,12 @@ public class FastAutoEngineSaveOrUpdateRequest {
 
     private Integer id;
     private Integer flapNumber;
-    private String fuelType;
+    private Integer fuelType;
     private Integer cylindersNumber;
-    private String autoManufacture;
-    private String engineManufacture;
+    private Integer autoManufacture;
+    private String autoManufactureName;
+    private Integer engineManufacture;
+    private String engineManufactureName;
     private String powerKWT;
     private Integer engineCapacity;
     private Integer horsepower;
@@ -22,21 +24,27 @@ public class FastAutoEngineSaveOrUpdateRequest {
     private Integer modelNameId;
     private Integer engManufactureId;
     private Integer cylinderNum;
-    private String cylinderPlace;
-    private String superchargedType;
+    private Integer cylinderPlace;
+    private String cylinderPlaceName;
+    private Integer superchargedType;
+    private String superchargedTypeId;
     private Double degreeCompression;
+    private Integer releaseYearBy;
+    private Integer releaseYearFrom;
     private boolean paramAction;
     private boolean autoEngSaveAction;
     private List<SaveOrUpdateParametersRequest> paramList;
 
 
-    public FastAutoEngineSaveOrUpdateRequest(Integer id, Integer flapNumber, String fuelType, Integer cylindersNumber, String autoManufacture, String engineManufacture, String powerKWT, Integer engineCapacity, Integer horsepower, Double pistonStoke, Double pistonDiameter, String modelName, String engineType, String releaseYear, Integer engineTypeId, Integer modelNameId, Integer engManufactureId, Integer cylinderNum, String cylinderPlace, String superchargedType, Double degreeCompression, boolean paramAction, boolean autoEngSaveAction, List<SaveOrUpdateParametersRequest> paramList) {
+    public FastAutoEngineSaveOrUpdateRequest(Integer id, Integer flapNumber, Integer fuelType, Integer cylindersNumber, Integer autoManufacture, String autoManufactureName, Integer engineManufacture, String engineManufactureName, String powerKWT, Integer engineCapacity, Integer horsepower, Double pistonStoke, Double pistonDiameter, String modelName, String engineType, String releaseYear, Integer engineTypeId, Integer modelNameId, Integer engManufactureId, Integer cylinderNum, Integer cylinderPlace, String cylinderPlaceName, Integer superchargedType, String superchargedTypeId, Double degreeCompression, Integer releaseYearBy, Integer releaseYearFrom, boolean paramAction, boolean autoEngSaveAction, List<SaveOrUpdateParametersRequest> paramList) {
         this.id = id;
         this.flapNumber = flapNumber;
         this.fuelType = fuelType;
         this.cylindersNumber = cylindersNumber;
         this.autoManufacture = autoManufacture;
+        this.autoManufactureName = autoManufactureName;
         this.engineManufacture = engineManufacture;
+        this.engineManufactureName = engineManufactureName;
         this.powerKWT = powerKWT;
         this.engineCapacity = engineCapacity;
         this.horsepower = horsepower;
@@ -50,11 +58,47 @@ public class FastAutoEngineSaveOrUpdateRequest {
         this.engManufactureId = engManufactureId;
         this.cylinderNum = cylinderNum;
         this.cylinderPlace = cylinderPlace;
+        this.cylinderPlaceName = cylinderPlaceName;
         this.superchargedType = superchargedType;
+        this.superchargedTypeId = superchargedTypeId;
         this.degreeCompression = degreeCompression;
+        this.releaseYearBy = releaseYearBy;
+        this.releaseYearFrom = releaseYearFrom;
         this.paramAction = paramAction;
         this.autoEngSaveAction = autoEngSaveAction;
         this.paramList = paramList;
+    }
+
+    public String getSuperchargedTypeId() {
+        return superchargedTypeId;
+    }
+
+    public void setSuperchargedTypeId(String superchargedTypeId) {
+        this.superchargedTypeId = superchargedTypeId;
+    }
+
+    public String getCylinderPlaceName() {
+        return cylinderPlaceName;
+    }
+
+    public void setCylinderPlaceName(String cylinderPlaceName) {
+        this.cylinderPlaceName = cylinderPlaceName;
+    }
+
+    public String getAutoManufactureName() {
+        return autoManufactureName;
+    }
+
+    public void setAutoManufactureName(String autoManufactureName) {
+        this.autoManufactureName = autoManufactureName;
+    }
+
+    public String getEngineManufactureName() {
+        return engineManufactureName;
+    }
+
+    public void setEngineManufactureName(String engineManufactureName) {
+        this.engineManufactureName = engineManufactureName;
     }
 
     public Integer getModelNameId() {
@@ -77,6 +121,14 @@ public class FastAutoEngineSaveOrUpdateRequest {
         return paramList;
     }
 
+    public Integer getSuperchargedType() {
+        return superchargedType;
+    }
+
+    public void setSuperchargedType(Integer superchargedType) {
+        this.superchargedType = superchargedType;
+    }
+
     public void setParamList(List<SaveOrUpdateParametersRequest> paramList) {
         this.paramList = paramList;
     }
@@ -97,6 +149,22 @@ public class FastAutoEngineSaveOrUpdateRequest {
         this.id = id;
     }
 
+    public Integer getReleaseYearBy() {
+        return releaseYearBy;
+    }
+
+    public void setReleaseYearBy(Integer releaseYearBy) {
+        this.releaseYearBy = releaseYearBy;
+    }
+
+    public Integer getReleaseYearFrom() {
+        return releaseYearFrom;
+    }
+
+    public void setReleaseYearFrom(Integer releaseYearFrom) {
+        this.releaseYearFrom = releaseYearFrom;
+    }
+
     public Integer getFlapNumber() {
         return flapNumber;
     }
@@ -105,12 +173,13 @@ public class FastAutoEngineSaveOrUpdateRequest {
         this.flapNumber = flapNumber;
     }
 
-    public String getFuelType() {
-        return fuelType;
+
+    public Integer getEngineManufacture() {
+        return engineManufacture;
     }
 
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
+    public void setEngineManufacture(Integer engineManufacture) {
+        this.engineManufacture = engineManufacture;
     }
 
     public Integer getCylindersNumber() {
@@ -121,21 +190,14 @@ public class FastAutoEngineSaveOrUpdateRequest {
         this.cylindersNumber = cylindersNumber;
     }
 
-    public String getAutoManufacture() {
+    public Integer getAutoManufacture() {
         return autoManufacture;
     }
 
-    public void setAutoManufacture(String autoManufacture) {
+    public void setAutoManufacture(Integer autoManufacture) {
         this.autoManufacture = autoManufacture;
     }
 
-    public String getEngineManufacture() {
-        return engineManufacture;
-    }
-
-    public void setEngineManufacture(String engineManufacture) {
-        this.engineManufacture = engineManufacture;
-    }
 
     public String getPowerKWT() {
         return powerKWT;
@@ -159,6 +221,14 @@ public class FastAutoEngineSaveOrUpdateRequest {
 
     public void setHorsepower(Integer horsepower) {
         this.horsepower = horsepower;
+    }
+
+    public Integer getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(Integer fuelType) {
+        this.fuelType = fuelType;
     }
 
     public Double getPistonStoke() {
@@ -209,21 +279,6 @@ public class FastAutoEngineSaveOrUpdateRequest {
         this.cylinderNum = cylinderNum;
     }
 
-    public String getCylinderPlace() {
-        return cylinderPlace;
-    }
-
-    public void setCylinderPlace(String cylinderPlace) {
-        this.cylinderPlace = cylinderPlace;
-    }
-
-    public String getSuperchargedType() {
-        return superchargedType;
-    }
-
-    public void setSuperchargedType(String superchargedType) {
-        this.superchargedType = superchargedType;
-    }
 
     public Double getDegreeCompression() {
         return degreeCompression;
@@ -235,6 +290,15 @@ public class FastAutoEngineSaveOrUpdateRequest {
 
     public boolean isParamAction() {
         return paramAction;
+    }
+
+
+    public Integer getCylinderPlace() {
+        return cylinderPlace;
+    }
+
+    public void setCylinderPlace(Integer cylinderPlace) {
+        this.cylinderPlace = cylinderPlace;
     }
 
     public void setParamAction(boolean paramAction) {

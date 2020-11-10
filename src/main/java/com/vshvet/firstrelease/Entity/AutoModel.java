@@ -40,6 +40,11 @@ public class AutoModel {
     public AutoModel() {
     }
 
+    public AutoModel(String modelName, Status status) {
+        this.modelName = modelName;
+        this.status = status;
+    }
+
     public AutoModel(int id) {
         this.id = id;
     }

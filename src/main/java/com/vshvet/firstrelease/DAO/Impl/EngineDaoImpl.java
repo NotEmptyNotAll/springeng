@@ -72,7 +72,7 @@ public class EngineDaoImpl implements EngineDao {
     @Transactional(readOnly = true)
     public List<String> getAllType() {
         return (List<String>) getCurrentSession()
-                .createQuery("select e.engineType from Engine e where  e.engineType IS NOT NULL and date is null").list();
+                .createQuery("select e.engineType from Engine e where  e.engineType IS NOT NULL and date is null ").list();
     }
 
     @Override
@@ -118,7 +118,7 @@ public class EngineDaoImpl implements EngineDao {
                         "or ((:releaseYearF IS NULL or ae.releaseYearBy=:releaseYearF ) and ae.releaseYearFrom is null and ae.releaseYearBy is not null ) " +
                         "or (   :releaseYearF IS NULL ) " +
                         "or ((:releaseYearF IS NULL or (ae.releaseYearBy>:releaseYearF and ae.releaseYearFrom<:releaseYearF) ) " +
-                        "and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) and ae.date is null");
+                        "and ae.releaseYearFrom is not null and ae.releaseYearBy is not null )) and ae.date is null ");
         query.setParameter("engineTypeParam", engineRequest.getEngineType());
         query.setParameter("autoManufParam", engineRequest.getAutoManufacturer());
         query.setParameter("autoModelParam", engineRequest.getAutoModel());
@@ -138,8 +138,8 @@ public class EngineDaoImpl implements EngineDao {
                         "where (:dataParam IS NULL or  UPPER(e.engineType) like :dataParam ) and e.date is null");
         query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
         query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
-          Long  countRes=getNumberOfPage(request);
-        query.setMaxResults(request.getPageSize()>countRes? countRes.intValue():  request.getPageSize());
+        Long countRes = getNumberOfPage(request);
+        query.setMaxResults(request.getPageSize() > countRes ? countRes.intValue() : request.getPageSize());
         return query.list();
     }
 
@@ -159,7 +159,7 @@ public class EngineDaoImpl implements EngineDao {
     @Transactional(readOnly = true)
     public List<Engine> getAll() {
         return (List<Engine>) getCurrentSession()
-                .createQuery("from Engine e where  e.engineType IS NOT NULL and date is null").setFirstResult(1)
+                .createQuery("from Engine e where  e.engineType IS NOT NULL and date is null ").setFirstResult(1)
                 .setMaxResults(300).list();
     }
 

@@ -1,17 +1,19 @@
 package com.vshvet.firstrelease.Service;
 
-import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.payload.Request.*;
 import com.vshvet.firstrelease.payload.Response.*;
 
 import java.util.List;
-import java.util.Map;
 
 public interface AutomobileEngineService {
     Boolean save(FastAutoEngineSaveOrUpdateRequest saveData);
 
     AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years);
+
+    Boolean fastSaveAutoData(FastAutoEngineSaveOrUpdateRequest parametersPageRequest);
+
+    Boolean fastUpdateAutoData(FastAutoEngineSaveOrUpdateRequest parametersPageRequest);
 
     void save(AutomobileEngine automobileEngine);
 
@@ -45,4 +47,5 @@ public interface AutomobileEngineService {
     List<AutoDataResponse> getAllAuto();
 
     void imprt(ImprtAutoEngineRequest imprtData);
+
 }

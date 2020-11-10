@@ -9,6 +9,7 @@ public class DefaultDataResponse {
     private List<DataByIdResponse> engineManufacture;
     private List<DataByIdResponse> engineType;
     private List<DataByIdResponse> engineNumber;
+    private List<DataByIdResponse> superchargedType;
 
     public DefaultDataResponse() {
     }
@@ -17,12 +18,22 @@ public class DefaultDataResponse {
                                List<DataByIdResponse> fuelType,
                                List<DataByIdResponse> engineManufacture,
                                List<DataByIdResponse> engineType,
-                               List<DataByIdResponse> engineNumber) {
+                               List<DataByIdResponse> engineNumber,
+                               List<DataByIdResponse> superchargedType) {
         this.autoModel = autoModel;
         this.fuelType = fuelType;
         this.engineManufacture = engineManufacture;
         this.engineType = engineType;
         this.engineNumber = engineNumber;
+        this.superchargedType = superchargedType;
+    }
+
+    public List<DataByIdResponse> getSuperchargedType() {
+        return superchargedType;
+    }
+
+    public void setSuperchargedType(List<DataByIdResponse> superchargedType) {
+        this.superchargedType = superchargedType;
     }
 
     public List<DataByIdResponse> getAutoModel() {

@@ -38,12 +38,101 @@ public class EngineServiceImpl implements EngineService {
     }
 
     @Override
+    public Integer fastSaveEngineData(FastAutoEngineSaveOrUpdateRequest parametersPageRequest) {
+        try {
+            Engine engine = new Engine();
+            //engine.setStatus(new Status(saveData.getStatus()));
+            engine.setStatus(new Status(2));
+            if(parametersPageRequest.getCylinderPlace()!=null){
+                engine.setCylindersByCylindersPlacementFk(new Cylinders(parametersPageRequest.getCylinderPlace()));
+            }else if(parametersPageRequest.getCylinderPlace()!=null) {
+                engine.setCylindersByCylindersPlacementFk(new Cylinders(parametersPageRequest.getCylinderPlace()));
+
+            }
+            engine.setCylindersNumber(parametersPageRequest.getCylindersNumber());
+            engine.setDegreeCompression(parametersPageRequest.getDegreeCompression());
+            engine.setEngineCapacity(parametersPageRequest.getEngineCapacity());
+            engine.setEngineType(parametersPageRequest.getEngineType());
+            engine.setEngineManufacturerByEngineManufacturerFk(new EngineManufacturer(parametersPageRequest.getEngineManufacture()));
+            engine.setFlapNumber(parametersPageRequest.getFlapNumber());
+            engine.setFuelTypeByFuelTypeFk(new FuelType(parametersPageRequest.getFuelType()));
+            engine.setHorsepower(parametersPageRequest.getHorsepower());
+            engine.setPistonDiameter(parametersPageRequest.getPistonDiameter());
+            engine.setPistonStroke(parametersPageRequest.getPistonStoke());
+            engine.setPowerKwt(parametersPageRequest.getPowerKWT());
+            engine.setReleaseYearBy(parametersPageRequest.getReleaseYearBy());
+            engine.setReleaseYearFrom(parametersPageRequest.getReleaseYearFrom());
+            engine.setSuperchargedTypeBySuperchargedTypeFk(new SuperchargedType(parametersPageRequest.getSuperchargedType()));
+            engineDao.save(engine);
+            return engine.getId();
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
+    public Boolean fastUpdateEngineData(FastAutoEngineSaveOrUpdateRequest parametersPageRequest) {
+        try {
+            Engine newEngine = engineDao.findById(parametersPageRequest.getEngineTypeId()).get();
+            Engine oldEngine = new Engine(newEngine);
+            newEngine.setStatus(new Status(2));
+            if (parametersPageRequest.getCylinderPlace() != null) {
+                newEngine.setCylindersByCylindersPlacementFk(new Cylinders(parametersPageRequest.getCylinderPlace()));
+            }
+            if (parametersPageRequest.getCylindersNumber() != null) {
+                newEngine.setCylindersNumber(parametersPageRequest.getCylindersNumber());
+            }
+            if (parametersPageRequest.getDegreeCompression() != null) {
+                newEngine.setDegreeCompression(parametersPageRequest.getDegreeCompression());
+            }
+            if (parametersPageRequest.getEngineCapacity() != null) {
+                newEngine.setEngineCapacity(parametersPageRequest.getEngineCapacity());
+            }
+            if (parametersPageRequest.getEngineType() != null) {
+                newEngine.setEngineType(parametersPageRequest.getEngineType());
+            }
+            if (parametersPageRequest.getEngineManufacture() != null) {
+                newEngine.setEngineManufacturerByEngineManufacturerFk(new EngineManufacturer(parametersPageRequest.getEngineManufacture()));
+            }
+            if (parametersPageRequest.getFlapNumber() != null) {
+                newEngine.setFlapNumber(parametersPageRequest.getFlapNumber());
+            }
+            if (parametersPageRequest.getFuelType() != null) {
+                newEngine.setFuelTypeByFuelTypeFk(new FuelType(parametersPageRequest.getFuelType()));
+            }
+            if (parametersPageRequest.getHorsepower() != null) {
+                newEngine.setHorsepower(parametersPageRequest.getHorsepower());
+            }
+            if (parametersPageRequest.getPistonStoke() != null) {
+                newEngine.setPistonStroke(parametersPageRequest.getPistonStoke());
+            }
+            if (parametersPageRequest.getPowerKWT() != null) {
+                newEngine.setPowerKwt(parametersPageRequest.getPowerKWT());
+            }
+            if (parametersPageRequest.getReleaseYearBy() != null) {
+                newEngine.setReleaseYearBy(parametersPageRequest.getReleaseYearBy());
+            }
+            if (parametersPageRequest.getSuperchargedType() != null) {
+                newEngine.setSuperchargedTypeBySuperchargedTypeFk(new SuperchargedType(parametersPageRequest.getSuperchargedType()));
+            }
+            if (parametersPageRequest.getReleaseYearFrom() != null) {
+                newEngine.setReleaseYearFrom(parametersPageRequest.getReleaseYearFrom());
+            }
+            oldEngine.setDate(new Date(new java.util.Date().getTime()));
+            engineDao.update(newEngine, oldEngine);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     @Transactional
     public List<DataByIdResponse> delete(Integer id) {
         Engine engine = engineDao.findById(id).get();
-        List<AutomobileEngine> automobileEngines= engine.getAutomobileEnginesById()
-                .stream().filter(item->item.getDate()==null).collect(Collectors.toList());
-        if (automobileEngines.size()==0) {
+        List<AutomobileEngine> automobileEngines = engine.getAutomobileEnginesById()
+                .stream().filter(item -> item.getDate() == null).collect(Collectors.toList());
+        if (automobileEngines.size() == 0) {
             this.engineDao.delete(engine);
             return null;
         } else {
@@ -98,8 +187,8 @@ public class EngineServiceImpl implements EngineService {
     @Override
     @Transactional(readOnly = true)
     public List<EngineDataResponse> getPaginationData(PaginationDataRequest request) {
-        return new ArrayList<EngineDataResponse>(){{
-            engineDao.getPaginationData(request).forEach(elem->{
+        return new ArrayList<EngineDataResponse>() {{
+            engineDao.getPaginationData(request).forEach(elem -> {
                 add(new EngineDataResponse(
                         elem.getId(),
                         elem.getEngineType(),
@@ -120,7 +209,8 @@ public class EngineServiceImpl implements EngineService {
                         elem.getStatus().getStatus()
                 ));
             });
-        }};    }
+        }};
+    }
 
     @Override
     public Integer getNumberOfPage(PaginationDataRequest request) {

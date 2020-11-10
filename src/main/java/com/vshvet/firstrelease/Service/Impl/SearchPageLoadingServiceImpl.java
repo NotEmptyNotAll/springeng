@@ -71,6 +71,8 @@ public class SearchPageLoadingServiceImpl implements SearchPageLoadingService {
         defaultDataResponse.setEngineManufacture(autoManufactureService.getCroppedData(engine));
         defaultDataResponse.setFuelType(fuelTypeService.getCroppedData(engine));
         defaultDataResponse.setEngineNumber(engineNumberService.getCroppedData(engine));
+        //здесь мы не обрезаем, пока что смысла нет.
+        defaultDataResponse.setSuperchargedType(superchargedTypeService.getDataByIdResponse());
         return defaultDataResponse;
     }
 

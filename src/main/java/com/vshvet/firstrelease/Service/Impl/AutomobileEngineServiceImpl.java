@@ -34,6 +34,11 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     @Autowired
     private EngineService engineService;
 
+
+    @Autowired
+    private AutoManufactureService autoManufactureService;
+
+
     @Override
     @Transactional(readOnly = true)
     public List<AutoDataResponse> getPaginationData(PaginationDataRequest request) {
@@ -91,9 +96,9 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     @Transactional(readOnly = true)
     public AutoEngineMapByParamResponse getAllAutoEngAndParam(ParametersPageRequest request) {
         getPistoneAndStokeFromString(request);
-        List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList(),request.getSearchPercent());
+        List<AutomobileEngine> autoListByParam = elementsService.getParentElements(request.getParamList(), request.getSearchPercent());
         List<AutomobileEngine> autoeng = automobileEngineDao.getPaginationAutoEngByParam(request, autoListByParam);
-        if (autoListByParam!=null && autoListByParam.size()==0 && request.getParamList() != null) {
+        if (autoListByParam != null && autoListByParam.size() == 0 && request.getParamList() != null) {
             return null;
         }
         Integer countResult = getNumberOfPageByParam(request, autoListByParam);
@@ -135,6 +140,65 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     public AutomobileEngine findByNames(String autoModel, String engineType, String autoManuf, String years) {
         return automobileEngineDao.findByNames(autoModel, engineType, autoManuf, years);
     }
+
+    @Override
+    public Boolean fastSaveAutoData(FastAutoEngineSaveOrUpdateRequest saveData) {
+        try {
+            AutomobileEngine automobileEngine = new AutomobileEngine();
+            //Engine engine =engineService.findByName(parametersPageRequest.getEngineType());
+            automobileEngine.setEngineByEngineFk(new Engine(saveData.getEngineTypeId()));
+            automobileEngine.setAutoManufactureByAutoManufactureFk(new AutoManufacture(saveData.getAutoManufacture()));
+            automobileEngine.setAutoModelByAutoModelFk(new AutoModel(saveData.getModelNameId()));
+            automobileEngine.setReleaseYearBy(saveData.getReleaseYearBy());
+            automobileEngine.setReleaseYearFrom(saveData.getReleaseYearFrom());
+            automobileEngine.setStatus(new Status(2));
+            automobileEngineDao.save(automobileEngine);
+            return true;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    @Override
+    public Boolean fastUpdateAutoData(FastAutoEngineSaveOrUpdateRequest parametersPageRequest) {
+        try {
+            AutomobileEngine newAuto = automobileEngineDao.findById(parametersPageRequest.getId()).get();
+            AutomobileEngine oldAuto = new AutomobileEngine(newAuto);
+            //newAuto.setStatus(new Status(parametersPageRequest.getStatus()));
+            if (parametersPageRequest.getReleaseYearFrom() != null) {
+                newAuto.setReleaseYearFrom(parametersPageRequest.getReleaseYearFrom());
+            }
+            if (parametersPageRequest.getReleaseYearBy() != null) {
+                newAuto.setReleaseYearBy(parametersPageRequest.getReleaseYearBy());
+            }
+            if (parametersPageRequest.getModelName() != null) {
+                autoModelService.save(new AutoModel(parametersPageRequest.getModelName(), new Status(2)));
+                newAuto.setAutoModelByAutoModelFk(autoModelService.findByName(parametersPageRequest.getModelName()));
+            } else if (parametersPageRequest.getModelNameId() != null) {
+                newAuto.setAutoModelByAutoModelFk(autoModelService.findById(parametersPageRequest.getModelNameId()));
+            }
+            if (parametersPageRequest.getEngineType() != null) {
+                engineService.fastSaveEngineData(parametersPageRequest);
+                newAuto.setEngineByEngineFk(engineService.findById(engineService.fastSaveEngineData(parametersPageRequest)));
+            } else if (parametersPageRequest.getEngineTypeId() != null) {
+                newAuto.setEngineByEngineFk(engineService.findById(parametersPageRequest.getEngineTypeId()));
+            }
+            if (parametersPageRequest.getAutoManufactureName() != null) {
+                autoManufactureService.save(new AutoManufacture(parametersPageRequest.getAutoManufactureName(), new Status(2)));
+                newAuto.setAutoManufactureByAutoManufactureFk(autoManufactureService.findByName(parametersPageRequest.getAutoManufactureName()));
+            } else if (parametersPageRequest.getAutoManufacture() != null) {
+                newAuto.setAutoManufactureByAutoManufactureFk(new AutoManufacture(parametersPageRequest.getAutoManufacture()));
+            }
+            oldAuto.setDate(new Date(new java.util.Date().getTime()));
+            oldAuto.setId(automobileEngineDao.getMaxId() + 1);
+            automobileEngineDao.update(newAuto, oldAuto);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     @Override
     public void save(AutomobileEngine automobileEngine) {
@@ -186,7 +250,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
             }
         } else {
             responses = new ArrayList<AutomobileEngineResponse>() {{
-                elementsService.getParentElements(engineRequest.getParamList(),0).forEach(automobileEngine -> {
+                elementsService.getParentElements(engineRequest.getParamList(), 0).forEach(automobileEngine -> {
                     add(new AutomobileEngineResponse(automobileEngine));
                 });
             }};
@@ -307,5 +371,6 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
     public void imprt(ImprtAutoEngineRequest imprtData) {
         imprtData.getList().forEach(this::save);
     }
+
 
 }

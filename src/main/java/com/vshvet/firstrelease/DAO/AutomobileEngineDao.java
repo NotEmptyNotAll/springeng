@@ -17,6 +17,8 @@ public interface AutomobileEngineDao extends Dao<AutomobileEngine> {
 
     Long getCountResultsByParam(ParametersPageRequest request,List<AutomobileEngine> automobileEngineList);
 
+    Integer getMaxId();
+
 
     List<AutomobileEngine> getPaginationAutoEngByParam(ParametersPageRequest request,List<AutomobileEngine> automobileEngineList);
 
