@@ -43,26 +43,50 @@ public class EngineServiceImpl implements EngineService {
             Engine engine = new Engine();
             //engine.setStatus(new Status(saveData.getStatus()));
             engine.setStatus(new Status(2));
-            if(parametersPageRequest.getCylinderPlace()!=null){
+            if (parametersPageRequest.getCylinderPlace() != null) {
                 engine.setCylindersByCylindersPlacementFk(new Cylinders(parametersPageRequest.getCylinderPlace()));
-            }else if(parametersPageRequest.getCylinderPlace()!=null) {
-                engine.setCylindersByCylindersPlacementFk(new Cylinders(parametersPageRequest.getCylinderPlace()));
+                engine.setCylindersPlacementFk(parametersPageRequest.getCylinderPlace());
+            } else {
+                engine.setCylindersByCylindersPlacementFk(new Cylinders(1));
+                engine.setCylindersPlacementFk(1);
 
             }
             engine.setCylindersNumber(parametersPageRequest.getCylindersNumber());
             engine.setDegreeCompression(parametersPageRequest.getDegreeCompression());
-            engine.setEngineCapacity(parametersPageRequest.getEngineCapacity());
+            if (parametersPageRequest.getEngineCapacity() != null) {
+                engine.setEngineCapacity(parametersPageRequest.getEngineCapacity());
+            } else {
+                engine.setEngineCapacity(0);
+            }
             engine.setEngineType(parametersPageRequest.getEngineType());
-            engine.setEngineManufacturerByEngineManufacturerFk(new EngineManufacturer(parametersPageRequest.getEngineManufacture()));
+            if (parametersPageRequest.getEngineManufacture() != null) {
+                engine.setEngineManufacturerByEngineManufacturerFk(new EngineManufacturer(parametersPageRequest.getEngineManufacture()));
+                engine.setEngineManufacturerFk(parametersPageRequest.getEngineManufacture());
+            } else {
+                engine.setEngineManufacturerByEngineManufacturerFk(new EngineManufacturer(1));
+                engine.setEngineManufacturerFk(1);
+            }
             engine.setFlapNumber(parametersPageRequest.getFlapNumber());
-            engine.setFuelTypeByFuelTypeFk(new FuelType(parametersPageRequest.getFuelType()));
+            if (parametersPageRequest.getFuelType() != null) {
+                engine.setFuelTypeByFuelTypeFk(new FuelType(parametersPageRequest.getFuelType()));
+            } else {
+                engine.setFuelTypeByFuelTypeFk(new FuelType(1));
+
+            }
             engine.setHorsepower(parametersPageRequest.getHorsepower());
             engine.setPistonDiameter(parametersPageRequest.getPistonDiameter());
             engine.setPistonStroke(parametersPageRequest.getPistonStoke());
             engine.setPowerKwt(parametersPageRequest.getPowerKWT());
             engine.setReleaseYearBy(parametersPageRequest.getReleaseYearBy());
             engine.setReleaseYearFrom(parametersPageRequest.getReleaseYearFrom());
-            engine.setSuperchargedTypeBySuperchargedTypeFk(new SuperchargedType(parametersPageRequest.getSuperchargedType()));
+            if (parametersPageRequest.getSuperchargedType() != null) {
+                engine.setSuperchargedTypeBySuperchargedTypeFk(new SuperchargedType(parametersPageRequest.getSuperchargedType()));
+                engine.setSuperchargedTypeFk(parametersPageRequest.getSuperchargedType());
+            } else {
+                engine.setSuperchargedTypeBySuperchargedTypeFk(new SuperchargedType(1));
+                engine.setSuperchargedTypeFk(1);
+
+            }
             engineDao.save(engine);
             return engine.getId();
         } catch (Exception e) {

@@ -113,8 +113,10 @@ public class SaveDataController {
     @ResponseBody
     public String fastSaveAutoData(@RequestBody FastAutoEngineSaveOrUpdateRequest saveData) {
         if (saveData.getId() == -1) {
+            if(saveData.getEngineType()!=null){
+                saveData.setEngineTypeId(engineService.fastSaveEngineData(saveData));
+            }
             automobileEngineService.fastSaveAutoData(saveData);
-            engineService.fastSaveEngineData(saveData);
         } else {
             automobileEngineService.fastUpdateAutoData(saveData);
             engineService.fastUpdateEngineData(saveData);

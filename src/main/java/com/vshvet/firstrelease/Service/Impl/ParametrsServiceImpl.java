@@ -84,6 +84,7 @@ public class ParametrsServiceImpl implements ParametrsService {
     }
 
     @Override
+    @Transactional
     public Boolean fastSave(List<SaveOrUpdateParametersRequest> saveData) {
         saveData.forEach(param -> {
             if (param.getId() != 1) {
@@ -102,6 +103,7 @@ public class ParametrsServiceImpl implements ParametrsService {
         List<Parameters> parametersList = automobileEngine.getParametersList();
         return new HashMap<String, Object>() {{
             parametersList.forEach(parameter -> {
+                if(parameter.getDate()==null){
                 String temp = getValueParam(parameter);
                 /*
                 if (parameter.getElementsByElemFk().getParentElements().getFileStorages() == null) {
@@ -112,6 +114,7 @@ public class ParametrsServiceImpl implements ParametrsService {
                 }*/
                 if (!temp.equals("")) {
                     put(Integer.toString(parameter.getElementsByElemFk().getElemId()), temp);
+                }
                 }
             });
 
@@ -139,9 +142,9 @@ public class ParametrsServiceImpl implements ParametrsService {
             return "";
         }
     }
-
-    private Boolean updateParam(SaveOrUpdateParametersRequest param) {
-        Parameters newParameters = parametersDao.findById(param.getId()).get();
+    @Transactional
+     Boolean updateParam(SaveOrUpdateParametersRequest param) {
+        Parameters newParameters = parametersDao.findParamByAutoAndElemId(param.getElemId(),param.getAuto_id());
         Parameters oldParameters = new Parameters(newParameters);
         newParameters.setStatus(new Status(param.getStatus()));
         newParameters.setAuthor(param.getAuthor());
@@ -150,16 +153,13 @@ public class ParametrsServiceImpl implements ParametrsService {
         newParameters.setDoubleNum(param.getDoubleNum());
         newParameters.setLogic(param.getLogic());
         newParameters.setMeasurementUnitsByMeasurementUnitsFk(new MeasurementUnits(param.getUnits()));
+        oldParameters.setMeasurementUnitsByMeasurementUnitsFk(new MeasurementUnits(5));
         newParameters.setRecordStatus(param.getRecordStatus());
         newParameters.setSource(param.getSource());
         oldParameters.setDate(new Date(new java.util.Date().getTime()));
         newParameters.setTextData(param.getTextData());
         Optional<Elements> tempElements = this.elementsDao
-                .findById(param.getElemId()).get()
-                .getChildElements().stream()
-                .filter(e -> {
-                    return e.getParamNameFk().equals(param.getName());
-                }).findFirst();
+                .findById(param.getElemId());
         if (!tempElements.isPresent()) {
             elementsService.update(new SaveOrUpdateElementsRequest(
                     oldParameters.getElemFk(),

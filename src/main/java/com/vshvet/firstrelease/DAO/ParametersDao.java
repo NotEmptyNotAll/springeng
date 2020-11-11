@@ -10,6 +10,7 @@ public interface ParametersDao extends Dao<Parameters> {
 
     Parameters findParamByElemId(Integer id);
 
+    Parameters findParamByAutoAndElemId(Integer elemId, Integer autoId);
 
      List<Parameters> getParamByAutoId(Integer autoId);
 

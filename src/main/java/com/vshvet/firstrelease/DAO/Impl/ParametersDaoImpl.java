@@ -34,11 +34,11 @@ public class ParametersDaoImpl implements ParametersDao {
     @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
-    public List<Parameters> getParamByAutoId(Integer autoId)  {
-        Query query =  getCurrentSession()
+    public List<Parameters> getParamByAutoId(Integer autoId) {
+        Query query = getCurrentSession()
                 .createQuery("from Parameters p  where p.elemFk>0 and p.autoId=:autoIdParam and p.date is null");
         query.setParameter("autoIdParam", autoId);
-        return    query.list();
+        return query.list();
     }
 
     @Override
@@ -89,12 +89,21 @@ public class ParametersDaoImpl implements ParametersDao {
     @Transactional(readOnly = true)
     public Parameters findParamByElemId(Integer id) {
         Query query = getCurrentSession()
-                .createQuery("from Parameters p where p.elemFk=:idParam and date is null  ");
+                .createQuery("from Parameters p where p.elemFk=:idParam and date is null   ");
         query.setParameter("idParam", id);
         return query.list().size() != 0 ?
                 (Parameters) query.list().get(0) : null;
     }
 
+    @Override
+    public Parameters findParamByAutoAndElemId(Integer elemId, Integer autoId) {
+        Query query = getCurrentSession()
+                .createQuery("from Parameters p where p.elemFk=:elemIdParam " +
+                        " and p.autoId=:autoIdParam and date is null ");
+        query.setParameter("elemIdParam", elemId);
+        query.setParameter("autoIdParam", autoId);
+        return (Parameters) query.list().get(0);
+    }
 
 
     @Override
@@ -125,7 +134,7 @@ public class ParametersDaoImpl implements ParametersDao {
     public void delete(Parameters parameters) {
         parameters.setDate(new java.sql.Date(new java.util.Date().getTime()));
         getCurrentSession().update(parameters);
-       // getCurrentSession().delete(parameters);
+        // getCurrentSession().delete(parameters);
     }
 
     @Override

@@ -146,9 +146,21 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
         try {
             AutomobileEngine automobileEngine = new AutomobileEngine();
             //Engine engine =engineService.findByName(parametersPageRequest.getEngineType());
-            automobileEngine.setEngineByEngineFk(new Engine(saveData.getEngineTypeId()));
-            automobileEngine.setAutoManufactureByAutoManufactureFk(new AutoManufacture(saveData.getAutoManufacture()));
-            automobileEngine.setAutoModelByAutoModelFk(new AutoModel(saveData.getModelNameId()));
+            if (saveData.getEngineTypeId() != null) {
+                automobileEngine.setEngineByEngineFk(new Engine(saveData.getEngineTypeId()));
+            }
+            if (saveData.getAutoManufactureName() != null) {
+                autoManufactureService.save(new AutoManufacture(saveData.getAutoManufactureName(), new Status(2)));
+                automobileEngine.setAutoManufactureByAutoManufactureFk(autoManufactureService.findByName(saveData.getAutoManufactureName()));
+            } else if (saveData.getAutoManufacture() != null) {
+                automobileEngine.setAutoManufactureByAutoManufactureFk(new AutoManufacture(saveData.getAutoManufacture()));
+            }
+            if (saveData.getModelName() != null) {
+                autoModelService.save(new AutoModel(saveData.getModelName(), new Status(2)));
+                automobileEngine.setAutoModelByAutoModelFk(autoModelService.findByName(saveData.getModelName()));
+            } else if (saveData.getModelNameId() != null) {
+                automobileEngine.setAutoModelByAutoModelFk(new AutoModel(saveData.getModelNameId()));
+            }
             automobileEngine.setReleaseYearBy(saveData.getReleaseYearBy());
             automobileEngine.setReleaseYearFrom(saveData.getReleaseYearFrom());
             automobileEngine.setStatus(new Status(2));
