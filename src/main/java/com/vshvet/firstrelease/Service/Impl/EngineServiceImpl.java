@@ -118,6 +118,9 @@ public class EngineServiceImpl implements EngineService {
             if (parametersPageRequest.getEngineManufacture() != null) {
                 newEngine.setEngineManufacturerByEngineManufacturerFk(new EngineManufacturer(parametersPageRequest.getEngineManufacture()));
             }
+            if (parametersPageRequest.getPistonDiameter() != null) {
+                newEngine.setPistonDiameter(parametersPageRequest.getPistonDiameter());
+            }
             if (parametersPageRequest.getFlapNumber() != null) {
                 newEngine.setFlapNumber(parametersPageRequest.getFlapNumber());
             }
