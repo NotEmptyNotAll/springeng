@@ -147,8 +147,8 @@ public class AutoModelDaoImpl implements AutoModelDao {
                 .createQuery("select count(am.id) from AutoModel am " +
                         "where (:dataParam IS NULL or  UPPER(am.modelName) like :dataParam ) and am.date is null ");
         query.setParameter("dataParam", request.getData() != null ? ("%" + request.getData().toUpperCase() + "%") : null);
-        query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
-        query.setMaxResults(request.getPageSize());
+      //  query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
+        //query.setMaxResults(request.getPageSize());
         return (Long) query.uniqueResult();
     }
 
