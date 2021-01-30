@@ -84,7 +84,7 @@ public class AuthController {
         if (verificationToken == null) {
             String message = messages.getMessage("auth.message.invalidToken", null, locale);
             model.addAttribute("message", message);
-            return new RedirectView("http://" + host + ":8080/errorEmail");
+            return new RedirectView("http://" + host + ":5000/errorEmail");
         }
 
         User user = verificationToken.getUser();
@@ -92,12 +92,12 @@ public class AuthController {
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
             String messageValue = messages.getMessage("auth.message.expired", null, locale);
             model.addAttribute("message", messageValue);
-            return new RedirectView("http://" + host + ":8080/errorEmail");
+            return new RedirectView("http://" + host + ":5000/errorEmail");
 
         }
 
         userService.userVerification(user);
-        return new RedirectView("http://" + host + ":8080/confirmEmail");
+        return new RedirectView("http://" + host + ":5000/confirmEmail");
     }
 
 
