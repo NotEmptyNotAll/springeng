@@ -3,9 +3,7 @@ package com.vshvet.firstrelease.DAO;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.Parameters;
-import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
-import com.vshvet.firstrelease.payload.Request.ParamsRequest;
-import com.vshvet.firstrelease.payload.Response.ElementsResponse;
+import com.vshvet.firstrelease.Payload.Request.ParamsRequest;
 
 import java.util.List;
 

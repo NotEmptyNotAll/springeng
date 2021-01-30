@@ -1,30 +1,23 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.ParameterNameDao;
-import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.EngineManufacturer;
-import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Entity.ParameterNames;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
-import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
-import org.hibernate.ObjectNotFoundException;
+import com.vshvet.firstrelease.Payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Queue;
 
 @Repository("parameterNameDao")
 @Transactional

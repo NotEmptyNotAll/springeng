@@ -1,14 +1,11 @@
 package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.AutoModelDao;
-import com.vshvet.firstrelease.DAO.RoleDao;
-import com.vshvet.firstrelease.DAO.UserDao;
 import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Exception.ObjectNotFoundException;
 import com.vshvet.firstrelease.Service.AutoModelService;
-import com.vshvet.firstrelease.Service.AutomobileEngineService;
-import com.vshvet.firstrelease.payload.Request.*;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.Payload.Request.*;
+import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

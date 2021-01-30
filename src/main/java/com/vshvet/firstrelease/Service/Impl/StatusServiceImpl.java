@@ -2,7 +2,7 @@ package com.vshvet.firstrelease.Service.Impl;
 
 import com.vshvet.firstrelease.DAO.StatusDao;
 import com.vshvet.firstrelease.Service.StatusService;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

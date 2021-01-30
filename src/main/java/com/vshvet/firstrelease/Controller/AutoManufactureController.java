@@ -1,9 +1,7 @@
 package com.vshvet.firstrelease.Controller;
 
-import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Service.AutoManufactureService;
-import com.vshvet.firstrelease.Service.AutoModelService;
-import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
+import com.vshvet.firstrelease.Payload.Request.PaginationDataRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

@@ -1,13 +1,10 @@
 package com.vshvet.firstrelease.Service;
 
-import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.AutoModel;
-import com.vshvet.firstrelease.payload.Request.*;
-import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.Payload.Request.*;
+import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
 
 import java.util.List;
-import java.util.Set;
 
 public interface AutoModelService {
     List<DataByIdResponse> delete(Integer id);

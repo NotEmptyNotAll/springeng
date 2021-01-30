@@ -1,9 +1,8 @@
 package com.vshvet.firstrelease.Controller;
 
 import com.vshvet.firstrelease.Entity.ParameterNames;
-import com.vshvet.firstrelease.Service.MeasurementUnitsService;
 import com.vshvet.firstrelease.Service.ParameterNameService;
-import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
+import com.vshvet.firstrelease.Payload.Request.PaginationDataRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

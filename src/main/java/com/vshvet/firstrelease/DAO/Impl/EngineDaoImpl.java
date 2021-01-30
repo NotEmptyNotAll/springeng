@@ -1,13 +1,10 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.EngineDao;
-import com.vshvet.firstrelease.Entity.Cylinders;
 import com.vshvet.firstrelease.Entity.Engine;
-import com.vshvet.firstrelease.Entity.FuelType;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
-import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
-import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
+import com.vshvet.firstrelease.Payload.Request.EngineRequest;
+import com.vshvet.firstrelease.Payload.Request.PaginationDataRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;

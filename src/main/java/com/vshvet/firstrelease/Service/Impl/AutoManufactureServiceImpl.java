@@ -3,12 +3,10 @@ package com.vshvet.firstrelease.Service.Impl;
 import com.vshvet.firstrelease.DAO.AutoManufactureDao;
 import com.vshvet.firstrelease.Entity.AutoManufacture;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
-import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.Status;
 import com.vshvet.firstrelease.Service.AutoManufactureService;
-import com.vshvet.firstrelease.payload.Request.*;
-import com.vshvet.firstrelease.payload.Response.AutoDataResponse;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.Payload.Request.*;
+import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service

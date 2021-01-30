@@ -2,12 +2,12 @@ package com.vshvet.firstrelease.Entity;
 
 
 import com.vshvet.firstrelease.ConstValue;
+import com.vshvet.firstrelease.Payload.Request.RegistrationRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,6 +19,11 @@ import java.util.Set;
         schema = ConstValue.SCHEMA_NAME)
 public class User {
 
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_user_seq")
+    @SequenceGenerator(name = "id_user_seq", initialValue = 50)
     private Long id;
 
     private String username;
@@ -29,18 +34,38 @@ public class User {
 
     private Set<Role> roles;
 
+    private boolean enabled;
+
+
 
     public User(Long id) {
         this.id = id;
     }
 
+    public User(RegistrationRequest registrationRequest) {
+        this.username = registrationRequest.getUsername();
+        this.password = registrationRequest.getPassword();
+        this.email = registrationRequest.getEmail();
+    }
+
     public User() {
+        this.enabled=false;
     }
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.enabled=false;
+    }
+
+    @Column(name = "enabled")
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Id
@@ -48,7 +73,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "id_user_id_seq")
     @SequenceGenerator(name = "id_user_id_seq", initialValue = 2)
-
     public Long getId() {
         return id;
     }

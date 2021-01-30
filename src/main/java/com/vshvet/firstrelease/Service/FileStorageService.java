@@ -1,7 +1,7 @@
 package com.vshvet.firstrelease.Service;
 
-import com.vshvet.firstrelease.payload.Request.FileListRequest;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.Payload.Request.FileListRequest;
+import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
 
 import java.util.List;
 

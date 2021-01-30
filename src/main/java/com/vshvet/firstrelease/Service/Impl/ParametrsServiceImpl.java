@@ -6,18 +6,14 @@ import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Exception.ObjectNotFoundException;
 import com.vshvet.firstrelease.Service.ElementsService;
 import com.vshvet.firstrelease.Service.ParametrsService;
-import com.vshvet.firstrelease.payload.Request.FastAutoEngineSaveOrUpdateRequest;
-import com.vshvet.firstrelease.payload.Request.SaveOrUpdateElementsRequest;
-import com.vshvet.firstrelease.payload.Request.SaveOrUpdateParametersRequest;
-import com.vshvet.firstrelease.payload.Request.UpdateDataRequest;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
-import com.vshvet.firstrelease.payload.Response.ParamSizeNameResponse;
-import com.vshvet.firstrelease.payload.Response.ParametersResponse;
+import com.vshvet.firstrelease.Payload.Request.SaveOrUpdateElementsRequest;
+import com.vshvet.firstrelease.Payload.Request.SaveOrUpdateParametersRequest;
+import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.Payload.Response.ParametersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Parameter;
 import java.sql.Date;
 import java.util.*;
 

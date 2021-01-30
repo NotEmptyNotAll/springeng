@@ -1,8 +1,8 @@
 package com.vshvet.firstrelease.Service;
 
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
-import com.vshvet.firstrelease.payload.Request.*;
-import com.vshvet.firstrelease.payload.Response.*;
+import com.vshvet.firstrelease.Payload.Request.*;
+import com.vshvet.firstrelease.Payload.Response.*;
 
 import java.util.List;
 

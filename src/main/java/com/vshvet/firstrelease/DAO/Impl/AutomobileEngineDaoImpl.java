@@ -2,11 +2,10 @@ package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.AutomobileEngineDao;
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
-import com.vshvet.firstrelease.payload.Request.EngineRequest;
+import com.vshvet.firstrelease.Payload.Request.EngineRequest;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
-import com.vshvet.firstrelease.payload.Request.PaginationDataRequest;
-import com.vshvet.firstrelease.payload.Request.ParametersPageRequest;
-import com.vshvet.firstrelease.payload.Request.ParamsRequest;
+import com.vshvet.firstrelease.Payload.Request.PaginationDataRequest;
+import com.vshvet.firstrelease.Payload.Request.ParametersPageRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

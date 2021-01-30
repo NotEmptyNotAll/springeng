@@ -1,11 +1,9 @@
 package com.vshvet.firstrelease.DAO.Impl;
 
 import com.vshvet.firstrelease.DAO.ParametersDao;
-import com.vshvet.firstrelease.Entity.Elements;
 import com.vshvet.firstrelease.Entity.ParameterNames;
 import com.vshvet.firstrelease.Entity.Parameters;
 import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
-import com.vshvet.firstrelease.payload.Response.ParamSizeNameResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceException;
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 

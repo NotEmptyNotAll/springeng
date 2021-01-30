@@ -91,6 +91,13 @@ public class UserDaoImpl implements UserDao {
         return Optional.of(getCurrentSession().get(User.class, id));
     }
 
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return Optional.of((User) getCurrentSession()
+                .createQuery(" from User where email='" + email + "'").uniqueResult());
+
+    }
+
 
     @Override
     public List<User> getAll() {
@@ -98,7 +105,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void save(User user)  {
+    public void save(User user) {
         getCurrentSession().save(user);
     }
 
@@ -112,10 +119,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    public void update( User user) {
+    public void update(User user) {
         getCurrentSession().update(user);
     }
-
 
 
     @Override

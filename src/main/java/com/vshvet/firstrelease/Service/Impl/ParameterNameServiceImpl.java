@@ -1,21 +1,14 @@
 package com.vshvet.firstrelease.Service.Impl;
 
-import com.vshvet.firstrelease.DAO.Dao;
 import com.vshvet.firstrelease.DAO.ParameterNameDao;
 import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Service.ElementsService;
 import com.vshvet.firstrelease.Service.ParameterNameService;
-import com.vshvet.firstrelease.Util.HSessionFactoryUtil;
-import com.vshvet.firstrelease.payload.Request.*;
-import com.vshvet.firstrelease.payload.Response.DataByIdResponse;
-import com.vshvet.firstrelease.payload.Response.ParamNameNodeResponse;
-import com.vshvet.firstrelease.payload.Response.ParamNameResponse;
-import org.hibernate.ObjectNotFoundException;
-import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
+import com.vshvet.firstrelease.Payload.Request.*;
+import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
+import com.vshvet.firstrelease.Payload.Response.ParamNameNodeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
