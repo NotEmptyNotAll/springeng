@@ -70,7 +70,7 @@ public class AuthController {
                     .body(new MessageResponse("пользователь с такими данными уже есть"));
         }
         return ResponseEntity.ok()
-                .body(new MessageResponse("Ваш обліковий запис була підтверджена. Можете перейти на сторінку входу, і авторизуватися."));
+                .body(new MessageResponse("OK"));
     }
 
 
