@@ -3,6 +3,7 @@ package com.vshvet.firstrelease.Controller;
 import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.Payload.Response.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,9 @@ import java.util.Map;
 public class MainController {
 
 
+
     private final SearchPageLoadingService searchPageLoadingService;
+    private final PasswordEncoder encoder;
 
     //return a list of parameter names and units of measure per page
     @GetMapping("/paramNameAndUnits")
@@ -26,7 +29,8 @@ public class MainController {
 
     @GetMapping("/")
     public String get() {
-        return "I'm alive";
+
+        return encoder.encode("12345");
     }
 
 
@@ -69,7 +73,9 @@ public class MainController {
 
     //autowired our service
     @Autowired
-    public MainController(SearchPageLoadingService searchPageLoadingService) {
+    public MainController(SearchPageLoadingService searchPageLoadingService,
+                          PasswordEncoder encoder) {
+        this.encoder=encoder;
         this.searchPageLoadingService = searchPageLoadingService;
 
     }

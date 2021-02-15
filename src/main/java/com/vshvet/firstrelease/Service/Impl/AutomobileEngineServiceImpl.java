@@ -76,7 +76,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
                     }
                     if (temp.length >= 2) {
                         try {
-                            request.setPistonStoke(Integer.parseInt(temp[1]));
+                            request.setPistonStoke(Double.parseDouble(temp[1]));
                         } catch (NumberFormatException e) {
                             request.setPistonStoke(null);
                         }

@@ -14,7 +14,7 @@ public class ParametersPageRequest {
     private Integer engineCapacity;
     private String pistonDiameterAndStoke;
     private Integer horsepower;
-    private Integer pistonStoke;
+    private Double pistonStoke;
     private Double pistonDiameter;
     private String modelName;
     private String engineType;
@@ -126,11 +126,12 @@ public class ParametersPageRequest {
         this.horsepower = horsepower;
     }
 
-    public Integer getPistonStoke() {
+
+    public Double getPistonStoke() {
         return pistonStoke;
     }
 
-    public void setPistonStoke(Integer pistonStoke) {
+    public void setPistonStoke(Double pistonStoke) {
         this.pistonStoke = pistonStoke;
     }
 

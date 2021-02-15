@@ -149,6 +149,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
         } catch (NumberFormatException e) {
             year = null;
         }
+
         StringBuilder paramSunQuery = new StringBuilder();
         paramSunQuery.append("select ae from AutomobileEngine ae " +
                 "INNER JOIN ae.engineByEngineFk e " +
@@ -161,7 +162,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
                 "and (:autoManufParam IS NULL or UPPER(am.manufactureName) like :autoManufParam ) " +
                 "and (:autoModelParam IS NULL or  upper(m.modelName) like :autoModelParam ) " +
                 "and (:fuelTypeParam IS NULL or  upper(e.fuelTypeByFuelTypeFk.nameType) like :fuelTypeParam) " +
-                "and (:engineCapParam IS NULL or  e.engineCapacity=:engineCapParam) " +
+                "and (:engineCapParam IS NULL or   ( e.engineCapacity>(:engineCapParam - :percentParam) and e.engineCapacity<(:engineCapParam + :percentParam) )) " +
                 "and (:cylinderNum IS NULL or  e.cylindersNumber=:cylinderNum) ");
 
         System.out.println(paramSunQuery.length());
@@ -182,8 +183,8 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
         if (automobileEngineList != null && automobileEngineList.size() > 0) {
             paramSunQuery.append("))");
         }
-        paramSunQuery.append("and (:pistonDiameter IS NULL or  e.pistonDiameter=:pistonDiameter) " +
-                "and (:pistonStoke IS NULL or  e.pistonStroke=:pistonStoke) " +
+        paramSunQuery.append("and (:pistonDiameter IS NULL or  ( e.pistonDiameter>(:pistonDiameter - :percentParam) and e.pistonDiameter<(:pistonDiameter + :percentParam) )) " +
+                "and (:pistonStoke IS NULL or  ( e.pistonStroke>(:pistonStoke - :percentParam) and e.pistonStroke<(:pistonStoke + :percentParam) )) " +
                 "and (   :releaseYear IS NULL or upper( ae.years) like  :releaseYear) " +
                 "and (:degreeCompression IS NULL or  e.degreeCompression=:degreeCompression) " +
                 "and (:powerKwtParam IS NULL or  upper(e.powerKwt) like :powerKwtParam) " +
@@ -212,6 +213,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
         query.setParameter("engineCapParam", request.getEngineCapacity());
         query.setParameter("powerKwtParam", request.getPowerKWT() != null ? ("%" + request.getPowerKWT().toUpperCase() + "%") : null);
         query.setParameter("releaseYearF", year);
+        query.setParameter("percentParam", request.getSearchPercent());
         query.setParameter("releaseYear", request.getReleaseYear() != null && year == null ? ("%" + request.getReleaseYear().toUpperCase() + "%") : null);
         query.setFirstResult((request.getInitRecordFrom() - 1) * request.getPageSize());
         query.setMaxResults(request.getPageSize());

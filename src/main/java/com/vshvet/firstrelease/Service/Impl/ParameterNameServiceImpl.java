@@ -174,7 +174,7 @@ public class ParameterNameServiceImpl implements ParameterNameService {
             parameterNames.setStatus(new Status(saveData.getStatus()));
             parameterNames.setName(saveData.getSaveData_primary());
             parameterNames.setFullName(saveData.getSaveData_secondary());
-            parameterNames.setTreeRoot(true);
+            parameterNames.setTreeRoot(false);
             parameterNameDao.save(parameterNames);
             return "збереження було успішним";
         } catch (Exception e) {

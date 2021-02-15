@@ -127,6 +127,7 @@ public class UserAuthService implements UserService {
         }
         user.setRoles(roles);
         try {
+            user.setEnabled(true);
             userDao.save(user);
         } catch (Exception e) {
             e.printStackTrace();
