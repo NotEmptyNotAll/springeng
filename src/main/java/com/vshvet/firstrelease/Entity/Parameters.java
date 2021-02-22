@@ -29,6 +29,8 @@ public class Parameters {
     private MeasurementUnits measurementUnitsByMeasurementUnitsFk;
     private Integer status_fk;
     private Status status;
+    private Integer languageFk;
+    private Integer userFk;
 
     @Basic
     @Column(name = "status_fk", insertable = false, updatable = false)
@@ -127,6 +129,26 @@ public class Parameters {
 
     public void setMeasurementUnitsFk(int measurementUnitsFk) {
         this.measurementUnitsFk = measurementUnitsFk;
+    }
+
+    @Basic
+    @Column(name = "language_fk", insertable = false, updatable = false, nullable = true)
+    public Integer getLanguageFk() {
+        return languageFk;
+    }
+
+    public void setLanguageFk(Integer languageFk) {
+        this.languageFk = languageFk;
+    }
+
+    @Basic
+    @Column(name = "user_fk", insertable = false, updatable = false, nullable = true)
+    public Integer getUserFk() {
+        return userFk;
+    }
+
+    public void setUserFk(Integer userFk) {
+        this.userFk = userFk;
     }
 
     @Basic

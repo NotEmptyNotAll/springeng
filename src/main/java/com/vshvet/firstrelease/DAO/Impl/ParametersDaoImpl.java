@@ -106,11 +106,14 @@ public class ParametersDaoImpl implements ParametersDao {
     @Transactional
     public void save(Parameters parameters) {
         getCurrentSession().save(parameters);
-        Query query = getCurrentSession().createQuery("update Parameters set autoId = :autoIdParam, elemFk=:idElem" +
+        Query query = getCurrentSession().createQuery("update Parameters set userFk=:userIdaram, languageFk=:langIdParam," +
+                " autoId = :autoIdParam, elemFk=:idElem" +
                 "  where paramId = :idParam");
         query.setParameter("idParam", parameters.getParamId());
         query.setParameter("idElem", parameters.getElemFk());
         query.setParameter("autoIdParam", parameters.getAutoId());
+        query.setParameter("langIdParam", parameters.getLanguageFk());
+        query.setParameter("userIdaram", parameters.getUserFk());
         query.executeUpdate();
     }
 

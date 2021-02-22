@@ -34,6 +34,7 @@ public class HSessionFactoryUtil {
                 configuration.addAnnotatedClass(AutoManufacture.class);
                 configuration.addAnnotatedClass(ParameterNames.class);
                 configuration.addAnnotatedClass(User.class);
+                configuration.addAnnotatedClass(Language.class);
                 configuration.addAnnotatedClass(Role.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.configure("hibernate.cfg.xml").buildSessionFactory(builder.build());

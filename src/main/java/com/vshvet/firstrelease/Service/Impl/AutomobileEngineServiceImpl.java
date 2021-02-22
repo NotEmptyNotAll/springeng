@@ -106,7 +106,7 @@ public class AutomobileEngineServiceImpl implements AutomobileEngineService {
         return new AutoEngineMapByParamResponse(new ArrayList<Map<String, Object>>() {{
             //    if(autoListByParam==null){
             autoeng.forEach(elem -> {
-                add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem)).getMapThisElem());
+                add(new AutoEngAndParamResponse(elem, parametrsService.getParamMap(elem,request.getLang())).getMapThisElem());
             });
               /*  }else if (autoListByParam.size() > 0) {
                     autoeng.stream()

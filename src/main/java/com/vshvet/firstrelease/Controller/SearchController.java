@@ -58,7 +58,6 @@ public class SearchController {
     }
 
 
-
     @RequestMapping(value = "/getElementsAndMaxId", //
             method = RequestMethod.POST, //
             produces = {MediaType.APPLICATION_JSON_VALUE, //
@@ -167,9 +166,13 @@ public class SearchController {
     }
 
 
-    @GetMapping(value = "/getColumnParam")
-    public List<TreeToColumnsResponse> getColumnParam() {
-        return elementsService.getTableColumn();
+    @RequestMapping(value = "/getColumnParam", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public List<TreeToColumnsResponse> getColumnParam(@RequestBody IdRequest request) {
+        return elementsService.getTableColumn(request.getId());
     }
 
     @RequestMapping(value = "/getAllAutoEngAndParam", //
@@ -178,11 +181,11 @@ public class SearchController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Map<String, Object> getAllAutoEngAndParam(@RequestBody ParametersPageRequest request) {
-        AutoEngineMapByParamResponse temp=automobileEngineService.getAllAutoEngAndParam(request);
+        AutoEngineMapByParamResponse temp = automobileEngineService.getAllAutoEngAndParam(request);
         return new HashMap<String, Object>() {{
-            put("engineData", temp==null?new ArrayList<>() :temp.getList());
-            put("countResults", temp==null?1:temp.getCountResult());
-           // put("columnParam", elementsService.getTableColumn());
+            put("engineData", temp == null ? new ArrayList<>() : temp.getList());
+            put("countResults", temp == null ? 1 : temp.getCountResult());
+            // put("columnParam", elementsService.getTableColumn());
         }};
     }
 

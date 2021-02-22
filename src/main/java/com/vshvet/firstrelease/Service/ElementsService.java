@@ -24,7 +24,7 @@ public interface ElementsService {
 
     List<ElementsResponse> getAllRootElem();
 
-    List<TreeToColumnsResponse> getTableColumn();
+    List<TreeToColumnsResponse> getTableColumn(Integer langId);
 
     Set<Integer> getParentElemId(List<ParamsRequest> request);
 

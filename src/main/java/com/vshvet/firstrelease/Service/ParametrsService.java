@@ -2,6 +2,7 @@ package com.vshvet.firstrelease.Service;
 
 import com.vshvet.firstrelease.Entity.AutomobileEngine;
 import com.vshvet.firstrelease.Entity.Parameters;
+import com.vshvet.firstrelease.Payload.Request.FastParamSaveRequest;
 import com.vshvet.firstrelease.Payload.Request.SaveOrUpdateParametersRequest;
 import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
 import com.vshvet.firstrelease.Payload.Response.ParametersResponse;
@@ -16,9 +17,9 @@ public interface ParametrsService {
 
     void save(Parameters parameter);
 
-    Boolean fastSave(List<SaveOrUpdateParametersRequest> saveData);
+    Boolean fastSave(FastParamSaveRequest saveData);
 
-    Map<String, Object> getParamMap(AutomobileEngine automobileEngine);
+    Map<String, Object> getParamMap(AutomobileEngine automobileEngine,Integer langId);
 
     Boolean update(List<SaveOrUpdateParametersRequest> updateData);
 

@@ -26,6 +26,7 @@ public class ParametersPageRequest {
     private List<ParamsRequest> paramList;
 
     private Integer pageSize;
+    private Integer lang;
     private Integer searchPercent;
     private Integer initRecordFrom;
 
@@ -37,6 +38,13 @@ public class ParametersPageRequest {
         this.initRecordFrom = initRecordFrom;
     }
 
+    public Integer getLang() {
+        return lang;
+    }
+
+    public void setLang(Integer lang) {
+        this.lang = lang;
+    }
 
     public String getPistonDiameterAndStoke() {
         return pistonDiameterAndStoke;

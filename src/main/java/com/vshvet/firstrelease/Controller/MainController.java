@@ -30,7 +30,7 @@ public class MainController {
     @GetMapping("/")
     public String get() {
 
-        return encoder.encode("12345");
+        return encoder.encode("i am alive");
     }
 
 

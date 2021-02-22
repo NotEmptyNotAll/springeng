@@ -5,6 +5,7 @@ import com.vshvet.firstrelease.ConstValue;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +19,12 @@ public class ParameterNames {
     private Collection<Elements> elementsById;
     private Integer status_fk;
     private Status status;
+    private Language language;
+    private Integer languageFk;
+    private Integer defaultParamNameFk;
+    private ParameterNames defaultParamName;
+    private List<ParameterNames> parameterNamesList;
+
 
     @Basic
     @Column(name = "status_fk", insertable = false, updatable = false)
@@ -30,6 +37,19 @@ public class ParameterNames {
     }
 
     public ParameterNames() {
+    }
+
+    public ParameterNames(int id, String name, String fullName, Date dateCreate, Boolean treeRoot, Collection<Elements> elementsById, Integer status_fk, Status status, Language language, Integer language_fk) {
+        this.id = id;
+        this.name = name;
+        this.fullName = fullName;
+        this.dateCreate = dateCreate;
+        this.treeRoot = treeRoot;
+        this.elementsById = elementsById;
+        this.status_fk = status_fk;
+        this.status = status;
+        this.language = language;
+        this.languageFk = language_fk;
     }
 
     public ParameterNames(int id, String name, String fullName, Boolean treeRoot, Integer status_fk) {
@@ -104,22 +124,54 @@ public class ParameterNames {
         this.dateCreate = date;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ParameterNames that = (ParameterNames) o;
-        return id == that.id &&
-                name.equals(that.name) &&
-                fullName.equals(that.fullName) &&
-                dateCreate.equals(that.dateCreate) &&
-                treeRoot.equals(that.treeRoot) &&
-                elementsById.equals(that.elementsById);
+    @Basic
+    @Column(name = "language_fk", insertable = false, updatable = false, nullable = true)
+    public Integer getLanguageFk() {
+        return languageFk;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, fullName, dateCreate, treeRoot, elementsById);
+    public void setLanguageFk(Integer languageFk) {
+        this.languageFk = languageFk;
+    }
+
+    @Basic
+    @Column(name = "default_param_name_fk", nullable = true, insertable = false, updatable = false)
+    public Integer getDefaultParamNameFk() {
+        return defaultParamNameFk;
+    }
+
+
+    public void setDefaultParamNameFk(Integer defaultParamNameFk) {
+        this.defaultParamNameFk = defaultParamNameFk;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "default_param_name_fk", referencedColumnName = "id")
+    public ParameterNames getDefaultParamName() {
+        return defaultParamName;
+    }
+
+    public void setDefaultParamName(ParameterNames defaultParamName) {
+        this.defaultParamName = defaultParamName;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "languageFk", referencedColumnName = "id", nullable = false)
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    @OneToMany(mappedBy = "defaultParamNameFk")
+    public List<ParameterNames> getParameterNamesList() {
+        return parameterNamesList;
+    }
+
+    public void setParameterNamesList(List<ParameterNames> parameterNamesList) {
+        this.parameterNamesList = parameterNamesList;
     }
 
     @ManyToOne

@@ -23,8 +23,16 @@ public class ColumnResponse {
         this.columnList = columnList;
     }
 
-    public ColumnResponse(Elements elements) {
-        this.name = elements.getParameterNamesByParamNameFk().getName();
+    public ColumnResponse(Elements elements, Integer langId) {
+        if(elements.getParameterNamesByParamNameFk().getLanguageFk()==langId){
+            this.name = elements.getParameterNamesByParamNameFk().getName();
+        }else {
+            this.name = elements.getParameterNamesByParamNameFk()
+                    .getParameterNamesList().stream()
+                    .filter(elem -> elem.getLanguageFk() == langId)
+                    .findFirst().orElse(elements.getParameterNamesByParamNameFk()).getName();
+        }
+//        this.name = elements.getParameterNamesByParamNameFk().getName();
         this.id = Integer.toString(elements.getElemId());
         this.columnList = new ArrayList<>();
         this.color = elements.getColor();
@@ -33,7 +41,7 @@ public class ColumnResponse {
         if (elements.getChildElements().size() > 0) {
             elements.getChildElements().forEach(elem -> {
                 if (elem.getDate() == null) {
-                    this.columnList.add(new ColumnResponse(elem));
+                    this.columnList.add(new ColumnResponse(elem,langId));
                 }
             });
             Collections.sort(columnList, Comparator.comparingInt(ColumnResponse::getSortNumber));
@@ -88,6 +96,8 @@ public class ColumnResponse {
         this.id = elemId;
         this.name = name;
     }
+
+
 
     public String getName() {
         return name;

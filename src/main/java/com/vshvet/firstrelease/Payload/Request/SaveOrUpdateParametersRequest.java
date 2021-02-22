@@ -17,6 +17,8 @@ public class SaveOrUpdateParametersRequest {
     private String source;
     private Boolean editRow;
     private Integer status;
+    private Integer langId;
+    private  Integer userFk;
 
     public SaveOrUpdateParametersRequest() {
     }
@@ -52,6 +54,22 @@ public class SaveOrUpdateParametersRequest {
         this.author = author;
         this.source = source;
         this.auto_id = auto_id;
+    }
+
+    public Integer getLangId() {
+        return langId;
+    }
+
+    public void setLangId(Integer langId) {
+        this.langId = langId;
+    }
+
+    public Integer getUserFk() {
+        return userFk;
+    }
+
+    public void setUserFk(Integer userFk) {
+        this.userFk = userFk;
     }
 
     public Integer getName() {

@@ -82,10 +82,11 @@ public class ElementsServiceImpl implements ElementsService {
     }
 
     @Transactional(readOnly = true)
-    public List<TreeToColumnsResponse> getTableColumn() {
+    public List<TreeToColumnsResponse> getTableColumn(Integer langId) {
+
         return new ArrayList<TreeToColumnsResponse>() {{
             elementsDao.getAllRootElemByAutoId().forEach(elem -> {
-                add(new TreeToColumnsResponse(elem));
+                add(new TreeToColumnsResponse(elem,langId));
             });
         }};
     }

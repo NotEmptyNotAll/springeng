@@ -99,7 +99,7 @@ public class SaveDataController {
             produces = {MediaType.APPLICATION_JSON_VALUE, //
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public String fastSaveParam(@RequestBody List<SaveOrUpdateParametersRequest> saveData) {
+    public String fastSaveParam(@RequestBody FastParamSaveRequest saveData) {
         parametrsService.fastSave(saveData);
         return "ok";
     }
@@ -111,7 +111,7 @@ public class SaveDataController {
     @ResponseBody
     public String fastSaveAutoData(@RequestBody FastAutoEngineSaveOrUpdateRequest saveData) {
         if (saveData.getId() == -1) {
-            if(saveData.getEngineType()!=null){
+            if (saveData.getEngineType() != null) {
                 saveData.setEngineTypeId(engineService.fastSaveEngineData(saveData));
             }
             automobileEngineService.fastSaveAutoData(saveData);
@@ -130,7 +130,6 @@ public class SaveDataController {
     public String saveAutoEngine(@RequestBody SaveAutoEngineRequest saveData) {
         return automobileEngineService.save(saveData);
     }
-
 
 
     @RequestMapping(value = "/saveEngNumber", //

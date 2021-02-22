@@ -22,12 +22,20 @@ public class TreeToColumnsResponse {
         this.columnResponseList = columnResponseList;
     }
 
-    public TreeToColumnsResponse(Elements elements) {
-        this.name = elements.getParameterNamesByParamNameFk().getName();
+    public TreeToColumnsResponse(Elements elements, Integer langId) {
+        if(elements.getParameterNamesByParamNameFk().getLanguageFk()==langId){
+            this.name = elements.getParameterNamesByParamNameFk().getName();
+        }else {
+            this.name = elements.getParameterNamesByParamNameFk()
+                    .getParameterNamesList().stream()
+                    .filter(elem -> elem.getLanguageFk() == langId)
+                    .findFirst().orElse(elements.getParameterNamesByParamNameFk()).getName();
+        }
+//        this.name = elements.getParameterNamesByParamNameFk().getName();
         this.columnResponseList = new ArrayList<>();
         elements.getChildElements().forEach(elem -> {
             if (elem.getDate() == null) {
-                this.columnResponseList.add(new ColumnResponse(elem));
+                this.columnResponseList.add(new ColumnResponse(elem,langId));
             }
             Collections.sort(columnResponseList, Comparator.comparingInt(ColumnResponse::getSortNumber));
         });
