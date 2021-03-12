@@ -23,47 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d5e3c8b-5bd7-4ef5-bd0b-62c67038d02a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_mail_1_5_0_b01.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Payload/Response/TranslateParamResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firstrelease.iml" beforeDir="false" afterPath="$PROJECT_DIR$/firstrelease.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Config/TransactionConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Config/TransactionConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/ConstValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/ConstValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Controller/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/AutomobileEngineDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/AutomobileEngineDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ParametersDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/Impl/ParametersDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/ParametersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/DAO/ParametersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Entity/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Entity/Language.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Entity/Parameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Entity/Parameters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/FirstreleaseApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/FirstreleaseApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Payload/Request/FastParamSaveRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Payload/Request/FastParamSaveRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Registration/listener/RegistrationListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Registration/listener/RegistrationListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/ParametrsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vshvet/firstrelease/Service/ParametrsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Parameters.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Parameters.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parameters.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parameters.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Config/TransactionConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Config/TransactionConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/ConstValue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/ConstValue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Controller/SearchController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/Impl/AutomobileEngineDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/Impl/AutomobileEngineDaoImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/Impl/ParametersDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/Impl/ParametersDaoImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/ParametersDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/DAO/ParametersDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Entity/Language.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Entity/Language.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Entity/Parameters.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Entity/Parameters.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/FirstreleaseApplication$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/FirstreleaseApplication$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/FirstreleaseApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/FirstreleaseApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Payload/Request/FastParamSaveRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Payload/Request/FastParamSaveRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Registration/listener/RegistrationListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Registration/listener/RegistrationListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/Impl/ParametrsServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/ParametrsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vshvet/firstrelease/Service/ParametrsService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +85,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../wshop-web-client/demoWshopBackEnd" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -156,6 +116,17 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.FirstreleaseApplication">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="firstrelease [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -550,6 +521,7 @@
       <workItem from="1615429110186" duration="2635000" />
       <workItem from="1615449264053" duration="4755000" />
       <workItem from="1615506935391" duration="598000" />
+      <workItem from="1615523736712" duration="319000" />
     </task>
     <servers />
   </component>
