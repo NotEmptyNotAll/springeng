@@ -2,7 +2,11 @@ package com.vshvet.firstrelease.Controller;
 
 import com.vshvet.firstrelease.Service.*;
 import com.vshvet.firstrelease.Payload.Response.*;
+import com.vshvet.firstrelease.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +33,7 @@ public class MainController {
 
     @GetMapping("/")
     public String get() {
-
-        return encoder.encode("i am alive");
+        return "test1111";
     }
 
 

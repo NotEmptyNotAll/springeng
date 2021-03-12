@@ -4,7 +4,6 @@ import java.util.List;
 
 public class FastParamSaveRequest {
     private List<SaveOrUpdateParametersRequest>  saveList;
-    private Integer langId;
     private Integer userId;
 
     public FastParamSaveRequest() {
@@ -12,7 +11,6 @@ public class FastParamSaveRequest {
 
     public FastParamSaveRequest(List<SaveOrUpdateParametersRequest> saveList, Integer langId, Integer userId) {
         this.saveList = saveList;
-        this.langId = langId;
         this.userId = userId;
     }
 
@@ -24,13 +22,7 @@ public class FastParamSaveRequest {
         this.saveList = saveList;
     }
 
-    public Integer getLangId() {
-        return langId;
-    }
 
-    public void setLangId(Integer langId) {
-        this.langId = langId;
-    }
 
     public Integer getUserId() {
         return userId;

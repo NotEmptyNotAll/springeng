@@ -56,6 +56,9 @@
         <many-to-one name="elementsByElemFk" class="com.vshvet.firstrelease.Entity.Elements">
             <column name="elem_fk"/>
         </many-to-one>
+        <many-to-one name="language" class="com.vshvet.firstrelease.Entity.Language">
+            <column name="language_fk"/>
+        </many-to-one>
         <many-to-one name="measurementUnitsByMeasurementUnitsFk" class="com.vshvet.firstrelease.Entity.MeasurementUnits">
             <column name="measurement_units_fk"/>
         </many-to-one>

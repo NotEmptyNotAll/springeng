@@ -8,8 +8,14 @@ public interface ParametersDao extends Dao<Parameters> {
 
     Parameters findParamByElemId(Integer id);
 
-    Parameters findParamByAutoAndElemId(Integer elemId, Integer autoId);
+    List<Parameters> findAllTranslate(Integer id);
 
-     List<Parameters> getParamByAutoId(Integer autoId);
+    Parameters findParamByAutoAndElemId(Integer elemId, Integer autoId,Integer langId);
+
+    List<Parameters> getParamByAutoId(Integer autoId);
+
+    List<Parameters> getParamTranslateByElemIdAndAutoId(Integer elemId, Integer autoId);
+
+    List<Parameters> findParamByAutoAndElemIdList(Integer autoId,Integer elemFk);
 
 }

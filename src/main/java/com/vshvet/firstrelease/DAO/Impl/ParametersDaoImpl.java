@@ -38,6 +38,23 @@ public class ParametersDaoImpl implements ParametersDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Parameters> getParamTranslateByElemIdAndAutoId(Integer elemId, Integer autoId) {
+        Query query = getCurrentSession()
+                .createQuery("from Parameters p  where p.elemFk=:elemIdParam and p.autoId=:autoIdParam and textData is not null and  p.date is null");
+        query.setParameter("autoIdParam", autoId);
+        query.setParameter("elemIdParam", elemId);
+        return query.list();    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Parameters> findParamByAutoAndElemIdList(Integer autoId,Integer elemFk) {
+        Query query = getCurrentSession()
+                .createQuery("from Parameters p  where p.elemFk>0 and p.autoId=:autoIdParam and p.date is null");
+        query.setParameter("autoIdParam", autoId);
+        return query.list();    }
+
+    @Override
     @Transactional
     public Session openCurrentSessionwithTransaction() {
         currentSession = HSessionFactoryUtil.getSessionFactory().getCurrentSession();
@@ -92,12 +109,21 @@ public class ParametersDaoImpl implements ParametersDao {
     }
 
     @Override
-    public Parameters findParamByAutoAndElemId(Integer elemId, Integer autoId) {
+    public List<Parameters> findAllTranslate(Integer id) {
+        Query query = getCurrentSession()
+                .createQuery("from Parameters p where p.elemFk=:idParam and date is null ");
+        query.setParameter("idParam", id);
+        return query.list();
+    }
+
+    @Override
+    public Parameters findParamByAutoAndElemId(Integer elemId, Integer autoId,Integer langId) {
         Query query = getCurrentSession()
                 .createQuery("from Parameters p where p.elemFk=:elemIdParam " +
-                        " and p.autoId=:autoIdParam and date is null ");
+                        " and p.autoId=:autoIdParam and p.languageFk=:langIdParam and date is null ");
         query.setParameter("elemIdParam", elemId);
         query.setParameter("autoIdParam", autoId);
+        query.setParameter("langIdParam", langId);
         return (Parameters) query.list().get(0);
     }
 
@@ -114,6 +140,7 @@ public class ParametersDaoImpl implements ParametersDao {
         query.setParameter("autoIdParam", parameters.getAutoId());
         query.setParameter("langIdParam", parameters.getLanguageFk());
         query.setParameter("userIdaram", parameters.getUserFk());
+
         query.executeUpdate();
     }
 

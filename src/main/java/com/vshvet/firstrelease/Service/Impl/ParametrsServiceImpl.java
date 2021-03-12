@@ -1,10 +1,13 @@
 package com.vshvet.firstrelease.Service.Impl;
 
+import com.vshvet.firstrelease.ConstValue;
 import com.vshvet.firstrelease.DAO.Impl.ElementsDaoImpl;
 import com.vshvet.firstrelease.DAO.ParametersDao;
 import com.vshvet.firstrelease.Entity.*;
 import com.vshvet.firstrelease.Exception.ObjectNotFoundException;
 import com.vshvet.firstrelease.Payload.Request.FastParamSaveRequest;
+import com.vshvet.firstrelease.Payload.Response.TranslateParamResponse;
+import com.vshvet.firstrelease.Payload.Response.TwoDataByIdResponse;
 import com.vshvet.firstrelease.Service.ElementsService;
 import com.vshvet.firstrelease.Service.ParametrsService;
 import com.vshvet.firstrelease.Payload.Request.SaveOrUpdateElementsRequest;
@@ -84,7 +87,6 @@ public class ParametrsServiceImpl implements ParametrsService {
     @Transactional
     public Boolean fastSave(FastParamSaveRequest saveData) {
         saveData.getSaveList().forEach(param -> {
-            param.setLangId(saveData.getLangId());
             param.setUserFk(saveData.getUserId());
             if (param.getId() != 1) {
                 updateParam(param);
@@ -100,26 +102,60 @@ public class ParametrsServiceImpl implements ParametrsService {
     @Transactional(readOnly = true)
     public Map<String, Object> getParamMap(AutomobileEngine automobileEngine, Integer langId) {
         List<Parameters> parametersList = automobileEngine.getParametersList();
-        return new HashMap<String, Object>() {{
-            parametersList.forEach(parameter -> {
-                if (parameter.getLanguageFk() == 0 || parameter.getLanguageFk() == langId) {
-                    if (parameter.getDate() == null) {
-                        String temp = getValueParam(parameter);
-                /*
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        parametersList.forEach(parameter -> {
+            if(parameter.getElemFk()==31650 && parameter.getAutoId()==5 && parameter.getLanguageFk()==1){
+                System.out.println(parameter.getDoubleMax() );
+            }
+            if ((parameter.getLanguageFk() == 0 || parameter.getLanguageFk() == langId) && parameter.getDate()==null ) {
+                map.remove(Integer.toString(parameter.getElementsByElemFk().getElemId()) );
+                this.addParamToMap(map, parameter);
+            } else if (parameter.getLanguageFk() == ConstValue.DEFAULT_ID_LANGUAGE
+                    && !map.containsKey(Integer.toString(parameter.getElementsByElemFk().getElemId()))) {
+                this.addParamToMap(map, parameter);
+            }
+        });
+        return map;
+    }
+
+    @Override
+    public List<TranslateParamResponse>  getParamTranslateById(Integer id, Integer autoId) {
+        return new ArrayList<TranslateParamResponse>(){{
+            parametersDao.getParamTranslateByElemIdAndAutoId(id,autoId).forEach(elem->{
+                add(new TranslateParamResponse(elem.getTextData(),elem.getParamId(),elem.getLanguageFk()));
+            });
+        }};
+    }
+//
+//    @Override
+//    public HashMap<String, Object> getParamTranslateById(Integer autoId,Integer elemFk) {
+//        // Parameters parameters = parametersDao.findById(id).get();
+//       // Elements elements = elementsDao.findById(id).get();
+//       List<Parameters> list= parametersDao.findParamByAutoAndElemIdList(autoId,elemFk);
+//        return new HashMap<String, Object>() {{
+//            list.forEach(param -> {
+//                String temp = getValueParam(param);
+//                if (!temp.equals("")) {
+//                    put(String.valueOf(param.getLanguageFk()), temp);
+//                }
+//            });
+//        }};
+//    }
+
+    private void addParamToMap(HashMap<String, Object> map, Parameters parameter) {
+        if (parameter.getDate() == null) {
+            String temp = getValueParam(parameter);
+              /*
                 if (parameter.getElementsByElemFk().getParentElements().getFileStorages() == null) {
                     List<FileStorage> tempList = parameter.getElementsByElemFk().getParentElements().getFileStorages();
                     if (tempList.size() > 0) {
                         put("listImage" + parameter.getElementsByElemFk().getElemId(), getFileUrl(tempList));
                     }
                 }*/
-                        if (!temp.equals("")) {
-                            put(Integer.toString(parameter.getElementsByElemFk().getElemId()), temp);
-                        }
-                    }
-                }
-            });
-
-        }};
+            if (!temp.equals("")) {
+                map.put(Integer.toString(parameter.getElementsByElemFk().getElemId()), temp);
+            }
+        }
     }
 
     @Transactional(readOnly = true)
@@ -146,7 +182,7 @@ public class ParametrsServiceImpl implements ParametrsService {
 
     @Transactional
     Boolean updateParam(SaveOrUpdateParametersRequest param) {
-        Parameters newParameters = parametersDao.findParamByAutoAndElemId(param.getElemId(), param.getAuto_id());
+        Parameters newParameters = parametersDao.findParamByAutoAndElemId(param.getElemId(), param.getAuto_id(),param.getLangId());
         Parameters oldParameters = new Parameters(newParameters);
         newParameters.setStatus(new Status(param.getStatus()));
         newParameters.setAuthor(param.getAuthor());
@@ -158,6 +194,7 @@ public class ParametrsServiceImpl implements ParametrsService {
         newParameters.setLogic(param.getLogic());
         newParameters.setMeasurementUnitsByMeasurementUnitsFk(new MeasurementUnits(param.getUnits()));
         oldParameters.setMeasurementUnitsByMeasurementUnitsFk(new MeasurementUnits(5));
+        oldParameters.setLanguageFk(newParameters.getLanguageFk());
         newParameters.setRecordStatus(param.getRecordStatus());
         newParameters.setSource(param.getSource());
         oldParameters.setDate(new Date(new java.util.Date().getTime()));
@@ -190,9 +227,9 @@ public class ParametrsServiceImpl implements ParametrsService {
         parameters.setDoubleMin(param.getDoubleMin());
         parameters.setDoubleNum(param.getDoubleNum());
         parameters.setUserFk(param.getUserFk());
-        if(param.getTextData()==null){
-            parameters.setLanguageFk(0);
-        }else {
+        if (param.getTextData() == null) {
+            parameters.setLanguageFk(param.getLangId());
+        } else {
             parameters.setLanguageFk(param.getLangId());
         }
         parameters.setAutoId(param.getAuto_id());

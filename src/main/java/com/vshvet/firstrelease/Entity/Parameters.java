@@ -315,6 +315,7 @@ public class Parameters {
         return result;
     }
 
+
     @ManyToOne
     @JoinColumn(name = "status_fk", referencedColumnName = "id")
     public Status getStatus() {

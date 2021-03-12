@@ -6,5 +6,6 @@ import java.io.File;
 public interface ConstValue {
     String SCHEMA_NAME = "engdb";
     String UPLOAD_PATH = "image";
+    Integer DEFAULT_ID_LANGUAGE = 1;
 
 }

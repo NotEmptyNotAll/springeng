@@ -19,6 +19,10 @@ public class Language {
     public Language() {
     }
 
+    public Language(Integer id) {
+        this.id = id;
+    }
+
     public Language(String name, Integer id) {
         this.name = name;
         this.id = id;

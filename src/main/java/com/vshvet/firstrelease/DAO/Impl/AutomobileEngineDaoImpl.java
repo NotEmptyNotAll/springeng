@@ -170,7 +170,7 @@ public class AutomobileEngineDaoImpl implements AutomobileEngineDao {
 
             for (AutomobileEngine automobileEngine :
                     automobileEngineList) {
-                if (paramSunQuery.length() == 878) {
+                if (paramSunQuery.length() == 958) {
                     paramSunQuery.append("and ( ae.id in (" + automobileEngine.getId());
                 } else {
                     paramSunQuery.append("," + automobileEngine.getId());

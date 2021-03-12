@@ -6,7 +6,10 @@ import com.vshvet.firstrelease.Payload.Request.FastParamSaveRequest;
 import com.vshvet.firstrelease.Payload.Request.SaveOrUpdateParametersRequest;
 import com.vshvet.firstrelease.Payload.Response.DataByIdResponse;
 import com.vshvet.firstrelease.Payload.Response.ParametersResponse;
+import com.vshvet.firstrelease.Payload.Response.TranslateParamResponse;
+import com.vshvet.firstrelease.Payload.Response.TwoDataByIdResponse;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +22,9 @@ public interface ParametrsService {
 
     Boolean fastSave(FastParamSaveRequest saveData);
 
-    Map<String, Object> getParamMap(AutomobileEngine automobileEngine,Integer langId);
+    Map<String, Object> getParamMap(AutomobileEngine automobileEngine, Integer langId);
+
+    List<TranslateParamResponse>  getParamTranslateById(Integer id, Integer autoId);
 
     Boolean update(List<SaveOrUpdateParametersRequest> updateData);
 

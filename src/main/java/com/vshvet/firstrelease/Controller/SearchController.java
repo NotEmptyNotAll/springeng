@@ -199,6 +199,19 @@ public class SearchController {
         return searchPageLoadingService.getCroppedDefaultData(engine);
     }
 
+    @RequestMapping(value = "/getAllTranslateById", //
+            method = RequestMethod.POST, //
+            produces = {MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public List<TranslateParamResponse> getAllTranslateById(@RequestBody IdRequest request) {
+        List<TranslateParamResponse>  list =parametrsService.getParamTranslateById(request.getId(),request.getAuto_id());
+
+        return list;
+    }
+
+
+
     //autowired our service
     @Autowired
     public SearchController(AutomobileEngineService automobileEngineService,
